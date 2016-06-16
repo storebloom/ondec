@@ -8,10 +8,7 @@
  *
  * @package ondec_custom_theme
  */
-if($_GET['user'] !== ""){
-    $username = $_GET['user'];
-    $password = $_GET['pass'];
-}
+
 get_header(); ?>
 
 	<div id="primary" class="content-area">

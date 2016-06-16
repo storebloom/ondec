@@ -16,7 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <?php wp_head(); ?>
 </head>
 
@@ -44,6 +44,11 @@
 		<nav id="site-navigation" class="main-navigation" role="navigation">
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'ondec_theme' ); ?></button>
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+            <?php if(is_user_logged_in()): ?>
+                <a href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
+            <?php else: ?>
+                <?php include_once( "inc/loginmodal.php"); ?>
+            <?php endif; ?>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
 

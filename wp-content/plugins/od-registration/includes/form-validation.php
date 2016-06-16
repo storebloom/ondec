@@ -65,6 +65,7 @@ class OD_Form_Validation {
                 echo $error . '<br/>';
                 echo '</div>';
             }
+            echo '<h2>Try Again</h2>';
         }
     }
 }

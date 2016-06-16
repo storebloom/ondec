@@ -78,6 +78,12 @@ class Professional_Registration {
     
     public function professional_registration_function() {
         
+        
+        if(is_user_logged_in ()){ 
+            echo '<h2>You are already logged in.  To create a new account log out first and revist this form.</h2>';
+            exit;
+        }
+        
         $baseplugin = str_replace('registration-forms', 'includes', __DIR__);
         
         include_once($baseplugin . "/form-validation.php");

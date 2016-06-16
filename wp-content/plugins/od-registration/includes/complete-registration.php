@@ -31,7 +31,25 @@ class OD_Complete_Registration {
             
             $user = wp_insert_user( $userdata );
             
-            echo 'Registration complete. Goto <a href="' . get_site_url() . '/wp-login.php">login page</a>.';   
+            $creds = $creds = array();
+            $creds['user_login'] = $username;
+            $creds['user_password'] = $password;
+            $creds['remember'] = true;
+            
+            wp_signon( $creds, false );
+            
+            $site_url = home_url( '/' );
+            
+            $page = get_page_by_path( 'my-profile' , OBJECT );
+
+            if ( isset($page) ){
+                $location = $site_url . 'my-profile';
+            } else {
+                $location = $site_url;
+            }
+            
+            wp_safe_redirect( $location );
+            exit;
         }
     }
 }

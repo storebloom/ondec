@@ -1,8 +1,8 @@
 <?php 
 
-if(isset($_GET['user']) && $_GET['user'] !== ""){
-    $username = $_GET['user'];
-    $password = $_GET['pass'];
+if(isset($_SESSION['user']) && $_SESSION['user'] !== ""){
+    $username = $_SESSION['user'];
+    $password = $_SESSION['pass'];
     
     $creds = array();
             $creds['user_login'] = $username;
@@ -15,4 +15,6 @@ if(isset($_GET['user']) && $_GET['user'] !== ""){
             $string .= 'jQuery( document ).ready(function() {if(jQuery(\'.logged-in\').is(\':visible\')){ return;} window.location.reload();});';
             $string .= '</script>';
     echo $string;
+    
+    session_destroy();
 }

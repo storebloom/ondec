@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 /**
  * Template Name: Bare Page Template

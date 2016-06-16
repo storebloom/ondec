@@ -13,7 +13,6 @@
     $args = array(
         'echo'           => true,
         'redirect'       => $location,
-        'value_username' => (isset($_GET['user']) ? $_GET['user'] : ""),
     )
 ?>
 

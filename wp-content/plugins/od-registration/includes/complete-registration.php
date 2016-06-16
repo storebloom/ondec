@@ -38,8 +38,11 @@ class OD_Complete_Registration {
                 $location = $site_url;
             }
             
+            $_SESSION['user'] = isset($username) ? $username : "";
+            $_SESSION['pass'] = isset($password) ? $password : "";
+            
             $string = '<script type="text/javascript">';
-            $string .= 'window.location = "' . $location . '?user='.$username.'&pass='.$password.'"';
+            $string .= 'window.location = "' . $location . '"';
             $string .= '</script>';
 
             echo $string;

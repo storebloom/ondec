@@ -1,4 +1,5 @@
 <?php
+include_once('inc/autologin.php');
 /**
  * The header for our theme.
  *
@@ -8,7 +9,7 @@
  *
  * @package ondec_custom_theme
  */
-include_once('inc/autologin.php');
+
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
     

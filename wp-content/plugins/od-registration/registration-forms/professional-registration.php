@@ -78,6 +78,15 @@ class Professional_Registration {
     
     public function professional_registration_function() {
         
+            $username   = "";
+            $password   = "";
+            $email      = "";
+            $website    = "";
+            $first_name = "";
+            $last_name  = "";
+            $nickname   = "";
+            $bio        = "";
+            $role       = "";        
         
         if(is_user_logged_in ()){ 
             echo '<h2>You are already logged in.  To create a new account log out first and revist this form.</h2>';
@@ -97,7 +106,7 @@ class Professional_Registration {
         
         if ( isset($_POST['submit'] ) ) {
             
-            OD_Form_Validation::registration_validation(
+            $od_form_validation->registration_validation(
                 $_POST['username'],
                 $_POST['password'],
                 $_POST['email'],
@@ -122,7 +131,7 @@ class Professional_Registration {
 
             // call @function complete_registration to create the user
             // only when no WP_error is found
-            OD_Complete_Registration::complete_registration(
+            $od_complete_registration->complete_registration(
                 $username,
                 $password,
                 $email,

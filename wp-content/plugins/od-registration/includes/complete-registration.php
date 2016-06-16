@@ -1,10 +1,6 @@
 <?php
-
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-if ( class_exists( 'OD_Complete_Registration' ) )
-	return;
 
 /**
  * OD_Complete_Registration
@@ -14,7 +10,7 @@ class OD_Complete_Registration {
     public function complete_registration($username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role) {
         
         global $reg_errors;
-        
+
         if ( 1 > count( $reg_errors->get_error_messages() ) ) {
             
             $userdata = array(
@@ -30,13 +26,7 @@ class OD_Complete_Registration {
             );
             
             $user = wp_insert_user( $userdata );
-            
-            $creds = $creds = array();
-            $creds['user_login'] = $username;
-            $creds['user_password'] = $password;
-            $creds['remember'] = true;
-            
-            wp_signon( $creds, false );
+            echo 'Registration Successful!';  
             
             $site_url = home_url( '/' );
             
@@ -48,8 +38,13 @@ class OD_Complete_Registration {
                 $location = $site_url;
             }
             
-            wp_safe_redirect( $location );
-            exit;
+            $string = '<script type="text/javascript">';
+            $string .= 'window.location = "' . $location . '?user='.$username.'&pass='.$password.'"';
+            $string .= '</script>';
+
+            echo $string;
         }
     }
 }
+
+$od_complete_registration = new OD_Complete_Registration();

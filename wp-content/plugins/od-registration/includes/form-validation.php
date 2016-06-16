@@ -12,7 +12,7 @@ class OD_Form_Validation {
         
         global $reg_errors;
         $reg_errors = new WP_Error;
-        
+
         if ( empty( $username ) || empty( $password ) || empty( $email ) ) {
             
             $reg_errors->add('field', 'Required form field is missing');
@@ -65,11 +65,8 @@ class OD_Form_Validation {
                 echo $error . '<br/>';
                 echo '</div>';
             }
-            echo '<h2>Try Again</h2>';
         }
     }
 }
-
-global $od_form_validation;
 
 $od_form_validation = new OD_Form_Validation();

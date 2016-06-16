@@ -15,31 +15,32 @@
         'redirect'       => $location,
     )
 ?>
-
 <style type="text/css">
-    .dumbBoxWrap { /* The div that shows/hides. */
-        display:none; /* starts out hidden */
-        z-index:40001; /* High z-index to ensure it appears above all content */
-    }
-    .dumbBoxOverlay { /* Shades out background when selector is active */
-        position:fixed;
-        width:100%;
-        height:100%;
-        background-color:black;
-        opacity:.5; /* Sets opacity so it's partly transparent */
-        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE transparency */
-        filter:alpha(opacity=50); /* More IE transparency */
-        z-index:40001;
-    }
 
-    .vertical-offset { /* Fixed position to provide the vertical offset */
-        position:fixed;
-        top:30%;
-        width:100%;
-        z-index:40002; /* ensures box appears above overlay */
-    }
+.dumbBoxWrap { /* The div that shows/hides. */
+    display:none; /* starts out hidden */
+    z-index:40001; /* High z-index to ensure it appears above all content */
+}
+
+.dumbBoxOverlay { /* Shades out background when selector is active */
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-color:black;
+    opacity:.5; /* Sets opacity so it's partly transparent */
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE transparency */
+    filter:alpha(opacity=50); /* More IE transparency */
+    z-index:40001;
+}
+
+.vertical-offset { /* Fixed position to provide the vertical offset */
+    position:fixed;
+    top:30%;
+    width:100%;
+    z-index:40002; /* ensures box appears above overlay */  
+}
     
-    .dumbBox { /* The actual box, centered in the fixed-position div */
+.dumbBox { /* The actual box, centered in the fixed-position div */
     width:405px; /* Whatever width you want the box to be */
     position:relative;
     margin:0 auto;
@@ -48,7 +49,6 @@
     padding:10px;
     border:1px solid black;
 }
-
 </style>
 
 <div class="dumbBoxWrap">

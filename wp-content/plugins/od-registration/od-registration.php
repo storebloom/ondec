@@ -17,6 +17,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'registration-forms/professional-registration.php');
+require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'registration-forms/client-registration.php');
+require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'registration-forms/business-registration.php');
 
         
         

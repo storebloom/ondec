@@ -1,5 +1,9 @@
 <?php
+
 include_once('inc/autologin.php');
+
+if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>';}
+
 /**
  * The header for our theme.
  *

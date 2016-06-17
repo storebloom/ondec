@@ -4,16 +4,16 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Professional_Registration
+ * Business_Registration
  */
-class Professional_Registration {
+class Business_Registration {
     
     public function __construct(){
         
-        add_shortcode( 'professional-registration-form', array( $this, 'professional_registration_function' ) );
+        add_shortcode( 'business-registration-form', array( $this, 'business_registration_function' ) );
     }
     
-    private static function professional_registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    private static function business_registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
     
         echo '
         <style>
@@ -73,7 +73,7 @@ class Professional_Registration {
         ';
     }
     
-    public function professional_registration_function() {
+    public function business_registration_function() {
         
             $username   = "";
             $password   = "";
@@ -95,9 +95,9 @@ class Professional_Registration {
         include_once($baseplugin . "/form-validation.php");
         include_once($baseplugin . "/complete-registration.php");
         
-        $role = $GLOBALS['wp_roles']->is_role( 'professional' );
+        $role = $GLOBALS['wp_roles']->is_role( 'business' );
         
-        if($role){ $role = 'professional'; } else { $role = ""; }
+        if($role){ $role = 'business'; } else { $role = ""; }
             
         
         
@@ -141,7 +141,7 @@ class Professional_Registration {
             );
         }
 
-        $this::professional_registration_form(
+        $this::business_registration_form(
             $username,
             $password,
             $email,
@@ -154,4 +154,4 @@ class Professional_Registration {
     } 
 }
 
-$professional_registration = new Professional_Registration();
+$business_registration = new Business_Registration();

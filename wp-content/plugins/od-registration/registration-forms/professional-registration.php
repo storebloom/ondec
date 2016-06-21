@@ -68,6 +68,7 @@ class Professional_Registration {
         <label for="bio">About / Bio</label>
         <textarea name="bio">' . ( isset( $_POST['bio']) ? $bio : null ) . '</textarea>
         </div>
+        
         <input type="submit" name="submit" value="Register"/>
         </form>
         ';
@@ -83,7 +84,7 @@ class Professional_Registration {
             $last_name  = "";
             $nickname   = "";
             $bio        = "";
-            $role       = "";        
+            $role       = ""; 
         
         if(is_user_logged_in ()){ 
             echo '<h2>You are already logged in.  To create a new account log out first and revist this form.</h2>';
@@ -113,6 +114,8 @@ class Professional_Registration {
                 $_POST['nickname'],
                 $_POST['bio']
             );
+            
+            $prof_photo = $od_form_validation->my_sanitize_image($_POST['pic']);
 
             // sanitize user form input
             global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio;
@@ -140,7 +143,7 @@ class Professional_Registration {
                 $role
             );
         }
-
+                                                                  
         $this::professional_registration_form(
             $username,
             $password,
@@ -151,7 +154,7 @@ class Professional_Registration {
             $nickname,
             $bio
         );
-    } 
+    }
 }
 
 $professional_registration = new Professional_Registration();

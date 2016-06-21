@@ -22,7 +22,7 @@ function od_user_search(){
     
     $od_user_search->ajax_search_enqueues();
     
-    echo '<form action="post" id="od-user-search"><input class="typeahead" type="text" name="typeahead"/><input type="submit"/>';
+    require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-search-form.php');
 }
 
 add_shortcode( 'od-user-search', 'od_user_search' );

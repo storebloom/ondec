@@ -67,6 +67,23 @@ class OD_Form_Validation {
             }
         }
     }
+    
+        public function my_sanitize_image( $input ){
+
+        /* default output */
+        $output = '';
+
+        /* check file type */
+        $filetype = wp_check_filetype( $input );
+        $mime_type = $filetype['type'];
+
+        /* only mime type "image" allowed */
+        if ( strpos( $mime_type, 'image' ) !== false ){
+            $output = $input;
+        }
+
+        return $output;
+    }
 }
 
 $od_form_validation = new OD_Form_Validation();

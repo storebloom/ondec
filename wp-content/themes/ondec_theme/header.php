@@ -54,6 +54,7 @@ if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/
             <?php else: ?>
                 <?php include_once( "inc/loginmodal.php"); ?>
             <?php endif; ?>
+           <?php od_user_search(); ?>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
 

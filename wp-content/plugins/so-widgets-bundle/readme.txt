@@ -1,9 +1,9 @@
 === SiteOrigin Widgets Bundle ===
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 3.9
-Tested up to: 4.4.2
-Stable tag: 1.5.11
-Build time: 2016-04-11T15:16:36+02:00
+Tested up to: 4.5.2
+Stable tag: 1.6
+Build time: 2016-06-21T15:53:26+02:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 
@@ -50,6 +50,27 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.6 - 21 June 2016 =
+* Added builder field.
+* Added new multi checkboxes field.
+* Added Layout Slider widget.
+* Added taxonomy widget.
+* Added slider wrapper attributes and filter.
+* Fix for measurement field inside a repeater.
+* Modified base folder to work independently of Widgets Bundle.
+* Added custom icon families callback argument to icon field.
+* Properly handle attachments in post selector
+* Contact Form: Refactored form fields.
+* Hero Image: Added image type to Hero Image widget.
+* Button: Handle empty width.
+* Image: Added filter for SiteOrigin image attributes.
+* Image: Add dimensions to sizes dropdown.
+* Maps: Ensure maps widget works with API key.
+* Hero Image: Added setting to disable swipe on mobile Hero Image Widget.
+* Fixed title syntax in Image widget.
+* Video: Correctly get video file mime-types.
+* Video Widget: Allow specifying multiple self-hosted video sources to support various formats.
 
 = 1.5.11 - April 11 2016 =
 * Fixed features widget container shape setting.

@@ -114,8 +114,6 @@ class Professional_Registration {
                 $_POST['nickname'],
                 $_POST['bio']
             );
-            
-            $prof_photo = $od_form_validation->my_sanitize_image($_POST['pic']);
 
             // sanitize user form input
             global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio;

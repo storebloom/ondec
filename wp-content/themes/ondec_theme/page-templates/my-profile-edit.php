@@ -9,13 +9,40 @@ global $current_user, $wp_roles;
  *
  * @package ondec_custom_theme
  */
-get_header(); ?>
+
+$user_role = $current_user->roles[0];
+
+$decstatus = get_user_meta($current_user->ID, 'decstatus', true);
+
+$decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "you no dec status";
+
+if($decstatus === "ondec" ){
+    $negdecstatus = "offdec";
+}else{
+    $negdecstatus = "ondec";
+}
+get_header(); 
+?>
+
+<script type="text/javascript">
+
+    var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+</script>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
             <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
             <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
-                
+            
+            <?php if($user_role === "professional") : ?>
+            <h3>current dec status:</h3>
+                        
+            <form id="form" name="form">
+                <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
+                <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
+            </form>
+        
+                <?php endif; ?>
                 <?php                /* Get user info. */
 
                 //get_currentuserinfo(); //deprecated since 3.1
@@ -133,3 +160,46 @@ get_header(); ?>
 
 <?php
 get_footer();
+
+?>
+<script>
+    jQuery(document).ready(function() {
+    
+        jQuery("#submit").click(function() {
+        
+        if(jQuery("#decstatus").val() === 'ondec'){ 
+           
+            jQuery('#submit').removeClass('currently-offdec').addClass('currently-ondec');
+            
+            jQuery( "#decstatus").val('offdec');
+            
+            var decstatus = 'ondec';
+            
+            jQuery( "#submit" ).val('Currently ondec');
+        } else {
+                                
+            jQuery('#submit').removeClass('currently-ondec').addClass('currently-offdec');
+        
+            jQuery( "#decstatus").val('ondec');
+            
+            var decstatus = 'offdec';
+            
+            jQuery( "#submit").val('Currently offdec');
+        }    
+            
+        jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'add_decstatus',
+                    'decstatus': decstatus
+                }, 
+                function(response){
+
+                //alert('The server responded: ' + response);
+            }
+        );
+    });
+});
+</script>
+
+<?php 

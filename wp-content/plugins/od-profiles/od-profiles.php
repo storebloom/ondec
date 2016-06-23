@@ -17,4 +17,5 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/profile-pages.php');
+require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/dec-status.php');
 

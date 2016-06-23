@@ -13,8 +13,19 @@ global $current_user, $wp_roles;
 $user_role = $current_user->roles[0];
 
 $decstatus = get_user_meta($current_user->ID, 'decstatus', true);
-
+$decmessage = get_user_meta($current_user->ID, 'decmessage', true);
+$mydec = null !== get_user_meta($current_user->ID, 'mydec', false) ? get_user_meta($current_user->ID, 'mydec', false) : array();
 $decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "you no dec status";
+$current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
+$biz_title = array("client" => "dec", "professional" => "Work Locations", "business" => "Current Professoinal");  
+
+$my_dec_info = array();
+
+foreach($mydec[0] as $single_member){
+    
+    $my_dec_info[] = get_userdata($single_member);
+}
+
 
 if($decstatus === "ondec" ){
     $negdecstatus = "offdec";
@@ -23,26 +34,61 @@ if($decstatus === "ondec" ){
 }
 get_header(); 
 ?>
-
-<script type="text/javascript">
-
-    var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
-</script>
-
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
             <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
             <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
             
-            <?php if($user_role === "professional") : ?>
+            <?php if($user_role !== "business" ) : ?>
             <h3>current dec status:</h3>
                         
-            <form id="form" name="form">
+            <form id="decform" name="decform">
                 <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
                 <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             </form>
+            <span>
+            <div style="display:none;" id="msgsuccess">success!</div>
+            </span>
+            <form id="decmsgform" name="decmsgform">
+                <input type="text" placeholder="add your message to the world" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
+                <input id="msgsubmit" type="button" value="update">
+            </form>
+            <?php endif; ?> 
         
-                <?php endif; ?>
+            <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
+            
+            <div class="od-my-list">
+                
+                <ul>
+                <?php foreach($my_dec_info as $single_dec_member) : ?>
+                    <li class="decmember-<?php echo $single_dec_member->ID; ?>">  
+                        <div class="dec-name">
+                            <?php echo $single_dec_member->display_name; ?>
+                        </div>
+                        <div class="dec-image">
+                            <?php echo get_wp_user_avatar($single_dec_member->ID, 96); ?>
+                        </div>
+                        <div class="dec-status">
+                            <?php echo get_user_meta($single_dec_member->ID, 'decstatus', true); ?>
+                        </div>
+                        <div class="dec-message">
+                            <?php echo get_user_meta($single_dec_member->ID, 'decmessage', true); ?>
+                        </div>
+                        <div>
+                            <span>
+                                <div style="display:none;" id="rmsuccess">successfully removed!</div>
+                            </span>
+                            <form id="decmsgform" name="decmsgform">
+                                <input type="hidden" name="decid" id="decid" value="<?php echo $single_dec_member->ID; ?>">
+                                <input id="decremove" type="button" value="remove from list">
+                            </form>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+                
+            </div>
+
                 <?php                /* Get user info. */
 
                 //get_currentuserinfo(); //deprecated since 3.1
@@ -167,37 +213,75 @@ get_footer();
     
         jQuery("#submit").click(function() {
         
-        if(jQuery("#decstatus").val() === 'ondec'){ 
-           
-            jQuery('#submit').removeClass('currently-offdec').addClass('currently-ondec');
-            
-            jQuery( "#decstatus").val('offdec');
-            
-            var decstatus = 'ondec';
-            
-            jQuery( "#submit" ).val('Currently ondec');
-        } else {
-                                
-            jQuery('#submit').removeClass('currently-ondec').addClass('currently-offdec');
+            if(jQuery("#decstatus").val() === 'ondec'){ 
+
+                jQuery('#submit').removeClass('currently-offdec').addClass('currently-ondec');
+
+                jQuery( "#decstatus").val('offdec');
+
+                var decstatus = 'ondec';
+
+                jQuery( "#submit" ).val('Currently ondec');
+            } else {
+
+                jQuery('#submit').removeClass('currently-ondec').addClass('currently-offdec');
+
+                jQuery( "#decstatus").val('ondec');
+
+                var decstatus = 'offdec';
+
+                jQuery( "#submit").val('Currently offdec');
+            }    
+
+            jQuery.post( 
+                ajaxurl,
+                    {   
+                        'action': 'add_decstatus',
+                        'decstatus': decstatus,
+                    }, 
+                    function(response){
+
+                    //alert('The server responded: ' + response);
+                }
+            );
+    });
         
-            jQuery( "#decstatus").val('ondec');
+    jQuery("#msgsubmit").click(function(){    
             
-            var decstatus = 'offdec';
+        var decid = jQuery('#decremove').val();
             
-            jQuery( "#submit").val('Currently offdec');
-        }    
-            
-        jQuery.post( 
+            jQuery.post( 
             ajaxurl,
                 {   
-                    'action': 'add_decstatus',
-                    'decstatus': decstatus
+                    'action': 'add_decmessage',
+                    'decmessage': decmessage
                 }, 
                 function(response){
 
-                //alert('The server responded: ' + response);
+                jQuery("#msgsuccess").slideUp(800).fadeIn(400);
+                jQuery("#msgsuccess").slideDown(300).delay(800).fadeOut(400);    
+               
             }
         );
+    }); 
+    jQuery("#decremove").click(function(){
+        var decid = jQuery('#decid').val();
+        var rmclass = ".decmember" + decid; 
+        if (window.confirm("Do you really want to remove them from your list?")) {
+        jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'remove_decmember',
+                    'decid': decid
+                }, 
+                function(response){
+                jQuery(rmclass).slideDown(800).fadeOut(400);    
+                jQuery("#rmsuccess").slideUp(800).fadeIn(400);
+                jQuery("#rmgsuccess").slideDown(300).delay(800).fadeOut(400);    
+               
+            }
+        );
+        }
     });
 });
 </script>

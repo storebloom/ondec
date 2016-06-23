@@ -10,9 +10,10 @@ class OD_User_Search {
 
     public function __construct(){
         
-        add_action( 'setup_theme',        array($this, 'live_search_results') );
-        add_action( 'wp_enqueue_scripts', array($this, 'ajax_search_enqueues') );
+        add_action( 'setup_theme',                  array($this, 'live_search_results') );
+        add_action( 'wp_enqueue_scripts',           array($this, 'ajax_search_enqueues') );
     }
+    
     
     public function ajax_search_enqueues() {
 

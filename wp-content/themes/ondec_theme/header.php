@@ -23,6 +23,11 @@ if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 <?php wp_head(); ?>  
+<?php if(is_page('my-profile') && is_user_logged_in()){ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>';} ?>
+<script type="text/javascript">
+
+    var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+</script>    
 </head>
 
 <body <?php body_class(); ?>>

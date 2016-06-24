@@ -26,16 +26,19 @@ class OD_User_Search {
         
         global $current_user;
         
-        $current_dec = get_user_meta($current_user->ID, 'mydec', false);
-        $current_dec = array() !== $current_dec ? $current_dec : array(0 => array());
-        
-        if($current_dec[0] !== array()){
-            
-            foreach($current_dec[0] as $currentid ){
+        if(is_user_logged_in()){
 
-                if($currentid == $check_id){     
-                   
-                    return false;
+            $current_dec = get_user_meta($current_user->ID, 'mydec', false);
+            $current_dec = array() !== $current_dec ? $current_dec : array(0 => array());
+
+            if($current_dec[0] !== array()){
+
+                foreach($current_dec[0] as $currentid ){
+
+                    if($currentid == $check_id){     
+
+                        return false;
+                    }
                 }
             }
         }

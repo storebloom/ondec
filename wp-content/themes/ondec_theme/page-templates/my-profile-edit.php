@@ -9,7 +9,7 @@ global $current_user, $wp_roles;
  *
  * @package ondec_custom_theme
  */
-
+if(!is_user_logged_in()) wp_safe_redirect('/');
 $user_role = $current_user->roles[0];
 
 $decstatus = get_user_meta($current_user->ID, 'decstatus', true);

@@ -22,6 +22,27 @@ class OD_User_Search {
         wp_enqueue_style( 'od-user-search', '/wp-content/plugins/od-user-search/css/od-user-search.css',false,'1.1','all');
     }
     
+    public function in_my_dec_already($check_id){
+        
+        global $current_user;
+        
+        $current_dec = get_user_meta($current_user->ID, 'mydec', false);
+        $current_dec = array() !== $current_dec ? $current_dec : array(0 => array());
+        
+        if($current_dec[0] !== array()){
+            
+            foreach($current_dec[0] as $currentid ){
+
+                if($currentid == $check_id){     
+                   
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
     public function get_user_modal_results($key){
 
                 $config = array('host'=>'localhost', 'user'=>'root', 'pass'=>'root', 'db_name'=>'odwp2016');

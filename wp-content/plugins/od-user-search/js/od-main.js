@@ -10,6 +10,9 @@ jQuery(document).ready(function() {
     //Show modal box
     //Hide modal box
     jQuery('#closeSearchModal').click(
-        function() {$('.od-searchBoxWrap').hide();}
+        
+        function() {
+            jQuery('.od-searchBoxWrap').hide();
+        }
     );
 });

@@ -10,10 +10,10 @@ class Decstatus {
     
     public function __construct(){
         
-        add_action( 'wp_ajax_add_decstatus',        array($this, 'prefix_ajax_add_decstatus') );
-        add_action( 'wp_ajax_nopriv_add_decstatus', array($this, 'prefix_ajax_add_decstatus') );
-        add_action( 'wp_ajax_add_decmessage',        array($this, 'prefix_ajax_add_decmessage') );
-        add_action( 'wp_ajax_nopriv_add_decmessage', array($this, 'prefix_ajax_add_decmessage') );
+        add_action( 'wp_ajax_add_decstatus',           array($this, 'prefix_ajax_add_decstatus') );
+        add_action( 'wp_ajax_nopriv_add_decstatus',    array($this, 'prefix_ajax_add_decstatus') );
+        add_action( 'wp_ajax_add_decmessage',          array($this, 'prefix_ajax_add_decmessage') );
+        add_action( 'wp_ajax_nopriv_add_decmessage',   array($this, 'prefix_ajax_add_decmessage') );
         add_action( 'wp_ajax_remove_decmember',        array($this, 'prefix_ajax_remove_decmember') );
         add_action( 'wp_ajax_nopriv_remove_decmember', array($this, 'prefix_ajax_remove_decmember') );
         add_action( 'wp_ajax_add_decmember',        array($this, 'prefix_ajax_add_decmember') );
@@ -28,24 +28,13 @@ class Decstatus {
         
         $current_dec_members = get_user_meta($current_user->ID, 'mydec', false);
         
-        $new_array = $current_dec_members;
+        $current_dec_members = array() !== $current_dec_members ? $current_dec_members : array(0 => array());
         
-        foreach( $current_dec_members as $dec_memeber){
-            
-            if($dec_member !== $decid){
-                
-                $new_array[] = $decmember;
-            }
-        }
-        
-        if(is_array($adddecid) && $adddecid !== array()){
-        $new_array = array_merge($new_array, $adddecid);
-        }else{
-           $new_array = array($adddecid);
-        }
+        $new_array = array_merge($current_dec_members[0], array($adddecid));
+       
         update_user_meta($current_user->ID, 'mydec', $new_array);
         
-        print_r($adddecid, true);
+        print_r($new_array, true);
     }
 
     public function prefix_ajax_add_decstatus() {

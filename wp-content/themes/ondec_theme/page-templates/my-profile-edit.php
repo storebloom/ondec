@@ -23,7 +23,6 @@ $my_dec_info = array();
 
 if(isset($mydec[0])){
     foreach($mydec[0] as $single_member){
-
         $my_dec_info[] = get_userdata($single_member);
     }
 }
@@ -59,7 +58,11 @@ get_header();
             <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
             
             <div class="od-my-list">
-                
+                <span>
+                                
+                                <div style="display:none;" id="rmsuccess">successfully removed member!</div>
+                                
+                            </span>
                 <ul>
                 <?php foreach($my_dec_info as $single_dec_member) : ?>
                     
@@ -91,17 +94,9 @@ get_header();
                         
                         <div>
                             
-                            <span>
+                            <form id="decmsgform-<?php echo $single_dec_member->ID; ?>" name="decmsgform-<?php echo $single_dec_member->ID; ?>">
                                 
-                                <div style="display:none;" id="rmsuccess">successfully removed!</div>
-                                
-                            </span>
-                            
-                            <form id="decmsgform" name="decmsgform">
-                                
-                                <input type="hidden" name="rmdecid" id="rmdecid" value="<?php echo $single_dec_member->ID; ?>">
-                                
-                                <input id="decremove" type="button" value="remove from list">
+                                <input id="<?php echo $single_dec_member->ID; ?>" class="decremove" type="button" value="remove from list">
                                 
                             </form>
                             
@@ -236,6 +231,28 @@ get_footer();
 ?>
 <script>
     jQuery(document).ready(function() {
+        
+        jQuery('.decremove').click(function(){
+            var rmdecid = jQuery(this).attr('id');
+            var rmclass = ".decmember-" + rmdecid; 
+
+            if (window.confirm("Do you really want to remove them from your list?")) {
+
+                jQuery.post(
+
+                    ajaxurl,
+                        {   
+                            'action': 'remove_decmember',
+                            'rmdecid': rmdecid
+                        }, 
+                        function(response){
+
+                        jQuery(rmclass).slideDown(800).fadeOut(400);    
+                        jQuery("#rmsuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                    }
+                );
+            }
+        });
     
         jQuery("#submit").click(function() {
         
@@ -290,29 +307,6 @@ get_footer();
             }
         );
     }); 
-    jQuery("#decremove").click(function(){
-        var rmdecid = jQuery('#rmdecid').val();
-        var rmclass = ".decmember" + rmdecid; 
-        
-        if (window.confirm("Do you really want to remove them from your list?")) {
-        
-            jQuery.post(
-                
-                ajaxurl,
-                    {   
-                        'action': 'remove_decmember',
-                        'rmdecid': rmdecid
-                    }, 
-                    function(response){
-
-                    jQuery(rmclass).slideDown(800).fadeOut(400);    
-                    jQuery("#rmsuccess").slideUp(800).fadeIn(400);
-                    jQuery("#rmgsuccess").slideDown(300).delay(800).fadeOut(400);   
-                }
-            );
-        }
-    });
 });
+ 
 </script>
-
-<?php 

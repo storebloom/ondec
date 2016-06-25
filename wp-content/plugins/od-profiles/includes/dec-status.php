@@ -83,7 +83,7 @@ class Decstatus {
         if(isset($business_pros[0])){
             foreach( $business_pros[0] as $pros => $pro){
 
-                if($pro !== $requestdecid){
+                if(intval($pro) !== intval($requestdecid)){
 
                     $new_appros[] = $pro;
                 }
@@ -153,9 +153,12 @@ class Decstatus {
         
         global $current_user;
         
+        $user_role = $current_user->roles[0];
+        
         $rmdecid = isset($_POST['rmdecid']) ? $_POST['rmdecid'] : "";
         
         $current_dec_members = get_user_meta($current_user->ID, 'mydec', false);
+        $current_biz = get_user_meta($rmdecid, 'mybusinesses', false);
         
         $new_array = array();
         
@@ -170,7 +173,23 @@ class Decstatus {
         }
       
         update_user_meta($current_user->ID, 'mydec', $new_array);
-        print_r($rmdecid); 
+        
+        if($user_role === 'business'){
+            $new_biz = array();
+
+            if(isset($current_biz[0])){
+                foreach( $current_biz[0] as $c_bizs => $c_biz){
+
+                    if(intval($c_biz) !== intval($current_user->ID)){
+
+                        $new_biz[] = $c_biz;
+                    }
+                }
+
+                update_user_meta($rmdecid, 'mybusinesses', $new_biz);
+            }
+        }
+        //print_r($rmdecid); 
     }
     
     public function prefix_ajax_remove_biz() {
@@ -179,6 +198,7 @@ class Decstatus {
         
         $rmbizid = isset($_POST['rmbizid']) ? $_POST['rmbizid'] : "";
         $current_businesses = get_user_meta($current_user->ID, 'mybusinesses', false);
+        $current_pros = get_user_meta($rmbizid, 'mydec', false);
         
         $new_array = array();
        
@@ -190,10 +210,22 @@ class Decstatus {
                     $new_array[] = $business;
                 }
             }
+            update_user_meta($current_user->ID, 'mybusinesses', $new_array); 
         }
-       var_dump($new_array);
-        update_user_meta($current_user->ID, 'mybusinesses', $new_array);
-       // print_r($rmbizid); 
+            
+        $new_pro = array();
+        
+        if(isset($current_pros[0])){
+            foreach( $current_pros[0] as $c_pros => $c_pro){
+
+                if(intval($c_pro) !== $current_user->ID){
+
+                    $new_pro[] = $c_pro;
+                }
+            }
+            
+            update_user_meta($rmbizid, 'mydec', $new_pro); 
+        }
     }
 }
 

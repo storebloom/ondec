@@ -28,6 +28,14 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_remove_biz',        array($this, 'prefix_ajax_remove_biz') );
         add_action( 'wp_ajax_add_pro_type',             array($this, 'prefix_ajax_add_pro_type') );
         add_action( 'wp_ajax_nopriv_add_pro_type',      array($this, 'prefix_ajax_add_pro_type') );
+        add_action( 'wp_ajax_add_current_location',             array($this, 'prefix_ajax_add_current_location') );
+        add_action( 'wp_ajax_nopriv_add_current_location',      array($this, 'prefix_ajax_add_current_location') );
+        add_action( 'wp_ajax_remove_current_location',             array($this, 'prefix_ajax_remove_current_location') );
+        add_action( 'wp_ajax_nopriv_remove_current_location',      array($this, 'prefix_ajax_remove_current_location') );
+        add_action( 'wp_ajax_approve_biz_request',             array($this, 'prefix_ajax_approve_biz_request') );
+        add_action( 'wp_ajax_nopriv_approve_biz_request',      array($this, 'prefix_ajax_approve_biz_request') );
+        add_action( 'wp_ajax_remove_biz_request',             array($this, 'prefix_ajax_remove_biz_request') );
+        add_action( 'wp_ajax_nopriv_remove_biz_request',      array($this, 'prefix_ajax_remove_biz_request') );
     }
     
     public function prefix_ajax_add_decmember() {
@@ -64,8 +72,12 @@ class Decstatus {
         
         global $current_user;
         
+        $user_role = $current_user->roles[0];
+        
         $requestdecid = isset($_POST['requestdecid']) ? $_POST['requestdecid'] : "";
         
+        if($user_role === 'professional'){
+            
         $business_pros = get_user_meta($requestdecid, 'pro_requests', false);
         
         $business_pros = array() !== $business_pros ? $business_pros : array(0 => array());
@@ -74,6 +86,16 @@ class Decstatus {
 
         update_user_meta($requestdecid, 'pro_requests', $new_pros);
         
+        } else {
+            
+        $business_pros = get_user_meta($requestdecid, 'business_requests', false);
+        
+        $business_pros = array() !== $business_pros ? $business_pros : array(0 => array());
+        
+        $new_pros = array_merge($business_pros[0], array($current_user->ID));
+
+        update_user_meta($requestdecid, 'business_requests', $new_pros);
+        }
         print_r($new_array, true);
     }
     
@@ -141,6 +163,71 @@ class Decstatus {
       
         print_r($new_rmpros, true);
     }
+    
+    public function prefix_ajax_approve_biz_request() {
+        
+        global $current_user;
+        
+        $requestdecid = isset($_POST['approvebizrequest']) ? $_POST['approvebizrequest'] : "";
+        
+        $business_requests = get_user_meta($current_user->ID, 'business_requests', false);
+        
+        $current_pros = get_user_meta($requestdecid, 'mydec', false);
+         
+        $current_biz = get_user_meta($current_user->ID, 'mybusinesses', false);
+        
+        $business_requests = array() !== $business_requests ? $business_requests : array(0 => array());
+        $current_pros = array() !== $current_pros ? $current_pros : array(0 => array());
+        $current_biz = array() !== $current_biz ? $current_biz : array(0 => array());
+         
+        $new_apbiz = array();
+        
+        if(isset($business_requests[0])){
+            foreach( $business_requests[0] as $bizs => $biz){
+
+                if(intval($biz) !== intval($requestdecid)){
+
+                    $new_apbiz[] = $biz;
+                }
+            }
+        } 
+        
+        $new_pros = array_merge($current_pros[0], array($current_user->ID));
+        $new_bizs = array_merge($current_biz[0], array($requestdecid));
+
+        update_user_meta($current_user->ID, 'business_requests', $new_apbiz);
+        update_user_meta($requestdecid, 'mydec', $new_pros); 
+        update_user_meta($current_user->ID, 'mybusinesses', $new_bizs);
+        
+        print_r($new_array, true);
+    }
+        
+        public function prefix_ajax_remove_biz_request() {
+        
+        global $current_user;
+        
+        $requestdecid = isset($_POST['removebizrequest']) ? $_POST['removebizrequest'] : "";
+        
+        $business_requests = get_user_meta($current_user->ID, 'business_requests', false);
+        
+        $business_requests = array() !== $business_requests ? $business_requests : array(0 => array());
+       
+        $new_rmbizs = array();
+        
+        if(isset($business_requests[0])){
+            foreach( $business_requests[0] as $bizs => $biz){
+
+                if($biz !== $requestdecid){
+
+                    $new_rmbizs[] = $biz;
+                }
+            }
+        } 
+        
+        update_user_meta($current_user->ID, 'business_requests', $new_rmbizs);
+      
+        print_r($new_rmpros, true);
+    }
 
     public function prefix_ajax_add_decstatus() {
         
@@ -153,15 +240,34 @@ class Decstatus {
         echo "Dec status=" . $decstatus;
     }
     
+    public function prefix_ajax_add_current_location() {
+        
+        global $current_user;
+        
+        $current_location = isset($_POST['currentloc']) ? $_POST['currentloc'] : ""; 
+        
+        update_user_meta( $current_user->ID, 'current_location', $current_location );
+    
+        echo "location=" . $current_location;
+    }
+    
+    public function prefix_ajax_remove_current_location() {
+        
+        global $current_user;
+      
+        update_user_meta($current_user->ID, 'current_location', '');
+
+    }
+    
      public function prefix_ajax_add_pro_type() {
         
         global $current_user;
         
         $pro_types = isset($_POST['typeselected']) ? $_POST['typeselected'] : ""; 
-        
+        print_r($pro_types);
         update_user_meta( $current_user->ID, 'protype', $pro_types );
     
-        print_r($protypes);
+        
     }
     
     public function prefix_ajax_add_decmessage() {

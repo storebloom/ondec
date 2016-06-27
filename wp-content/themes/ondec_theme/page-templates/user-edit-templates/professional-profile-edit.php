@@ -1,6 +1,6 @@
 <?php
 
-if(!is_user_logged_in()) wp_safe_redirect('/');
+//if(!is_user_logged_in()) return;
 $user_role = $current_user->roles[0];
 
 $decstatus = get_user_meta($current_user->ID, 'decstatus', true);
@@ -10,10 +10,13 @@ $decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "no dec statu
 $current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
 $mybusinesses = null !== get_user_meta($current_user->ID, 'mybusinesses', false) ? get_user_meta($current_user->ID, 'mybusinesses', false) : array( 0 => array());
 $professional_types = array("tattoo" => "Tattoo Artist", "makeup" => "Makeup Artist", "hair" => "Hair Stylist", "bar" => "Bartender", "other" => "Other");
-
+$pro_types_str = str_replace("pro-types=", "", get_user_meta($current_user->ID, 'protype', true));
+$current_pro_types = explode("&", $pro_types_str );
 $my_dec_info = array();
 $my_business_info = array();    
-            
+$myrequests = null !== get_user_meta($current_user->ID, 'business_requests', false) ? get_user_meta($current_user->ID, 'business_requests', false) : array( 0 => array());
+$my_request_info = array();
+
 if(isset($mybusinesses[0])){
     foreach($mybusinesses[0] as $single_business){
         $my_business_info[] = get_userdata($single_business);
@@ -23,6 +26,12 @@ if(isset($mybusinesses[0])){
 if(isset($mydec[0])){
     foreach($mydec[0] as $single_member){
         $my_dec_info[] = get_userdata($single_member);
+    }
+}
+
+if(isset($myrequests[0])){
+    foreach($myrequests[0] as $single_requests){
+        $my_request_info[] = get_userdata($single_requests);
     }
 }
 
@@ -105,6 +114,7 @@ get_header();
                 <span>
 
                     <div style="display:none;" id="rmsuccess">successfully removed business!</div>
+                    <div style="display:none;" id="currentlocmsg">successfully set current location!</div>
                     
                 </span>
                     
@@ -133,6 +143,21 @@ get_header();
                             </a>
 
                             <div>
+                                <form id="current-biz-<?php echo $single_dec_business->ID; ?>" name="current-biz-<?php echo $single_dec_business->ID; ?>">
+                                <?php $currentloc = $profile_pages->is_current_location($single_dec_business->ID);
+            
+                                    if($currentloc){
+                                        $mybizloc = "current-location";
+                                        $mybizmsg = "My Current Location";
+                                    }else {
+                                        $mybizloc = "not-current-location";
+                                        $mybizmsg = "Set as Current Location";
+                                    }
+                                    ?>
+                                   
+                                    <input class="<?php echo $mybizloc; ?>" id="<?php echo $single_dec_business->ID; ?>" type="button" value="<?php echo $mybizmsg; ?>">
+
+                                </form>
 
                                 <form id="decrmbizform-<?php echo $single_dec_business->ID; ?>" name="decrmbizform-<?php echo $single_dec_business->ID; ?>">
 
@@ -150,21 +175,86 @@ get_header();
 
             </div>
             
-            <div class="professional-type">
+            <h3>Requests From Businesses</h3>
+            
+            <div class="od-my-biz-requests">
                 
-                <form id="profesional-type-<?php echo $current_user->ID; ?>" name="professional-type-<?php echo $current_user->ID; ?>">
+                <span>
 
-                    <h3>Choose your professional type</h3>
-                    <span>
-
-                    <div style="display:none;" id="typesuccess">successfully updated!</div>
+                    <div style="display:none;" id="approvesuccess">successfully approved request!</div>
                     
                 </span>
-                        <?php foreach($professional_types as $profession => $professional_readable): ?>
-                            <input type="checkbox" value="<?php echo $profession; ?>"><?php echo $professional_readable; ?></input>
-                        <?php endforeach; ?>
+                <span>
 
-                    <input id="<?php echo $current_user->ID; ?>" class="professional-type" type="button" value="update">
+                    <div style="display:none;" id="removesuccess">successfully removed request!</div>
+                    
+                </span>
+                    
+                <ul id="request-list">
+                    
+                    <?php foreach($my_request_info as $single_dec_request) :
+
+                        $user_information = get_userdata($single_dec_request->ID);
+                    ?>
+                        <li class="decrequest-<?php echo $single_dec_request->ID; ?>">
+
+                            <a href='/businesses/<?php echo $single_dec_request->user_login; ?>'>
+
+                                <div class="dec-name">
+
+                                    <?php echo $single_dec_request->display_name; ?>
+
+                                </div>
+
+                                <div class="dec-image">
+
+                                    <?php echo get_wp_user_avatar($single_dec_request->ID, 96); ?>
+
+                                </div>
+
+                            </a>
+
+                            <div>
+
+                                <form id="decrequestform-<?php echo $single_dec_request->ID; ?>" name="decrequestform-<?php echo $single_dec_request->ID; ?>">
+
+                                    <input id="<?php echo $single_dec_request->ID; ?>" class="approvebiz" type="button" value="approve">
+                                    <input id="<?php echo $single_dec_request->ID; ?>" class="removebiz" type="button" value="remove">
+                                    
+                                </form>
+
+                            </div>
+
+                        </li>
+
+                    <?php endforeach; ?>
+
+                </ul>
+
+            </div>
+            
+            <div class="pro-type-section">
+                <h3>Choose your professional type</h3>
+                
+                <form id="profesional-type-<?php echo $current_user->ID; ?>" name="professional-type-<?php echo $current_user->ID; ?>">
+                    
+                    <div style="display:none;" id="typesuccess">successfully updated!</div>
+                    
+                        <ul>
+                            <?php foreach($professional_types as $profession => $professional_readable): ?>
+                            
+                            <li>
+                                <?php if(array_intersect($current_pro_types, array($profession))){ ?>
+                                <input name="pro-types" class="pro-types" type="checkbox" value="<?php echo $profession; ?>" checked>
+                               <? } else { ?>
+                                <input name="pro-types" class="pro-types" type="checkbox" value="<?php echo $profession; ?>">
+                              <?php  } ?>
+                                <?php echo $professional_readable; ?>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    
+                        <input id="professional-type" class="professional-type" type="button" value="update">
                 </form>
             </div>
             
@@ -313,6 +403,48 @@ get_footer();
             }
         });
         
+        jQuery('.not-current-location').click(function(){
+            var currentloc = jQuery(this).attr('id');
+            var specificid = "#" + currentloc;
+
+            if (window.confirm("Confirm this is your current location?")) {
+
+                jQuery.post(
+
+                    ajaxurl,
+                        {   
+                            'action': 'add_current_location',
+                            'currentloc': currentloc
+                        }, 
+                        function(response){
+
+                        jQuery('.current-location').removeClass('current-location').addClass('not-current-location').val('Set as Current Location');
+                        jQuery(specificid).removeClass('not-current-location').addClass('current-location');
+                        jQuery('.current-location').val('My Current Location');
+                        jQuery('#currentlocmsg').slideUp(800).fadeIn(400).delay(800).fadeOut(400); 
+                    }
+                );
+            }
+        });
+        jQuery('.current-location').click(function(){
+
+            if (window.confirm("Remove this is as your current location?")) {
+
+                jQuery.post(
+
+                    ajaxurl,
+                        {   
+                            'action': 'remove_current_location'
+                        }, 
+                        function(response){
+                        
+                        jQuery('.current-location').val('Set as Current Location');
+                        jQuery('.current-location').addClass('not-current-location').removeClass('current-location');
+                    }
+                );
+            }
+        });
+        
         jQuery('.decremovebiz').click(function(){
             var rmbizid = jQuery(this).attr('id');
             var rmbizclass = ".decbiz-" + rmbizid; 
@@ -335,25 +467,36 @@ get_footer();
             }
         });
         
-         jQuery('.professional-type').click(function(){
-            var proid = jQuery(this).attr('id');
-            var typeselected = [];
-            jQuery(':checkbox:checked').each(function(i){
-                typeselected[i] = jQuery(this).val();
-            });
+         jQuery('#professional-type').click(function(){
+             var typeselected = jQuery('.pro-types:checked').serialize();
+            ajaxurl,
+                {
+                'action': 'add_pro_type',
+                'typeselected': typeselected
+            },
+                function(response) {
+                    alert(response);
+                    jQuery("#typesuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+            }         
+        });
+        
+            jQuery("#professional-type").click(function(){    
 
-            jQuery.post(
+            var typeselected = jQuery('.pro-types:checked').serialize();
 
+                jQuery.post( 
                 ajaxurl,
                     {   
-                        'action': 'add_pro_types',
+                        'action': 'add_pro_type',
                         'typeselected': typeselected
                     }, 
                     function(response){
-alert(response);  
-                    jQuery("#typesuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+
+                    jQuery("#typesuccess").slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);    
+
+                }
             );
-        });
+        }); 
     
         jQuery("#submit").click(function() {
         
@@ -407,7 +550,46 @@ alert(response);
                
             }
         );
-    }); 
+    });
+        
+    jQuery('.approvebiz').click(function(){
+            var approvedecid = jQuery(this).attr('id');
+            var approveclass = ".decrequest-" + approvedecid; 
+
+            jQuery.post(
+
+                ajaxurl,
+                    {   
+                        'action': 'approve_biz_request',
+                        'approvebizrequest': approvedecid
+                    }, 
+                    function(response){
+
+                    jQuery(approveclass).slideDown(800).fadeOut(400);    
+                    jQuery("#approvesuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                }
+            );
+        });
+        
+        jQuery('.removebiz').click(function(){
+            var removedecid = jQuery(this).attr('id');
+            var removeclass = ".decrequest-" + removedecid; 
+
+            jQuery.post(
+
+                ajaxurl,
+                    {   
+                        'action': 'remove_biz_request',
+                        'removebizrequest': removedecid
+                    }, 
+                    function(response){
+
+                    jQuery(removeclass).slideDown(800).fadeOut(400);    
+                    jQuery("#removesuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                }
+            );
+        });
+        
 });
  
 </script>

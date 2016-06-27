@@ -1,5 +1,6 @@
 <?php
 session_start();
+global $profiles_pages;
 /**
  * Template Name: Client Profile
  *
@@ -67,6 +68,18 @@ get_header(); ?>
                             <?php echo get_wp_user_avatar($single_dec_member, 96); ?>                     
                         </div>                            
                         </a>
+                        
+                        <div class="pro-type">
+                            <ul>
+                            <?php $pro_types = $profile_pages->get_pro_type_readable($single_dec_member);
+                            
+                            foreach($pro_types as $pro_type): ?>
+                                
+                            
+                                <li><?php echo $pro_type; ?></li>   
+                            <?php endforeach; ?>    
+                            </ul>
+                        </div>
                         
                         <div class="dec-status">
                             

@@ -1,6 +1,6 @@
 <?php
 
-if(!is_user_logged_in()) wp_safe_redirect('/');
+//if(!is_user_logged_in()) return;
 $user_role = $current_user->roles[0];
 
 $decstatus = get_user_meta($current_user->ID, 'decstatus', true);
@@ -8,7 +8,8 @@ $decmessage = get_user_meta($current_user->ID, 'decmessage', true);
 $mydec = null !== get_user_meta($current_user->ID, 'mydec', false) ? get_user_meta($current_user->ID, 'mydec', false) : array( 0 => array());
 $decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "no dec status";
 $current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
-$biz_title = array("client" => "dec", "professional" => "Followers", "business" => "Current Professoinal");  
+$biz_title = array("client" => "dec", "professional" => "Followers", "business" => "Current Professoinal"); 
+$professional_types = array("tattoo" => "Tattoo Artist", "makeup" => "Makeup Artist", "hair" => "Hair Stylist", "bar" => "Bartender", "other" => "Other");
 
 $my_dec_info = array();
 
@@ -86,6 +87,12 @@ get_header();
                         </div>
                             
                         </a>
+                        
+                        <div class="dec-status">
+                            
+                            <?php echo get_user_meta($single_dec_member->ID, 'decstatus', true); ?>
+                            
+                        </div>
                         
                         <div class="dec-status">
                             

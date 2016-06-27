@@ -10,37 +10,52 @@ class Decstatus {
     
     public function __construct(){
         
-        add_action( 'wp_ajax_add_decstatus',           array($this, 'prefix_ajax_add_decstatus') );
-        add_action( 'wp_ajax_nopriv_add_decstatus',    array($this, 'prefix_ajax_add_decstatus') );
-        add_action( 'wp_ajax_add_decmessage',          array($this, 'prefix_ajax_add_decmessage') );
-        add_action( 'wp_ajax_nopriv_add_decmessage',   array($this, 'prefix_ajax_add_decmessage') );
-        add_action( 'wp_ajax_remove_decmember',        array($this, 'prefix_ajax_remove_decmember') );
-        add_action( 'wp_ajax_nopriv_remove_decmember', array($this, 'prefix_ajax_remove_decmember') );
-        add_action( 'wp_ajax_add_decmember',        array($this, 'prefix_ajax_add_decmember') );
-        add_action( 'wp_ajax_nopriv_add_decmember', array($this, 'prefix_ajax_add_decmember') );
+        add_action( 'wp_ajax_add_decstatus',            array($this, 'prefix_ajax_add_decstatus') );
+        add_action( 'wp_ajax_nopriv_add_decstatus',     array($this, 'prefix_ajax_add_decstatus') );
+        add_action( 'wp_ajax_add_decmessage',           array($this, 'prefix_ajax_add_decmessage') );
+        add_action( 'wp_ajax_nopriv_add_decmessage',    array($this, 'prefix_ajax_add_decmessage') );
+        add_action( 'wp_ajax_remove_decmember',         array($this, 'prefix_ajax_remove_decmember') );
+        add_action( 'wp_ajax_nopriv_remove_decmember',  array($this, 'prefix_ajax_remove_decmember') );
+        add_action( 'wp_ajax_add_decmember',            array($this, 'prefix_ajax_add_decmember') );
+        add_action( 'wp_ajax_nopriv_add_decmember',     array($this, 'prefix_ajax_add_decmember') );
         add_action( 'wp_ajax_request_decmember',        array($this, 'prefix_ajax_request_decmember') );
         add_action( 'wp_ajax_nopriv_request_decmember', array($this, 'prefix_ajax_request_decmember') );
-        add_action( 'wp_ajax_approve_pro',        array($this, 'prefix_ajax_approve_pro') );
-        add_action( 'wp_ajax_nopriv_approve_pro', array($this, 'prefix_ajax_appove_pro') );
-        add_action( 'wp_ajax_remove_pro',        array($this, 'prefix_ajax_remove_pro') );
-        add_action( 'wp_ajax_nopriv_remove_pro', array($this, 'prefix_ajax_remxzzzove_pro') );
-        add_action( 'wp_ajax_remove_biz',        array($this, 'prefix_ajax_remove_biz') );
-        add_action( 'wp_ajax_nopriv_remove_biz', array($this, 'prefix_ajax_remove_biz') );
+        add_action( 'wp_ajax_approve_pro',              array($this, 'prefix_ajax_approve_pro') );
+        add_action( 'wp_ajax_nopriv_approve_pro',       array($this, 'prefix_ajax_appove_pro') );
+        add_action( 'wp_ajax_remove_pro',               array($this, 'prefix_ajax_remove_pro') );
+        add_action( 'wp_ajax_nopriv_remove_pro',        array($this, 'prefix_ajax_remove_pro') );
+        add_action( 'wp_ajax_remove_biz',               array($this, 'prefix_ajax_remove_biz') );
+        add_action( 'wp_ajax_nopriv_remove_biz',        array($this, 'prefix_ajax_remove_biz') );
+        add_action( 'wp_ajax_add_pro_type',             array($this, 'prefix_ajax_add_pro_type') );
+        add_action( 'wp_ajax_nopriv_add_pro_type',      array($this, 'prefix_ajax_add_pro_type') );
     }
     
     public function prefix_ajax_add_decmember() {
         
         global $current_user;
         
+        $user_role = $current_user->roles[0];
+        
         $adddecid = isset($_POST['adddecid']) ? $_POST['adddecid'] : "";
         
         $current_dec_members = get_user_meta($current_user->ID, 'mydec', false);
         
+        $current_followers = get_user_meta($adddecid, 'mydec', false);
+        
         $current_dec_members = array() !== $current_dec_members ? $current_dec_members : array(0 => array());
         
+        $current_followers = array() !== $current_followers ? $current_followers : array(0 => array());
+        
         $new_array = array_merge($current_dec_members[0], array($adddecid));
+        
+        $new_followers = array_merge($current_followers[0], array($current_user->ID));
        
         update_user_meta($current_user->ID, 'mydec', $new_array);
+        
+        if($user_role === 'client'){
+            
+            update_user_meta($adddecid, 'mydec', $new_followers);
+        }
         
         print_r($new_array, true);
     }
@@ -138,6 +153,17 @@ class Decstatus {
         echo "Dec status=" . $decstatus;
     }
     
+     public function prefix_ajax_add_pro_type() {
+        
+        global $current_user;
+        
+        $pro_types = isset($_POST['typeselected']) ? $_POST['typeselected'] : ""; 
+        
+        update_user_meta( $current_user->ID, 'protype', $pro_types );
+    
+        print_r($protypes);
+    }
+    
     public function prefix_ajax_add_decmessage() {
         
         global $current_user;
@@ -159,6 +185,7 @@ class Decstatus {
         
         $current_dec_members = get_user_meta($current_user->ID, 'mydec', false);
         $current_biz = get_user_meta($rmdecid, 'mybusinesses', false);
+        $client_pro = get_user_meta($rmdecid, 'mydec', false);
         
         $new_array = array();
         
@@ -187,6 +214,22 @@ class Decstatus {
                 }
 
                 update_user_meta($rmdecid, 'mybusinesses', $new_biz);
+            }
+        }
+        
+        if($user_role === 'client'){
+            $new_follower = array();
+
+            if(isset($client_pro[0])){
+                foreach( $client_follower[0] as $c_followers => $c_follower){
+
+                    if(intval($c_follower) !== intval($current_user->ID)){
+
+                        $new_follower[] = $c_pro;
+                    }
+                }
+
+                update_user_meta($rmdecid, 'mydec', $new_follower);
             }
         }
         //print_r($rmdecid); 

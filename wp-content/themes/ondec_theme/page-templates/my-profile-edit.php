@@ -11,7 +11,7 @@ global $current_user, $wp_roles;
  * @package ondec_custom_theme
  */
 
-$user_role = $current_user->roles[0];
+$user_role = isset($current_user->roles[0]) ? $current_user->roles[0] : "";
 
 switch($user_role){
         
@@ -32,4 +32,8 @@ switch($user_role){
     require_once('user-edit-templates/client-profile-edit.php');
     
     break;
+        
+    case 'administrator';
+        
+    require_once('user-edit-templates/professional-profile-edit.php');
 }

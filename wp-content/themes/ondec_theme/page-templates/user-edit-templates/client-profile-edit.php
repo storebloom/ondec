@@ -35,8 +35,18 @@ get_header();
                         
             <form id="decform" name="decform">
                 <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
+                <select id="decmood">
+                    <option disabled selected value="">Choose mood</option>
+                    <option value="Happiness">Happiness</option>
+                    <option value="Sadness">Sadness</option>
+                    <option value="Excitement">Excitement</option>
+                    <option value="Coolness">Coolness</option>
+                </select>
                 <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             </form>
+            
+            <a href="/clients/<?php echo $current_user->user_login; ?>">view my profile</a>
+            
             <span>
             <div style="display:none;" id="msgsuccess">success!</div>
             </span>
@@ -329,8 +339,10 @@ get_footer();
                 jQuery('#submit').removeClass('currently-offdec').addClass('currently-ondec');
 
                 jQuery( "#decstatus").val('offdec');
+                
+                var decmood = jQuery('#decmood option:selected').val() + " ";
 
-                var decstatus = 'ondec';
+                var decstatus = decmood + 'ondec';
 
                 jQuery( "#submit" ).val('Currently ondec');
             } else {
@@ -339,7 +351,7 @@ get_footer();
 
                 jQuery( "#decstatus").val('ondec');
 
-                var decstatus = 'offdec';
+                var decstatus = decmood + ' ' + 'offdec';
 
                 jQuery( "#submit").val('Currently offdec');
             }    
@@ -348,7 +360,7 @@ get_footer();
                 ajaxurl,
                     {   
                         'action': 'add_decstatus',
-                        'decstatus': decstatus,
+                        'decstatus': decstatus
                     }, 
                     function(response){
 

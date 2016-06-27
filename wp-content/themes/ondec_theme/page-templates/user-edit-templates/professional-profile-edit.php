@@ -9,6 +9,7 @@ $mydec = null !== get_user_meta($current_user->ID, 'mydec', false) ? get_user_me
 $decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "no dec status";
 $current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
 $mybusinesses = null !== get_user_meta($current_user->ID, 'mybusinesses', false) ? get_user_meta($current_user->ID, 'mybusinesses', false) : array( 0 => array());
+$professional_types = array("tattoo" => "Tattoo Artist", "makeup" => "Makeup Artist", "hair" => "Hair Stylist", "bar" => "Bartender", "other" => "Other");
 
 $my_dec_info = array();
 $my_business_info = array();    
@@ -49,7 +50,7 @@ get_header();
                 <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
                 <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             </form>
-            
+            <a href="/professionals/<?php echo $current_user->user_login; ?>">view my profile</a>
             <span>
                 <div style="display:none;" id="msgsuccess">success!</div>
             </span>
@@ -63,12 +64,6 @@ get_header();
             
             <div class="od-my-followers">
                 
-                <span>
-                                
-                    <div style="display:none;" id="rmsuccess">successfully removed member!</div>
-                                
-                </span>
-                
                 <ul>
                     
                 <?php foreach($my_dec_info as $single_dec_member) :
@@ -79,7 +74,7 @@ get_header();
                 ?>
                     <li class="decmember-<?php echo $single_dec_member->ID; ?>">
                         
-                        <a href='/<?php echo $user_type[0].'s/'.$user_information->user_login; ?>'>
+                        <a href='/clients/<?php echo $user_information->user_login; ?>'>
                             
                             <div class="dec-name">
 
@@ -94,17 +89,7 @@ get_header();
                             </div>
                             
                         </a>
-                        
-                        <div>
-                            
-                            <form id="rmform-<?php echo $single_dec_member->ID; ?>" name="rmform-<?php echo $single_dec_member->ID; ?>">
-                                
-                                <input id="<?php echo $single_dec_member->ID; ?>" class="decremove" type="button" value="remove from list">
-                                
-                            </form>
-                            
-                        </div>
-                        
+
                     </li>
                     
                 <?php endforeach; ?>
@@ -164,7 +149,26 @@ get_header();
                 </ul>
 
             </div>
+            
+            <div class="professional-type">
+                
+                <form id="profesional-type-<?php echo $current_user->ID; ?>" name="professional-type-<?php echo $current_user->ID; ?>">
 
+                    <h3>Choose your professional type</h3>
+                    <span>
+
+                    <div style="display:none;" id="typesuccess">successfully updated!</div>
+                    
+                </span>
+                        <?php foreach($professional_types as $profession => $professional_readable): ?>
+                            <input type="checkbox" value="<?php echo $profession; ?>"><?php echo $professional_readable; ?></input>
+                        <?php endforeach; ?>
+
+                    <input id="<?php echo $current_user->ID; ?>" class="professional-type" type="button" value="update">
+                </form>
+            </div>
+            
+            <h3>Profile Photo</h3>
             <?php                /* Get user info. */
 
             //get_currentuserinfo(); //deprecated since 3.1
@@ -329,6 +333,26 @@ get_footer();
                     }
                 );
             }
+        });
+        
+         jQuery('.professional-type').click(function(){
+            var proid = jQuery(this).attr('id');
+            var typeselected = [];
+            jQuery(':checkbox:checked').each(function(i){
+                typeselected[i] = jQuery(this).val();
+            });
+
+            jQuery.post(
+
+                ajaxurl,
+                    {   
+                        'action': 'add_pro_types',
+                        'typeselected': typeselected
+                    }, 
+                    function(response){
+alert(response);  
+                    jQuery("#typesuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+            );
         });
     
         jQuery("#submit").click(function() {

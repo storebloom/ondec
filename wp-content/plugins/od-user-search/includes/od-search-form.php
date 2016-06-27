@@ -40,7 +40,7 @@
                         
                         if($user_role === 'professional' && $user_type[0] === 'business' ){
                             
-                        echo "<li class='user-result'><a href='/".$user_type[0]."s/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
+                        echo "<li class='user-result'><a href='/".$user_type[0]."es/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
                         <div class='decrequestbutton_wrapper'>
                         <span style='display: none;' id='successrequest-".$user_value[0]."'>Request submitted! ". $mypromsg."</span>
                         <form id='decrequestmeform-".$user_value[0]."' name='decrequestmeform'>
@@ -51,6 +51,18 @@
                         </li></br>
                     "; } elseif($user_role === 'business' && $user_type[0] === 'professional'){
                              echo "<li class='user-result'><a href='/".$user_type[0]."s/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
+                        <div class='decaddbutton_wrapper'>
+                        <span style='display: none;' id='successadd-".$user_value[0]."'>I'm on your dec list now! ". $mypromsg."</span>
+                        <form id='decaddmeform-".$user_value[0]."' name='decaddmeform'>
+                            <input type='hidden' id='decaddmebutton-".$user_value[0]."' value='".$user_value[0]."'>
+                            <input type='button' id='addtoyourdec-".$user_value[0]."' value='".$add_msg[$user_role]."'>
+                        </form>
+                        </div>
+                        </li></br>
+                    ";
+                        } elseif($user_role === 'client' && $user_type[0] === 'professional'){
+       
+                            echo "<li class='user-result'><a href='/".$user_type[0]."s/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
                         <div class='decaddbutton_wrapper'>
                         <span style='display: none;' id='successadd-".$user_value[0]."'>I'm on your dec list now! ". $mypromsg."</span>
                         <form id='decaddmeform-".$user_value[0]."' name='decaddmeform'>

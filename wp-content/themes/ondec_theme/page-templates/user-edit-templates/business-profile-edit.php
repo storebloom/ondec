@@ -45,6 +45,9 @@ get_header();
                 <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
                 <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             </form>
+            
+            <a href="/businesses/<?php echo $current_user->user_login; ?>">view my profile</a>
+            
             <span>
             <div style="display:none;" id="msgsuccess">success!</div>
             </span>

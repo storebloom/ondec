@@ -18,12 +18,14 @@ class Profile_Pages {
     
         add_rewrite_tag('%professional%', '([^&]+)');
         add_rewrite_tag('%business%', '([^&]+)');
+        add_rewrite_tag('%client%', '([^&]+)');
     }
 
     public function custom_rewrite_rule() {    
         
         add_rewrite_rule('^professionals/([^/]*)/?','index.php?page_id=22&professional=$matches[1]','top');
         add_rewrite_rule('^businesses/([^/]*)/?','index.php?page_id=27&business=$matches[1]','top');
+        add_rewrite_rule('^clients/([^/]*)/?','index.php?page_id=42&client=$matches[1]','top');
     }
 }
 

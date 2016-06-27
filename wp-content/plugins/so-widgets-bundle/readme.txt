@@ -2,8 +2,8 @@
 Tags: bundle, widget, button, slider, image, carousel, price table, google maps, tinymce, social links
 Requires at least: 3.9
 Tested up to: 4.5.2
-Stable tag: 1.6
-Build time: 2016-06-21T15:53:26+02:00
+Stable tag: 1.6.1
+Build time: 2016-06-24T11:49:37+02:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis
 
@@ -50,6 +50,14 @@ The SiteOrigin Widgets Bundle is the perfect platform to build widgets for your 
 3. An example of the button widget.
 
 == Changelog ==
+
+= 1.6.1 - 24 June 2016 =
+* Social Links: Fixed auto-filling of network colors.
+* Social Links: Added 500px network.
+* Social Links: Added title tag to link tags.
+* Maps: Prevent JS error in when maps widget script is enqueued but widget isn't displayed.
+* Maps: Made API field more prominent as it's now required by the Google Maps API.
+* Added more general error checking.
 
 = 1.6 - 21 June 2016 =
 * Added builder field.

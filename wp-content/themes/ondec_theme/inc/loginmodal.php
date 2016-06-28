@@ -63,7 +63,7 @@
     </div>
 </div>    
 
-<a id="openModal">Login</a>
+<a class="login-button" id="openModal">Login</a>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {

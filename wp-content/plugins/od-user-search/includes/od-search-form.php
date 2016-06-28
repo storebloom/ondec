@@ -1,6 +1,6 @@
 <form action="" name="od-user-search" method="post" id="od-user-search">
     <input class="typeahead" type="text" name="typeahead"/>
-    <input id="openSearchModal" type="submit"/>
+    <input id="openSearchModal" type="submit" value="search"/>
 </form>
 
 <div class="od-searchBoxWrap">
@@ -9,7 +9,7 @@
     </div>
     <div class="vertical-offset">
         <div class="od-searchBox">
-            <ul style='overflow:scroll; max-height: 400px;' class="modal_results">
+            <ul style='max-height: 400px;' class="modal_results">
             <?php if(isset($_POST['typeahead'])){
                 
                 global $current_user;
@@ -71,6 +71,10 @@
                             <input type='button' id='requesttoyourdec-".$user_value[0]."' value='Request Professional'>
                         </form>
                         </div>
+                        </li></br>
+                    "; } elseif(!isset($user_role) && $user_type[0] !== 'client'){
+       
+                            echo "<li class='user-result'><a href='/".$user_type[0]."s/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
                         </li></br>
                     "; }
                 }}} ?>

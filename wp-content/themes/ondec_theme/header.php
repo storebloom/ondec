@@ -38,9 +38,9 @@ if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/
 		<div class="site-branding">
 			<?php
 			if ( is_front_page() && is_home() ) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+                <img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" />
 			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
+				<img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" />
 			<?php
 			endif;
 
@@ -55,7 +55,7 @@ if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'ondec_theme' ); ?></button>
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
             <?php if(is_user_logged_in()): ?>
-                <a href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
+                <a class="login-button" href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
             <?php else: ?>
                 <?php include_once( "inc/loginmodal.php"); ?>
             <?php endif; ?>

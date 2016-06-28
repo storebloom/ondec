@@ -49,6 +49,8 @@ get_header(); ?>
                     
                     $my_dec_info = get_user_meta( $user_info->ID, 'mydec', false);
                     
+                    if(isset($my_dec_info[0])):
+                    
                     foreach($my_dec_info[0] as $single_dec_member) :
                     
                     $user_information = get_userdata($single_dec_member);
@@ -95,7 +97,7 @@ get_header(); ?>
                         </div>
                     </li>
                     
-                <?php endforeach; ?>
+                <?php endforeach; endif; ?>
                     
                 </ul>
             </div>

@@ -1,6 +1,6 @@
 <?php
-
 session_start();
+
 global $current_user, $wp_roles;
 /**
  * Template Name: My Profile
@@ -36,4 +36,12 @@ switch($user_role){
     case 'administrator';
         
     require_once('user-edit-templates/professional-profile-edit.php');
+    
+    break;
+        
+    case '';
+        
+    require_once('user-edit-templates/professional-profile-edit.php');
+        
+    
 }

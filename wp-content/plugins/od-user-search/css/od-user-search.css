@@ -1,3 +1,6 @@
+#od-user-search{
+    float: left;
+}
 .bs-example{
 	font-family: sans-serif;
 	position: relative;
@@ -11,7 +14,11 @@
 	line-height: 30px;
 	outline: medium none;
 	padding: 8px 12px;
-	width: 396px;
+	width: 200px;
+}
+
+.twitter-typeahead{
+    display: inline!important;
 }
 .typeahead {
 	background-color: #FFFFFF;
@@ -32,7 +39,7 @@
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	margin-top: 12px;
 	padding: 8px 0;
-	width: 422px;
+	width: 200px;
 }
 .tt-suggestion {
 	font-size: 24px;
@@ -71,11 +78,13 @@
 }
     
 .od-searchBox { /* The actual box, centered in the fixed-position div */
-    width:405px; /* Whatever width you want the box to be */
+    width:300px; /* Whatever width you want the box to be */
     position:relative;
     margin:0 auto;
     /* Everything below is just visual styling */
     background-color:white;
     padding:10px;
     border:1px solid black;
+    overflow: scroll;
+    max-height: 300px;
 }

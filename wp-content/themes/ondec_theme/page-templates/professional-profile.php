@@ -1,6 +1,6 @@
 <?php
 session_start();
-global $profiles_pages;
+global $profiles_pages, $current_user;
 /**
  * Template Name: Professional Profile
  *
@@ -24,6 +24,7 @@ get_header(); ?>
                     
                     $user_info = get_user_by('login', $wp_query->query_vars['professional'] );
                     
+                    $is_not_on_list = $profile_pages->is_not_on_list($user_info->ID);
                 }
                 
             ?>
@@ -39,16 +40,69 @@ get_header(); ?>
                             
                 $user_location = intval(get_user_meta($user_info->ID, 'current_location', true));
 
-                $user_information = get_userdata($user_location); ?>
+                $user_information = get_userdata($user_location);
                 
-                Current Location:
-                <a href='/businesses/<?php echo $user_information->user_login; ?>'>                
+                if(isset($user_information->display_name)) : ?>
+                    Current Location:
+                    <a href='/businesses/<?php echo $user_information->user_login; ?>'>                
 
-                    <?php echo $user_information->display_name; ?>
+                        <?php echo isset($user_information->display_name) ? $user_information->display_name : ""; ?>
 
-                </a>
+                    </a>
+                <?php endif; ?>
             </div>
-                                
+            
+            <?php if($current_user->roles[0] === 'client' && $is_not_on_list): ?>
+            
+            <div class='decaddbutton_wrapper'>
+                <span style='display: none;' id='successadd-<?php echo $user_info->ID; ?>'>I'm on your dec list now!</span>
+                <form id='decaddmeform-<?php echo $user_info->ID; ?>' name='decaddmeform'>
+                    <input type='hidden' id='decaddmebutton-<?php echo $user_info->ID; ?>' value='<?php echo $user_info->ID; ?>'>
+                    <input type='button' id='addtoyourdec-<?php echo $user_info->ID; ?>' value='Follow Me'>
+                </form>
+            </div>
+            
+            <?php elseif($current_user->roles[0] === 'business'): ?>
+            
+            <div class='decrequestbutton_wrapper'>
+                <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Request submitted!</span>
+                <form id='decrequestmeform-<?php echo $user_info->ID; ?>' name='decrequestmeform'>
+                    <input type='hidden' id='decrequestmebutton-<?php echo $user_info->ID; ?>' value='<?php echo $user_info->ID; ?>'>
+                    <input type='button' id='requesttoyourdec-<?php echo $user_info->ID; ?>' value='Request Professional'>
+                </form>
+            </div>
+            
+            <?php endif; ?>
+             <script>
+                        jQuery('#addtoyourdec-<?php echo $user_info->ID; ?>' ).click(function(){
+                            var adddecid = jQuery('#decaddmebutton-<?php echo $user_info->ID; ?>').val();
+                            jQuery.post( 
+                                ajaxurl,
+                                    {   
+                                        'action': 'add_decmember',
+                                        'adddecid': adddecid
+                                    }, 
+                                    function(response){
+                                    jQuery('#decaddmeform-<?php echo $user_info->ID; ?>').slideDown(800).fadeOut(400);    
+                                    jQuery('#successadd-<?php echo $user_info->ID; ?>').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);   
+                                }
+                            );
+                        });
+                        jQuery('#requesttoyourdec-<?php echo $user_info->ID; ?>').click(function(){
+                        var requestdecid = jQuery('#decrequestmebutton-<?php echo $user_info->ID; ?>').val();
+                        jQuery.post( 
+                            ajaxurl,
+                                {   
+                                    'action': 'request_decmember',
+                                    'requestdecid': requestdecid
+                                }, 
+                                function(response){
+                                jQuery('#decrequestmeform-<?php echo $user_info->ID; ?>').slideDown(800).fadeOut(400);    
+                                jQuery('#successrequest-<?php echo $user_info->ID; ?>').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);
+                            }
+                        );
+                    });  
+                    </script>                   
             <div class="profile-part profile-message">
                 <h3>Status:</h3>
                 <?php echo get_user_meta($user_info->ID, 'decmessage', true); ?>
@@ -61,8 +115,10 @@ get_header(); ?>
                 <h3>My Followers:</h3>
                 <ul>
                     <?php 
-                    
+                   
                     $my_dec_info = get_user_meta( $user_info->ID, 'mydec', false);
+                     
+                    if(isset($my_dec_info[0])) :
                     
                     foreach($my_dec_info[0] as $single_dec_member) :
                     
@@ -109,8 +165,7 @@ get_header(); ?>
                             <?php echo get_user_meta($single_dec_member, 'decmessage', true); ?>
                         </div>
                     </li>
-                    
-                <?php endforeach; ?>
+                <?php endforeach; endif; ?>
                     
                 </ul>
             </div>

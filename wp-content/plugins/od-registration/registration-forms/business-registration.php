@@ -50,17 +50,17 @@ class Business_Registration {
         </div>
 
         <div>
-        <label for="firstname">First Name</label>
+        <label for="firstname">Contact First Name</label>
         <input type="text" name="fname" value="' . ( isset( $_POST['fname']) ? $first_name : null ) . '">
         </div>
 
         <div>
-        <label for="website">Last Name</label>
+        <label for="website">Contact Last Name</label>
         <input type="text" name="lname" value="' . ( isset( $_POST['lname']) ? $last_name : null ) . '">
         </div>
 
         <div>
-        <label for="nickname">Nickname</label>
+        <label for="nickname">Business Name</label>
         <input type="text" name="nickname" value="' . ( isset( $_POST['nickname']) ? $nickname : null ) . '">
         </div>
 

@@ -1,3 +1,18 @@
+#page {
+    max-width: 98%;
+    margin: auto;
+    
+    .site-branding{
+        text-align: center;
+        img.site-logo{ max-width: 350px; width: 100%;}
+    }
+    
+    footer{
+        .site-info{
+            text-align: center;
+        }
+    }
+}
 .sticky {
 	display: block;
 }

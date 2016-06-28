@@ -1,5 +1,4 @@
 <?php
-//if(!is_user_logged_in()) return;
 $user_role = $current_user->roles[0];
 
 $decstatus = get_user_meta($current_user->ID, 'decstatus', true);
@@ -37,25 +36,8 @@ get_header();
             <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
             <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
             
-            <?php if($user_role !== "business" ) : ?>
-            <h3>current dec status:</h3>
-                        
-            <form id="decform" name="decform">
-                <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
-                <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
-            </form>
-            
-            <a href="/businesses/<?php echo $current_user->user_login; ?>">view my profile</a>
-            
-            <span>
-            <div style="display:none;" id="msgsuccess">success!</div>
-            </span>
-            <form id="decmsgform" name="decmsgform">
-                <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
-                <input id="msgsubmit" type="button" value="update">
-            </form>
-            <?php endif; ?> 
-        
+            <p><a href="/businesses/<?php echo $current_user->user_login; ?>">view my profile</a>
+            </p>
             <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
             
             <div class="od-my-list">

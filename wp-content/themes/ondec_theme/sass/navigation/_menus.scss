@@ -3,12 +3,23 @@
 	display: block;
 	float: left;
 	width: 100%;
+    
+    a.login-button{
+        float: left;
+        padding-right: 2rem;
+    }
 
 	ul {
 		display: none;
 		list-style: none;
-		margin: 0;
+		margin: auto;
 		padding-left: 0;
+        width: 80%;
+        
+        li {
+            padding-right: 2rem;
+        
+        }
 
 		ul {
 			box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);

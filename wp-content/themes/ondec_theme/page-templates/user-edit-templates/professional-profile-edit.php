@@ -1,6 +1,4 @@
 <?php
-
-//if(!is_user_logged_in()) return;
 $user_role = $current_user->roles[0];
 
 $decstatus = get_user_meta($current_user->ID, 'decstatus', true);

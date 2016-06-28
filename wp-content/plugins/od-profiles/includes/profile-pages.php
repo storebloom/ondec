@@ -55,6 +55,26 @@ class Profile_Pages {
         }
         
     }
+    
+    public function is_not_on_list($id){
+        
+        global $current_user;
+        
+        $current_dec = get_user_meta($current_user->ID, 'mydec', true);
+
+        if(isset($current_dec)){
+            
+            foreach($current_dec as $dec_members){
+                
+                if(intval($dec_members) === intval($id)){
+                    
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
 }
 
 $profile_pages = new Profile_Pages();

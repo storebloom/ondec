@@ -86,9 +86,10 @@ class Client_Registration {
             $role       = "";        
         
         if(is_user_logged_in ()){ 
-            echo '<h2>You are already logged in.  To create a new account log out first and revist this form.</h2>';
-            exit;
+            echo '<h2>You are already logged in.  To create a new account log out first and revist this form.</h2>
+            ';
         }
+        
         
         $baseplugin = str_replace('registration-forms', 'includes', __DIR__);
         

@@ -71,13 +71,16 @@ get_header(); ?>
                         
                         <div class="pro-type">
                             <ul>
-                            <?php $pro_types = $profile_pages->get_pro_type_readable($single_dec_member);
+                            <?php 
+                                if( "" !== get_user_meta($single_dec_member, 'protype', true) && null !== get_user_meta($single_dec_member, 'protype', true)){
+                                $pro_types = $profile_pages->get_pro_type_readable($single_dec_member);
                             
                             foreach($pro_types as $pro_type): ?>
                                 
                             
                                 <li><?php echo $pro_type; ?></li>   
-                            <?php endforeach; ?>    
+                            <?php endforeach; } ?>   
+                                
                             </ul>
                         </div>
                         

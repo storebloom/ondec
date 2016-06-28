@@ -38,7 +38,7 @@
                             $mypromsg =  "Refresh to see me.";
                         }
                         
-                        if($user_role !== 'client' ){
+                        if($user_role === 'professional' && $user_type[0] === "business" ){
                             
                         echo "<li class='user-result'><a href='/".$user_type[0]."es/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
                         <div class='decrequestbutton_wrapper'>
@@ -61,7 +61,18 @@
                         </div>
                         </li></br>
                     ";
-                        }
+                        }  elseif($user_role === 'business' && $user_type[0] === "professional" ){
+                            
+                        echo "<li class='user-result'><a href='/".$user_type[0]."es/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
+                        <div class='decrequestbutton_wrapper'>
+                        <span style='display: none;' id='successrequest-".$user_value[0]."'>Request submitted! ". $mypromsg."</span>
+                        <form id='decrequestmeform-".$user_value[0]."' name='decrequestmeform'>
+                            <input type='hidden' id='decrequestmebutton-".$user_value[0]."' value='".$user_value[0]."'>
+                            <input type='button' id='requesttoyourdec-".$user_value[0]."' value='Request Professional'>
+                        </form>
+                        </div>
+                        </li></br>
+                    "; }
                 }}} ?>
                 
             </ul>

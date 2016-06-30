@@ -38,9 +38,9 @@ if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/
 		<div class="site-branding">
 			<?php
 			if ( is_front_page() && is_home() ) : ?>
-                <img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" />
+               <a href="/"><img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
 			<?php else : ?>
-				<img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" />
+            <a href="/"><img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
 			<?php
 			endif;
 

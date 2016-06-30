@@ -14,8 +14,9 @@
                 
                 global $current_user;
     
-                $user_role = $current_user->roles[0];
-    
+                if($current_user->roles[0]){
+                    $user_role = $current_user->roles[0];
+                }
                 $add_msg = array('professional' => 'request business', 'business' => 'add pro', 'client' => 'follow me');
             
                 $rows = $od_user_search->get_user_modal_results($_POST['typeahead']);

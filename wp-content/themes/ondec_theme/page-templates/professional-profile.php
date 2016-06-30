@@ -216,6 +216,21 @@ get_header(); ?>
 
             </div>
             
+            <div class="profile-contact-form">
+                
+            <h3>Contact Me!</h3>
+                
+                <?php 
+                
+                echo do_shortcode('[contact-form-7 id="55" title="user contact form"]');
+                
+                echo "<script>
+    jQuery(document).ready(function() {
+    
+    jQuery(.wpcf7-dynamictext).val(".$user_info->email.") }); </script>" ?>
+            
+            </div>
+            
                 <?php the_content(); ?>
             
             <?php endwhile; endif; ?>

@@ -26,7 +26,7 @@ get_header(); ?>
                     
                     $is_not_on_list = $profile_pages->is_not_on_list($user_info->ID);
                 }
-                
+            
             ?>
             <h1 class="title-user-name"><?php echo $user_info->first_name . " " . $user_info->last_name; ?></h1>
             <div class="profile-part profile-image">
@@ -215,20 +215,14 @@ get_header(); ?>
                 </ul>
 
             </div>
-            
-            <div class="profile-contact-form">
-                
-            <h3>Contact Me!</h3>
-                
-                <?php 
-                
-                echo do_shortcode('[contact-form-7 id="55" title="user contact form"]');
-                
-                echo "<script>
-    jQuery(document).ready(function() {
-    
-    jQuery(.wpcf7-dynamictext).val(".$user_info->email.") }); </script>" ?>
-            
+                <div class="messge-me-section">
+                <p class="message-sent-sucess" style="display:none;">
+                 Your message has been sent!    
+                </p>    
+                <form id="msguserform" name="msguserform">
+                    <input id="usermsginput" type="text" placeholder="write message here" name="decmessage" class="<?php echo $user_info->ID; ?>" value="">
+                    <input id="msgsend" type="button" value="send">
+                </form>
             </div>
             
                 <?php the_content(); ?>
@@ -239,4 +233,32 @@ get_header(); ?>
 	</div><!-- #primary -->
 
 <?php
-get_footer();
+get_footer(); ?>
+
+<script>
+    jQuery(document).ready(function() {
+        
+        jQuery("#msgsend").click(function(){    
+            
+        var usermessage = jQuery('#usermsginput').val();
+        var msgid = jQuery('#usermsginput').attr('class');
+            
+            jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'add_usermessage',
+                    'usermessage': usermessage,
+                    'msgid' : msgid
+                }, 
+                function(response){
+
+                jQuery(".message-sent-sucess").slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);    
+               
+            }
+        );
+    });
+});
+</script>
+        
+<?php
+

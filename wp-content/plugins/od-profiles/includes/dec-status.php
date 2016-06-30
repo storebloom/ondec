@@ -36,6 +36,8 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_approve_biz_request',      array($this, 'prefix_ajax_approve_biz_request') );
         add_action( 'wp_ajax_remove_biz_request',             array($this, 'prefix_ajax_remove_biz_request') );
         add_action( 'wp_ajax_nopriv_remove_biz_request',      array($this, 'prefix_ajax_remove_biz_request') );
+        add_action( 'wp_ajax_add_usermessage',             array($this, 'prefix_ajax_add_usermessage') );
+        add_action( 'wp_ajax_nopriv_add_usermessage',      array($this, 'prefix_ajax_add_usermessage') );
     }
     
     public function prefix_ajax_add_decmember() {
@@ -277,6 +279,29 @@ class Decstatus {
         $decmessage = isset($_POST['decmessage']) ? $_POST['decmessage'] : "";
         
         update_user_meta( $current_user->ID, 'decmessage', $decmessage ); 
+        
+        echo "success!";
+    }
+    
+    public function prefix_ajax_add_usermessage() {
+        
+        global $current_user;
+        
+        $usermessage = isset($_POST['usermessage']) ? $_POST['usermessage'] : "";
+        $msgid = isset($_POST['msgid']) ? $_POST['msgid'] : "";
+        
+        $usermessage_id = array( array($current_user->display_name => $usermessage) ); 
+        
+        $current_message_array = get_user_meta($msgid, 'my_messages', false);
+        
+        $current_messages = isset($current_message_array) ? $current_message_array : array(0 => array());
+        var_dump($current_messages[0] === NULL);
+        if(NULL === $current_messages[0]){
+        $new_message_array = array_merge($current_messages, $usermessage_id);
+        } else{
+        $new_message_array = array_merge($current_messages[0], $usermessage_id);
+        }
+        update_user_meta( $msgid, 'my_messages', $new_message_array ); 
         
         echo "success!";
     }

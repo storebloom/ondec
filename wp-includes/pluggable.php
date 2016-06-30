@@ -335,7 +335,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	 *
 	 * @param string $from_email Email address to send from.
 	 */
-	$phpmailer->From = apply_filters( 'wp_mail_from', $from_email );
+	//$phpmailer->From = apply_filters( 'wp_mail_from', $from_email );
 
 	/**
 	 * Filter the name to associate with the "from" email address.
@@ -344,7 +344,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	 *
 	 * @param string $from_name Name associated with the "from" email address.
 	 */
-	$phpmailer->FromName = apply_filters( 'wp_mail_from_name', $from_name );
+	//$phpmailer->FromName = apply_filters( 'wp_mail_from_name', $from_name );
 
 	// Set destination addresses
 	if ( !is_array( $to ) )

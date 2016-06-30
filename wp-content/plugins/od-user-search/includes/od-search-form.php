@@ -13,11 +13,12 @@
             <?php if(isset($_POST['typeahead'])){
                 
                 global $current_user;
-    
-                if($current_user->roles[0]){
+                
+                if(isset($current_user->roles[0])){
                     $user_role = $current_user->roles[0];
                 }
-                $add_msg = array('professional' => 'request business', 'business' => 'add pro', 'client' => 'follow me');
+    
+                $add_msg = array('' => '', 'professional' => 'request business', 'business' => 'add pro', 'client' => 'follow me');
             
                 $rows = $od_user_search->get_user_modal_results($_POST['typeahead']);
                 
@@ -73,11 +74,15 @@
                         </form>
                         </div>
                         </li></br>
-                    "; } elseif(!isset($user_role) && $user_type[0] !== 'client'){
+                    "; } elseif ($user_type[0] !== "business") {
        
                             echo "<li class='user-result'><a href='/".$user_type[0]."s/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
                         </li></br>
-                    "; }
+                    "; } elseif( $user_type[0] === 'business'){
+                            
+                             echo "<li class='user-result'><a href='/".$user_type[0]."es/".$user_value[3]."'>". get_wp_user_avatar($user_value[0], 96) . "</br>" .$decstatus. "</br>". $user_value[9] . " " . $user_value[4] . "</a>
+                        </li></br>";
+                        }
                 }}} ?>
                 
             </ul>

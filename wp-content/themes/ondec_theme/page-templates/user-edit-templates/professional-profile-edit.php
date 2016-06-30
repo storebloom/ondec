@@ -256,6 +256,21 @@ get_header();
             <p>
         <a href="edit-profile-info">Edit Profile</a>
             </p>
+            <div class="mymessages">
+            <h3>My Messages</h3>    
+            <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
+                
+                foreach($current_messages[0] as $messages){
+   
+                    if(is_array($messages)){
+                    foreach($messages as $user_name => $message){
+                        
+                        echo $user_name . ": " . $message . "</br></br>";
+                    }
+                    }
+                }
+                ?>
+            </div>
 <?php
 get_footer();
 

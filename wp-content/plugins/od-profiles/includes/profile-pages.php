@@ -12,6 +12,7 @@ class Profile_Pages {
         
         add_action('init', array($this, 'custom_rewrite_tag'), 10, 0);
         add_action('init', array($this, 'custom_rewrite_rule'), 10, 0);
+
     }
     
     public function custom_rewrite_tag() {
@@ -26,6 +27,16 @@ class Profile_Pages {
         add_rewrite_rule('^professionals/([^/]*)/?','index.php?page_id=22&professional=$matches[1]','top');
         add_rewrite_rule('^businesses/([^/]*)/?','index.php?page_id=27&business=$matches[1]','top');
         add_rewrite_rule('^clients/([^/]*)/?','index.php?page_id=42&client=$matches[1]','top');
+    }
+    
+    
+ 
+    public function new_mail_from($old) {
+     return 'notification@ondec.info';
+    }
+    
+    public function new_mail_from_name($old) {
+     return 'ondec user';
     }
     
     public function get_pro_type_readable($pro_id){
@@ -62,7 +73,7 @@ class Profile_Pages {
         
         $current_dec = get_user_meta($current_user->ID, 'mydec', true);
 
-        if(isset($current_dec)){
+        if(isset($current_dec) && $current_dec !== ""){
             
             foreach($current_dec as $dec_members){
                 

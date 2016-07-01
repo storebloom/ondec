@@ -428,13 +428,30 @@ a {
 ## Menus
 --------------------------------------------------------------*/
 .main-navigation {
-  clear: both;
-  display: block;
-  float: left;
-  width: 100%; }
+  float: right;
+  width: auto; }
+  .main-navigation .hello-user {
+    float: left;
+    padding: 1rem; }
+  .main-navigation #od-user-search {
+    padding-top: 1rem; }
+  .main-navigation #loginform p.login-remember {
+    display: none; }
+  .main-navigation #loginform p.login-submit {
+    padding-top: 1rem; }
+  .main-navigation #loginform p {
+    float: left;
+    padding-right: 1rem; }
+    .main-navigation #loginform p label {
+      display: block;
+      font-size: 12px; }
+    .main-navigation #loginform p input {
+      max-width: 173px;
+      height: 25px;
+      width: 100%; }
   .main-navigation a.login-button {
     float: left;
-    padding-right: 2rem; }
+    padding-top: 1rem; }
   .main-navigation ul {
     display: none;
     list-style: none;
@@ -464,7 +481,6 @@ a {
     float: left;
     position: relative; }
   .main-navigation a {
-    display: block;
     text-decoration: none; }
 
 /* Small menu. */
@@ -593,11 +609,23 @@ a {
 #page {
   max-width: 98%;
   margin: auto; }
-  #page .site-branding {
-    text-align: center; }
-    #page .site-branding img.site-logo {
-      max-width: 350px;
-      width: 100%; }
+  #page header {
+    width: 100%;
+    max-width: 980px;
+    margin: auto; }
+    #page header .site-branding {
+      float: left;
+      width: 40%;
+      padding-top: 1rem; }
+      #page header .site-branding img.site-logo {
+        max-width: 170px;
+        width: 100%;
+        padding-top: -.7rem; }
+      #page header .site-branding img.site-logo-logged-in {
+        max-width: 80px;
+        width: 100%;
+        float: left;
+        padding-right: 1rem; }
   #page footer .site-info {
     text-align: center; }
 

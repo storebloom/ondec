@@ -2,11 +2,25 @@
     max-width: 98%;
     margin: auto;
     
-    .site-branding{
-        text-align: center;
-        img.site-logo{ max-width: 350px; width: 100%;}
-    }
+    header{
+        width: 100%;
+        max-width: 980px;
+        margin: auto;
     
+        .site-branding{
+            float: left;
+            width: 40%;
+            padding-top: 1rem;
+            img.site-logo{ max-width: 170px; width: 100%; padding-top: -.7rem;}
+            img.site-logo-logged-in{
+                max-width: 80px; 
+                width: 100%; float: left;
+                padding-right: 1rem; 
+            }
+        }
+        
+    }
+
     footer{
         .site-info{
             text-align: center;

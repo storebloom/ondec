@@ -1,12 +1,41 @@
 .main-navigation {
-	clear: both;
-	display: block;
-	float: left;
-	width: 100%;
+	float: right;
+	width: auto;
+    
+    .hello-user{
+        float: left;
+        padding: 1rem;
+    }
+    
+    #od-user-search{
+        padding-top: 1rem;
+    }
+    
+    #loginform{
+        
+        p.login-remember{ display: none; }
+        
+        p.login-submit{ padding-top: 1rem; }
+        
+        p{ 
+            float: left;
+            padding-right: 1rem;
+            
+            label{
+                display: block;
+                font-size: 12px;
+            }
+            input{ 
+                max-width: 173px;
+                height: 25px;
+                width: 100%;
+            }
+        }
+    }
     
     a.login-button{
         float: left;
-        padding-right: 2rem;
+        padding-top: 1rem;
     }
 
 	ul {
@@ -70,7 +99,6 @@
 	}
 	
 	a {
-		display: block;
 		text-decoration: none;
 	}
 

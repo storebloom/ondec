@@ -3,7 +3,7 @@
 include_once('inc/autologin.php');
 
 if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>';}
-
+global $current_user;
 /**
  * The header for our theme.
  *
@@ -37,10 +37,11 @@ if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/
 	<header id="masthead" class="site-header" role="banner">
 		<div class="site-branding">
 			<?php
-			if ( is_front_page() && is_home() ) : ?>
+			if ( !is_user_logged_in()) : ?>
                <a href="/"><img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
 			<?php else : ?>
-            <a href="/"><img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
+            <a href="/"><img class="site-logo-logged-in" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
+            <?php od_user_search(); ?>
 			<?php
 			endif;
 
@@ -55,11 +56,26 @@ if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'ondec_theme' ); ?></button>
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
             <?php if(is_user_logged_in()): ?>
-                <a class="login-button" href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
-            <?php else: ?>
-                <?php include_once( "inc/loginmodal.php"); ?>
+            <div class="hello-user">Hello <a href="/my-profile"><?php echo $current_user->display_name; ?></a></div> <a class="login-button" href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
+            <?php else:
+            $site_url = home_url( '/' );
+            
+            $page = get_page_by_path( 'my-profile' , OBJECT );
+    
+            if(isset($page)){
+                $location = $site_url . 'my-profile';
+            } else {
+                $location = $site_url;
+            }
+
+            $args = array(
+                'echo'           => true,
+                'redirect'       => $location,
+            );
+            
+            echo wp_login_form($args);
+            ?>
             <?php endif; ?>
-           <?php od_user_search(); ?>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
 

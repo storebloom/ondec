@@ -260,16 +260,37 @@ get_header();
             <h3>My Messages</h3>    
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
                 
-                foreach($current_messages[0] as $messages){
+                if(isset($current_messages[0])){
+                
+                foreach($current_messages[0] as $messages) : 
    
                     if(is_array($messages)){
-                    foreach($messages as $user_name => $message){
+                    foreach($messages as $user_name => $message) : ?>
                         
-                        echo $user_name . ": " . $message . "</br></br>";
-                    }
-                    }
-                }
-                ?>
+                         <?php $user_info = get_user_by('login', $user_name); ?>
+                        
+                        <li class="message-item">
+                            <div class="message-date">
+                                
+                            </div>
+                            <div class="user-message-info">
+                                <div class="message-user">
+                                    <?php echo $user_name; ?>
+                                </div>
+                                <div class="prof-image-message">
+                                    <?php echo get_wp_user_avatar($user_info->ID, 36); ?>
+                                </div>
+                            </div>
+                            <div class="user-message">
+                                <div class="message-wrapper">
+                                    <?php echo $message; ?>
+                                </div>
+                                <div class="view-message">
+                                    <input id="view-button" class="view-button" type="button" value="read">
+                                </div>
+                            </div>
+                        </li>
+                   <?php endforeach; } endforeach; } ?>
             </div>
 <?php
 get_footer();

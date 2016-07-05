@@ -43,18 +43,12 @@ global $current_user;
             <a href="/"><img class="site-logo-logged-in" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
             <?php od_user_search(); ?>
 			<?php
-			endif;
-
-			$description = get_bloginfo( 'description', 'display' );
-			if ( $description || is_customize_preview() ) : ?>
-				<p class="site-description"><?php echo $description; /* WPCS: xss ok. */ ?></p>
-			<?php
 			endif; ?>
 		</div><!-- .site-branding -->
 
 		<nav id="site-navigation" class="main-navigation" role="navigation">
 			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'ondec_theme' ); ?></button>
-			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+
             <?php if(is_user_logged_in()): ?>
             <div class="hello-user">Hello <a href="/my-profile"><?php echo $current_user->display_name; ?></a></div> <a class="login-button" href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
             <?php else:

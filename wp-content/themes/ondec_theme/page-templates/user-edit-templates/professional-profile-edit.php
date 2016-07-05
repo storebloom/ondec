@@ -41,6 +41,42 @@ if($decstatus === "ondec" ){
 
 get_header(); 
 ?>
+<style type="text/css">
+
+.messageWrap { /* The div that shows/hides. */
+    display:none; /* starts out hidden */
+    z-index:40001; /* High z-index to ensure it appears above all content */
+}
+
+.messageOverlay { /* Shades out background when selector is active */
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-color:black;
+    opacity:.5; /* Sets opacity so it's partly transparent */
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE transparency */
+    filter:alpha(opacity=50); /* More IE transparency */
+    z-index:40001;
+}
+
+.vertical-offset { /* Fixed position to provide the vertical offset */
+    position:fixed;
+    top:30%;
+    width:100%;
+    z-index:40002; /* ensures box appears above overlay */  
+}
+    
+.messageBox { /* The actual box, centered in the fixed-position div */
+    width:405px; /* Whatever width you want the box to be */
+    position:relative;
+    margin:0 auto;
+    /* Everything below is just visual styling */
+    background-color:white;
+    padding:10px;
+    border:1px solid black;
+}
+</style>
+
 	<div id="primary" class="content-area">
         
 		<main id="main" class="site-main" role="main">
@@ -266,18 +302,28 @@ get_header();
                     
                     foreach($current_messages as $messagess) : 
                     
-                    foreach($messagess as $messages) :
+                    foreach(array_reverse($messagess) as $messages) :
                     
                     $user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
 
                 ?> 
                 
                   <li class="message-item">
-                            <div id="view-message" style="display:none;">
-                                <h3>
-                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
-                                </h3>
+                            <div style="display:none;" class="messageWrap-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">
+                            <div class="messageOverlay">
+                                &nbsp;
                             </div>
+                            <div class="vertical-offset">
+                                <div class="messageBox">
+                                    <div class="view-message-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >
+                                        <h3>
+                                            <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                        </h3>
+                                    </div>
+                                    <a id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                </div>
+                            </div>
+                        </div>  
                             <div class="message-date">
                                 <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
                             </div>
@@ -291,48 +337,38 @@ get_header();
                             </div>
                             <div class="user-message">
                                 <div class="message-wrapper">
-                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                    <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-message">
-                                    <input id="view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" class="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
                                 </div>
                             </div>
-                            <script>
-                                jQuery(document).ready(function() {
-                                    jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").click(function(){    
-
-                                        var message_id = jQuery(this).attr('class');
-
-                                        jQuery.post( 
-                                            ajaxurl,
-                                                {   
-                                                    'action': 'add_read_status',
-                                                    'message_id': message_id
-                                                }, 
-                                                function(response){
-                                                jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").addClass('read').val('read');
-                                                jQuery("#view-message").fadeIn(400);
-                                            }
-                                        );
-                                    });
-                                });
-                            </script>
                         </li>
    
                   
                    <?php endforeach; endforeach; }else{
                     
-                    foreach($current_messages as $messages) :
+                    foreach(array_reverse($current_messages) as $messages) :
                     
                     $user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
                 ?> 
                 
                    <li class="message-item">
-                            <div id="view-message" style="display:none;">
-                                <h3>
-                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
-                                </h3>
+                         <div style="display:none;" class="messageWrap-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">
+                            <div class="messageOverlay">
+                                &nbsp;
                             </div>
+                            <div class="vertical-offset">
+                                <div class="messageBox">
+                                    <div class="view-message-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >
+                                        <h3>
+                                            <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                        </h3>
+                                    </div>
+                                    <a id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                </div>
+                            </div>
+                        </div>    
                             <div class="message-date">
                                 <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
                             </div>
@@ -346,32 +382,12 @@ get_header();
                             </div>
                             <div class="user-message">
                                 <div class="message-wrapper">
-                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                    <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-message">
-                                    <input id="view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" class="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
                                 </div>
                             </div>
-                            <script>
-                                jQuery(document).ready(function() {
-                                    jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").click(function(){    
-
-                                        var message_id = jQuery(this).attr('class');
-
-                                        jQuery.post( 
-                                            ajaxurl,
-                                                {   
-                                                    'action': 'add_read_status',
-                                                    'message_id': message_id
-                                                }, 
-                                                function(response){
-                                                jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").addClass('read').val('read');
-                                                jQuery("#view-message").fadeIn(400);
-                                            }
-                                        );
-                                    });
-                                });
-                            </script>
                         </li>
    
                   
@@ -404,6 +420,38 @@ get_footer();
                     }
                 );
             }
+        });
+        
+        jQuery(".closeMessage").click(function(){
+            
+            var closemessage_id = jQuery(this).attr('id');
+            var closemessageclass = ".messageWrap-" + closemessage_id;
+            var messagebuttonclass = "#" + closemessage_id;
+            
+            jQuery(closemessageclass).hide();
+            
+        });
+        
+        jQuery(".view-button").click(function(){    
+
+            var message_id = jQuery(this).attr('id');
+            var messageWrap = ".messageWrap-" + message_id;
+            
+            jQuery(messageWrap).show();    
+        
+            jQuery.post( 
+                ajaxurl,
+                    {   
+                        'action': 'add_read_status',
+                        'message_id': message_id
+                    }, 
+                    function(response){
+            
+                                    
+                }
+            );
+            
+            jQuery(this).val('read');
         });
         
         jQuery('.not-current-location').click(function(){

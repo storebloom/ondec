@@ -38,7 +38,7 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_remove_biz_request',      array($this, 'prefix_ajax_remove_biz_request') );
         add_action( 'wp_ajax_add_usermessage',             array($this, 'prefix_ajax_add_usermessage') );
         add_action( 'wp_ajax_nopriv_add_usermessage',      array($this, 'prefix_ajax_add_usermessage') );
-        add_action( 'wp_ajax_add_read_status',             array($this, 'prefix_ajax_read_status') );
+        add_action( 'wp_ajax_add_read_status',             array($this, 'prefix_ajax_add_read_status') );
         add_action( 'wp_ajax_nopriv_add_read_status',      array($this, 'prefix_ajax_add_read_status') );
     }
     
@@ -324,20 +324,20 @@ class Decstatus {
         
         global $current_user;
         
-        $messageid = isset($_POST['message_id']) ? $_POST['messsage_id'] : "";
-        
+        $messageid = isset($_POST['message_id']) ? $_POST['message_id'] : "";
+
         $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
         
         foreach($current_messages[0] as $message_key => $message){
             foreach($message as $messages_key => $messages){
                 if($message['messageid'] === $messageid){
                     
-                    $result[$message_key][$messages_key]['read_status'] = 'read';
+                    $current_messages[0][$message_key]['read_status'] = 'read';
                 }               
             }       
          }
-        
-        update_user_meta( $current_user->ID, 'my_messages', $result ); 
+
+        update_user_meta( $current_user->ID, 'my_messages', $current_messages[0] ); 
     }
     
     public function prefix_ajax_remove_decmember() {

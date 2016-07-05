@@ -38,6 +38,8 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_remove_biz_request',      array($this, 'prefix_ajax_remove_biz_request') );
         add_action( 'wp_ajax_add_usermessage',             array($this, 'prefix_ajax_add_usermessage') );
         add_action( 'wp_ajax_nopriv_add_usermessage',      array($this, 'prefix_ajax_add_usermessage') );
+        add_action( 'wp_ajax_add_read_status',             array($this, 'prefix_ajax_read_status') );
+        add_action( 'wp_ajax_nopriv_add_read_status',      array($this, 'prefix_ajax_add_read_status') );
     }
     
     public function prefix_ajax_add_decmember() {
@@ -289,21 +291,53 @@ class Decstatus {
         
         $usermessage = isset($_POST['usermessage']) ? $_POST['usermessage'] : "";
         $msgid = isset($_POST['msgid']) ? $_POST['msgid'] : "";
+        $messageid = isset($_POST['messageid']) ? $_POST['messageid'] : "";
+        $c_date = time();
         
-        $usermessage_id = array( array($current_user->display_name => $usermessage) ); 
+        $usermessage_id = array('messageid' => $messageid, 'message_date' => $c_date, 'user' => $msgid, 'message' => $usermessage, 'read_status' => 'unread'); 
         
         $current_message_array = get_user_meta($msgid, 'my_messages', false);
         
-        $current_messages = isset($current_message_array) ? $current_message_array : array(0 => array());
-        var_dump($current_messages[0] === NULL);
+        $current_messages = isset($current_message_array) ? $current_message_array : "";
+       
         if(NULL === $current_messages[0]){
-        $new_message_array = array_merge($current_messages, $usermessage_id);
-        } else{
-        $new_message_array = array_merge($current_messages[0], $usermessage_id);
-        }
+    
+        update_user_meta( $msgid, 'my_messages', $usermessage_id );
+            
+        } elseif( 1 === count($current_messages) && 5 === count($current_messages[0]) && NULL === $current_messages[0][0])  {
+            
+        $new_message_array = array_merge($current_messages, array($usermessage_id));
+            
+        update_user_meta( $msgid, 'my_messages', $new_message_array );
+        } elseif( 2 <= count($current_messages[0]) ){
+            
+        $new_message_array = array_merge($current_messages[0], array($usermessage_id));
+            
         update_user_meta( $msgid, 'my_messages', $new_message_array ); 
+        }
+        
         
         echo "success!";
+    }
+    
+    public function prefix_ajax_add_read_status(){
+        
+        global $current_user;
+        
+        $messageid = isset($_POST['message_id']) ? $_POST['messsage_id'] : "";
+        
+        $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
+        
+        foreach($current_messages[0] as $message_key => $message){
+            foreach($message as $messages_key => $messages){
+                if($message['messageid'] === $messageid){
+                    
+                    $result[$message_key][$messages_key]['read_status'] = 'read';
+                }               
+            }       
+         }
+        
+        update_user_meta( $current_user->ID, 'my_messages', $result ); 
     }
     
     public function prefix_ajax_remove_decmember() {

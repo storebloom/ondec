@@ -260,37 +260,122 @@ get_header();
             <h3>My Messages</h3>    
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
                 
-                if(isset($current_messages[0])){
+                if(isset($current_messages)){
+                    
+                if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
+                    
+                    foreach($current_messages as $messagess) : 
+                    
+                    foreach($messagess as $messages) :
+                    
+                    $user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
+
+                ?> 
                 
-                foreach($current_messages[0] as $messages) : 
-   
-                    if(is_array($messages)){
-                    foreach($messages as $user_name => $message) : ?>
-                        
-                         <?php $user_info = get_user_by('login', $user_name); ?>
-                        
-                        <li class="message-item">
+                  <li class="message-item">
+                            <div id="view-message" style="display:none;">
+                                <h3>
+                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                </h3>
+                            </div>
                             <div class="message-date">
-                                
+                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
                             </div>
                             <div class="user-message-info">
                                 <div class="message-user">
-                                    <?php echo $user_name; ?>
+                                    <?php echo isset($user_info->display_name) ? $user_info->display_name : ""; ?>
                                 </div>
                                 <div class="prof-image-message">
-                                    <?php echo get_wp_user_avatar($user_info->ID, 36); ?>
+                                    <?php echo isset($user_info->ID) ? get_wp_user_avatar($user_info->ID, 36) : ""; ?>
                                 </div>
                             </div>
                             <div class="user-message">
                                 <div class="message-wrapper">
-                                    <?php echo $message; ?>
+                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
                                 </div>
                                 <div class="view-message">
-                                    <input id="view-button" class="view-button" type="button" value="read">
+                                    <input id="view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" class="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
                                 </div>
                             </div>
+                            <script>
+                                jQuery(document).ready(function() {
+                                    jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").click(function(){    
+
+                                        var message_id = jQuery(this).attr('class');
+
+                                        jQuery.post( 
+                                            ajaxurl,
+                                                {   
+                                                    'action': 'add_read_status',
+                                                    'message_id': message_id
+                                                }, 
+                                                function(response){
+                                                jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").addClass('read').val('read');
+                                                jQuery("#view-message").fadeIn(400);
+                                            }
+                                        );
+                                    });
+                                });
+                            </script>
                         </li>
-                   <?php endforeach; } endforeach; } ?>
+   
+                  
+                   <?php endforeach; endforeach; }else{
+                    
+                    foreach($current_messages as $messages) :
+                    
+                    $user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
+                ?> 
+                
+                   <li class="message-item">
+                            <div id="view-message" style="display:none;">
+                                <h3>
+                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                </h3>
+                            </div>
+                            <div class="message-date">
+                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
+                            </div>
+                            <div class="user-message-info">
+                                <div class="message-user">
+                                    <?php echo isset($user_info->display_name) ? $user_info->display_name : ""; ?>
+                                </div>
+                                <div class="prof-image-message">
+                                    <?php echo isset($user_info->ID) ? get_wp_user_avatar($user_info->ID, 36) : ""; ?>
+                                </div>
+                            </div>
+                            <div class="user-message">
+                                <div class="message-wrapper">
+                                    <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                </div>
+                                <div class="view-message">
+                                    <input id="view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" class="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                </div>
+                            </div>
+                            <script>
+                                jQuery(document).ready(function() {
+                                    jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").click(function(){    
+
+                                        var message_id = jQuery(this).attr('class');
+
+                                        jQuery.post( 
+                                            ajaxurl,
+                                                {   
+                                                    'action': 'add_read_status',
+                                                    'message_id': message_id
+                                                }, 
+                                                function(response){
+                                                jQuery("#view-button-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>").addClass('read').val('read');
+                                                jQuery("#view-message").fadeIn(400);
+                                            }
+                                        );
+                                    });
+                                });
+                            </script>
+                        </li>
+   
+                  
+                   <?php endforeach; }}?>
             </div>
 <?php
 get_footer();

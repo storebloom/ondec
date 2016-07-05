@@ -9,7 +9,6 @@ global $profiles_pages, $current_user;
  *
  * @package ondec_custom_theme
  */
-
 get_header(); ?>
 
 	<div id="primary" class="content-area">
@@ -221,7 +220,7 @@ get_header(); ?>
                 </p>    
                 <form id="msguserform" name="msguserform">
                     <input id="usermsginput" type="text" placeholder="write message here" name="decmessage" class="<?php echo $user_info->ID; ?>" value="">
-                    <input id="msgsend" type="button" value="send">
+                    <input id="msgsend" class="msgsend" type="button" value="send">
                 </form>
             </div>
             
@@ -242,13 +241,16 @@ get_footer(); ?>
             
         var usermessage = jQuery('#usermsginput').val();
         var msgid = jQuery('#usermsginput').attr('class');
+        var x = Math.floor((Math.random() * 100000000000) + 1);
+        var messageid = msgid + "_" + x;
             
             jQuery.post( 
             ajaxurl,
                 {   
                     'action': 'add_usermessage',
                     'usermessage': usermessage,
-                    'msgid' : msgid
+                    'msgid' : msgid,
+                    'messageid' : messageid
                 }, 
                 function(response){
 

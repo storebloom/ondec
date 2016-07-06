@@ -73,7 +73,7 @@ class Profile_Pages {
         
         $current_dec = get_user_meta($current_user->ID, 'mydec', true);
 
-        if(isset($current_dec) && $current_dec !== ""){
+        if(isset($current_dec) && $current_dec !== "" && $current_dec !== false){
             
             foreach($current_dec as $dec_members){
                 
@@ -85,6 +85,30 @@ class Profile_Pages {
         }
         
         return true;
+    }
+    
+    public function get_user_profile_url($id){
+        
+        $user_data = get_userdata($id);
+        
+        $display_name = $user_data->user_login;
+
+        $user_role = $user_data->roles[0];
+                
+        $user_url = "";
+        
+        if($user_role === 'professional' || $user_role === 'administrator'){
+            
+            $user_url = "/professionals/" . $display_name;
+        }elseif($user_role === 'business'){
+            
+            $user_url = "/businesses/" . $display_name;
+        }elseif($user_role === 'client'){
+            
+            $user_url = "/clients/" . $display_name;
+        }
+        
+        return $user_url;
     }
 }
 

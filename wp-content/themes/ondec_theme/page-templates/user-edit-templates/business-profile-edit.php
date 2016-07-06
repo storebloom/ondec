@@ -156,6 +156,187 @@ get_header();
 <p>
         <a href="edit-profile-info">Edit Profile</a>
             </p>
+            <div class="mymessages">
+               
+            <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
+                
+                if(isset($current_messages)){
+                    
+                if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
+                    
+                    foreach($current_messages as $messagess) : 
+                    
+                    foreach(array_reverse($messagess) as $messages) :
+                    
+                    $message_user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
+                
+                    if(isset($messages['read_status'])){
+                        
+                        if($messages['read_status'] === 'unread' ){
+                            
+                            $unread_count[] = $messages['read_status'];
+                        }
+                        
+                         $message_count[] = $messages['read_status'];
+                    }
+                    endforeach; endforeach; } 
+                
+                if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
+                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; } 
+                ?>
+                
+                   
+                <div class="message-count">
+                <h3>My Messages ( <?php if(isset($message_count) &&is_array($message_count)){
+                        echo count($message_count);
+                    }else{ echo "0";} ?> )</h3>  
+                    
+                    <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>| unread( 
+                        <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
+                </h4>
+                     
+                </div> 
+                    
+               <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
+                    
+                    foreach($current_messages as $messagess) : 
+                    
+                    foreach(array_reverse($messagess) as $messages) :
+                    
+                    $message_user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
+                    
+                    if(isset($messages['read_status'])){
+                        
+                        if($messages['read_status'] === 'unread' ){
+                            
+                            $unread_count[] = $messages['read_status'];
+                        }else{
+                        
+                            $read_count[] = $messages['read_status'];
+                        }
+                    }
+                ?> 
+                
+                  <li class="message-item">
+                            <div style="display:none;" class="messageWrap-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">
+                            <div class="messageOverlay">
+                                &nbsp;
+                            </div>
+                            <div class="vertical-offset">
+                                <div class="messageBox">
+                                    <div class="view-message-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >
+                                        <h2>
+                                            <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
+                                        </h2>
+                                        <h3>
+                                            <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                        </h3>
+                                    </div>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                </div>
+                            </div>
+                        </div>  
+                            <div class="message-date">
+                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
+                            </div>
+                            <div class="user-message-info">
+                                <div class="message-user">
+                                    <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
+                                </div>
+                                <div class="prof-image-message">
+                                    <?php echo isset($message_user_info->ID) ? get_wp_user_avatar($message_user_info->ID, 36) : ""; ?>
+                                </div>
+                            </div>
+                            <div class="user-message">
+                                <div class="message-wrapper">
+                                    <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
+                                </div>
+                                <div class="view-message">
+                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                </div>
+                            </div>
+                        </li>
+   
+                  
+                   <?php endforeach; endforeach; }else{
+                    
+                       foreach(array_reverse($current_messages) as $messages) :
+                    
+                    $message_user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
+                    
+                    if(isset($messages['read_status'])){
+                        
+                        if($messages['read_status'] === 'unread' ){
+                            
+                            $unread_count[] = $messages['read_status'];
+                        }
+                        
+                         $message_count[] = $messages['read_status'];
+                    }
+                    endforeach; ?>
+                    
+                <?php  foreach(array_reverse($current_messages) as $messages) :
+                    
+                    $message_user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
+                    
+                   if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
+                    
+                    if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; }
+                                                                                                                                
+                ?> 
+                
+                <div class="message-count">
+                <h4>messages( <?php if(is_array($message_count) && isset($message_count)){
+                        echo count($message_count);
+                    }else{ echo "0";} ?> ) | unread( <span id="unread-count"><?php if(is_array($unread_count) && isset($unread_count)){
+                    echo intval(count($unread_count)); 
+                }else{ echo "0";} ?></span> )</h4>
+                     
+                </div> 
+                
+                   <li class="message-item">
+                         <div style="display:none;" class="messageWrap-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">
+                            <div class="messageOverlay">
+                                &nbsp;
+                            </div>
+                            <div class="vertical-offset">
+                                <div class="messageBox">
+                                    <div class="view-message-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >
+                                        <h2>
+                                            <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
+                                        </h2>
+                                        <h3>
+                                            <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
+                                        </h3>
+                                    </div>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                </div>
+                            </div>
+                        </div>    
+                            <div class="message-date">
+                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
+                            </div>
+                            <div class="user-message-info">
+                                <div class="message-user">
+                                    <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
+                                </div>
+                                <div class="prof-image-message">
+                                    <?php echo isset($message_user_info->ID) ? get_wp_user_avatar($message_user_info->ID, 36) : ""; ?>
+                                </div>
+                            </div>
+                            <div class="user-message">
+                                <div class="message-wrapper">
+                                    <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
+                                </div>
+                                <div class="view-message">
+                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                </div>
+                            </div>
+                        </li>
+   
+                  
+                   <?php endforeach; }}?>
+            </div>
 
 <?php
 get_footer();
@@ -163,6 +344,40 @@ get_footer();
 ?>
 <script>
     jQuery(document).ready(function() {
+        
+        jQuery(".closeMessage").click(function(){
+            
+            var closemessage_id = jQuery(this).attr('id');
+            var closemessageclass = ".messageWrap-" + closemessage_id;
+            var messagebuttonclass = "#" + closemessage_id;
+            
+            jQuery(closemessageclass).hide();
+            
+        });
+        
+        jQuery(".view-button").click(function(){    
+
+            var message_id = jQuery(this).attr('id');
+            var messageWrap = ".messageWrap-" + message_id;
+            
+            jQuery(messageWrap).show();    
+        
+            jQuery.post( 
+                ajaxurl,
+                    {   
+                        'action': 'add_read_status',
+                        'message_id': message_id
+                    }, 
+                    function(response){
+            
+                         
+                }
+            );
+            
+            if(jQuery(this).val() == 'unread'){ jQuery('#unread-count').text(jQuery('#unread-count').text()-1); }
+            
+            jQuery(this).val('read');
+        });
         
         jQuery('.decremove').click(function(){
             var rmdecid = jQuery(this).attr('id');

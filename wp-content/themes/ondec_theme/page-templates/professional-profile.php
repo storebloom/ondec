@@ -51,7 +51,7 @@ get_header(); ?>
                 <?php endif; ?>
             </div>
             
-            <?php if($current_user->roles[0] === 'client' && $is_not_on_list): ?>
+            <?php if(isset($current_user->roles[0]) && $current_user->roles[0] === 'client' && $is_not_on_list): ?>
             
             <div class='decaddbutton_wrapper'>
                 <span style='display: none;' id='successadd-<?php echo $user_info->ID; ?>'>I'm on your dec list now!</span>
@@ -61,7 +61,7 @@ get_header(); ?>
                 </form>
             </div>
             
-            <?php elseif($current_user->roles[0] === 'business'): ?>
+            <?php elseif(isset($current_user->roles[0]) && $current_user->roles[0] === 'business'): ?>
             
             <div class='decrequestbutton_wrapper'>
                 <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Request submitted!</span>
@@ -214,6 +214,9 @@ get_header(); ?>
                 </ul>
 
             </div>
+            
+            <?php if(isset($current_user->roles[0])) : ?>
+            <a name="messages"></a>
                 <div class="messge-me-section">
                 <p class="message-sent-sucess" style="display:none;">
                  Your message has been sent!    
@@ -223,6 +226,7 @@ get_header(); ?>
                     <input id="msgsend" class="msgsend" type="button" value="send">
                 </form>
             </div>
+            <?php endif; ?>
             
                 <?php the_content(); ?>
             
@@ -253,7 +257,8 @@ get_footer(); ?>
                     'messageid' : messageid
                 }, 
                 function(response){
-
+                 
+                jQuery('#usermsginput').val("");    
                 jQuery(".message-sent-sucess").slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);    
                
             }

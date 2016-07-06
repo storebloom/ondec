@@ -280,44 +280,18 @@ get_header(); ?>
                 </ul>
 
             </div>
-            
-            <div class="profile-contact-form">
-                
-            <h3>Email Me!</h3>
-                
-<style type="text/css">
-  .error{
-    padding: 5px 9px;
-    border: 1px solid red;
-    color: red;
-    border-radius: 3px;
-  }
- 
-  .success{
-    padding: 5px 9px;
-    border: 1px solid green;
-    color: green;
-    border-radius: 3px;
-  }
- 
-  form span{
-    color: red;
-  }
-</style>
- 
-<div id="respond">
-  <?php echo $response; ?>
-  <form action="" method="post">
-    <p><label for="name">Name: <span>*</span> <br><input type="text" name="message_name" value="<?php isset($_POST['message_name']) ? esc_attr($_POST['message_name']) : ""; ?>"></label></p>
-    <p><label for="message_email">Email: <span>*</span> <br><input type="text" name="message_email" value="<?php isset($_POST['message_email']) ? esc_attr($_POST['message_email']) : ""; ?>"></label></p>
-    <p><label for="message_text">Message: <span>*</span> <br><textarea type="text" name="message_text"><?php isset($_POST['message_text']) ? esc_textarea($_POST['message_text']) : ""; ?></textarea></label></p>
-    <p><label for="message_human">Human Verification: <span>*</span> <br><input type="text" style="width: 60px;" name="message_human"> + 3 = 5</label></p>
-    <input type="hidden" name="submitted" value="1">
-    <p><input type="submit" value="Send"></p>
-  </form>
-</div>
-            
+             <?php if(isset($current_user->roles[0])) : ?>
+            <a name="messages"></a>
+                <div class="messge-me-section">
+                <p class="message-sent-sucess" style="display:none;">
+                 Your message has been sent!    
+                </p>    
+                <form id="msguserform" name="msguserform">
+                    <input id="usermsginput" type="text" placeholder="write message here" name="decmessage" class="<?php echo $user_info->ID; ?>" value="">
+                    <input id="msgsend" class="msgsend" type="button" value="send">
+                </form>
             </div>
+            <?php endif; ?>
             
                 <?php the_content(); ?>
             
@@ -327,4 +301,36 @@ get_header(); ?>
 	</div><!-- #primary -->
 
 <?php
-get_footer();
+get_footer(); ?>
+
+<script>
+    jQuery(document).ready(function() {
+        
+        jQuery("#msgsend").click(function(){    
+            
+        var usermessage = jQuery('#usermsginput').val();
+        var msgid = jQuery('#usermsginput').attr('class');
+        var x = Math.floor((Math.random() * 100000000000) + 1);
+        var messageid = msgid + "_" + x;
+            
+            jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'add_usermessage',
+                    'usermessage': usermessage,
+                    'msgid' : msgid,
+                    'messageid' : messageid
+                }, 
+                function(response){
+                 
+                jQuery('#usermsginput').val("");    
+                jQuery(".message-sent-sucess").slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);    
+               
+            }
+        );
+    });
+});
+</script>
+        
+<?php
+

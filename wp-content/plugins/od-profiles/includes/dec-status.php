@@ -294,7 +294,7 @@ class Decstatus {
         $messageid = isset($_POST['messageid']) ? $_POST['messageid'] : "";
         $c_date = time();
         
-        $usermessage_id = array('messageid' => $messageid, 'message_date' => $c_date, 'user' => $msgid, 'message' => $usermessage, 'read_status' => 'unread'); 
+        $usermessage_id = array('messageid' => $messageid, 'message_date' => $c_date, 'user' => $current_user->ID, 'message' => $usermessage, 'read_status' => 'unread'); 
         
         $current_message_array = get_user_meta($msgid, 'my_messages', false);
         
@@ -328,14 +328,24 @@ class Decstatus {
 
         $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
         
-        foreach($current_messages[0] as $message_key => $message){
-            foreach($message as $messages_key => $messages){
-                if($message['messageid'] === $messageid){
-                    
-                    $current_messages[0][$message_key]['read_status'] = 'read';
-                }               
-            }       
-         }
+        if(!is_array($current_messages[0])){
+            foreach($current_messages[0] as $message_key => $message){
+                foreach($message as $messages_key => $messages){
+                    if($message['messageid'] === $messageid){
+
+                        $current_messages[0][$message_key]['read_status'] = 'read';
+                    }               
+                }       
+             }
+        } else {
+            
+            foreach($current_messages[0] as $message_key => $message){
+                    if($message['messageid'] === $messageid){
+
+                        $current_messages[0][$message_key]['read_status'] = 'read';
+                    }               
+            }         
+        }
 
         update_user_meta( $current_user->ID, 'my_messages', $current_messages[0] ); 
     }

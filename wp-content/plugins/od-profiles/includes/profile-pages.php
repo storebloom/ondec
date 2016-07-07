@@ -67,11 +67,11 @@ class Profile_Pages {
         
     }
     
-    public function is_not_on_list($id){
+    public function is_not_on_list($id, $type = 'mydec'){
         
         global $current_user;
         
-        $current_dec = get_user_meta($current_user->ID, 'mydec', true);
+        $current_dec = get_user_meta($current_user->ID, $type, true);
 
         if(isset($current_dec) && $current_dec !== "" && $current_dec !== false){
             

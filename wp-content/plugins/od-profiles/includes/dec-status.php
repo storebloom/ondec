@@ -40,6 +40,8 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_add_usermessage',      array($this, 'prefix_ajax_add_usermessage') );
         add_action( 'wp_ajax_add_read_status',             array($this, 'prefix_ajax_add_read_status') );
         add_action( 'wp_ajax_nopriv_add_read_status',      array($this, 'prefix_ajax_add_read_status') );
+         add_action( 'wp_ajax_like_decmember',            array($this, 'prefix_ajax_like_decmember') );
+        add_action( 'wp_ajax_nopriv_like_decmember',     array($this, 'prefix_ajax_like_decmember') );
     }
     
     public function prefix_ajax_add_decmember() {
@@ -67,6 +69,36 @@ class Decstatus {
         if($user_role === 'client'){
             
             update_user_meta($adddecid, 'mydec', $new_followers);
+        }
+        
+        print_r($new_array, true);
+    }
+    
+    public function prefix_ajax_like_decmember() {
+        
+        global $current_user;
+        
+        $user_role = $current_user->roles[0];
+        
+        $likedecid = isset($_POST['likedecid']) ? $_POST['likedecid'] : "";
+        
+        $current_dec_members = get_user_meta($current_user->ID, 'mylikes', false);
+        
+        $current_followers = get_user_meta($likedecid, 'mylikers', false);
+        
+        $current_dec_members = array() !== $current_dec_members ? $current_dec_members : array(0 => array());
+        
+        $current_followers = array() !== $current_followers ? $current_followers : array(0 => array());
+        
+        $new_array = array_merge($current_dec_members[0], array($likedecid));
+        
+        $new_followers = array_merge($current_followers[0], array($current_user->ID));
+       
+        update_user_meta($current_user->ID, 'mylikes', $new_array);
+        
+        if($user_role === 'client'){
+            
+            update_user_meta($likedecid, 'mylikers', $new_followers);
         }
         
         print_r($new_array, true);

@@ -2,9 +2,9 @@
 $decstatus = get_user_meta($current_user->ID, 'decstatus', true);
 $decmessage = get_user_meta($current_user->ID, 'decmessage', true);
 $mydec = null !== get_user_meta($current_user->ID, 'mydec', false) ? get_user_meta($current_user->ID, 'mydec', false) : array( 0 => array());
-$decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "no dec status";
+$decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "undecided";
 $current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
-$biz_title = array("client" => "dec", "professional" => "Followers", "business" => "Current Professoinal");  
+$biz_title = array("client" => "dec", "professional" => "Followers", "business" => "Current Professionals");  
 $myrequests = null !== get_user_meta($current_user->ID, 'pro_requests', false) ? get_user_meta($current_user->ID, 'pro_requests', false) : array( 0 => array());
 
 $my_dec_info = array();
@@ -22,22 +22,39 @@ if(isset($myrequests[0])){
     }
 }
 
-if($decstatus === "ondec" ){
-    $negdecstatus = "offdec";
+if($decstatus === "Open" ){
+    $negdecstatus = "Closed";
 }else{
-    $negdecstatus = "ondec";
+    $negdecstatus = "Open";
 }
 get_header(); 
 ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
             <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
-            <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
+            <?php echo get_wp_user_avatar($current_user->ID, 200); ?>
             
             <p><a href="/businesses/<?php echo $current_user->user_login; ?>">view my profile</a>
             </p>
-            <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
             
+            <h3>Are you Opened or Closed?:</h3>
+                        
+            <form id="decform" name="decform">
+                <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
+                <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
+            </form>
+            <a href="/professionals/<?php echo $current_user->user_login; ?>">view my profile</a>
+            <span>
+                <div style="display:none;" id="msgsuccess">success!</div>
+            </span>
+            <?php foreach($my_dec_info as $single_dec_member) :
+                $professional_count[] = $single_dec_member;
+            endforeach;
+
+            if(isset($professional_count)):
+            $professional_count = intval(count($professional_count));
+            ?>
+            <h3>My <?php echo $biz_title[$user_role]; ?> (<?php echo $professional_count; ?>) </h3>
             <div class="od-my-list">
                 <span>
                                 
@@ -96,8 +113,16 @@ get_header();
                 </ul>
                 
             </div>
-            <h3>My Pro Requests</h3>
-            
+            <?php endif; ?>
+            <?php foreach($my_request_info as $single_dec_request) :
+                $pro_count[] = $single_dec_request;
+            endforeach;
+
+            if(isset($pro_count)):
+            $pro_count = intval(count($pro_count));
+            ?>
+            <h3>My Professional Requests (<?php echo $pro_count; ?>) </h3>
+        
             <div class="od-my-pro-requests">
                 
                 <span>
@@ -153,9 +178,51 @@ get_header();
                 </ul>
 
             </div>
-<p>
-        <a href="edit-profile-info">Edit Profile</a>
-            </p>
+            <?php endif; ?>
+            
+            <?php 
+                    
+                $mylikes = null !== get_user_meta($current_user->ID, 'mylikers', false) ? get_user_meta($current_user->ID, 'mylikers', false) : "";
+
+                if(isset($mylikes) && is_array($mylikes[0])){
+                    foreach($mylikes[0] as $single_like){
+                        $like_count[] = $single_like;
+                        
+                        $my_likes_info[] = get_userdata($single_like);
+                    }
+                }
+                if(isset($like_count)):
+                    $like_count = intval(count($like_count));
+                ?>
+                <div class="od-my-likes">
+                    
+                    <h3>Likes (<?php echo $like_count; ?>)</h3>
+                    
+                    <ul id="like-list">
+                    <?php 
+                    
+                    foreach($my_likes_info as $single_dec_like) : ?>
+                        
+                        <a href='/clients/<?php echo $single_dec_like->user_login; ?>'>
+
+                                <div class="dec-name">
+
+                                    <?php echo $single_dec_like->display_name; ?>
+
+                                </div>
+
+                                <div class="dec-image">
+
+                                    <?php echo get_wp_user_avatar($single_dec_like->ID, 96); ?>
+
+                                </div>
+
+                            </a>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
+            
             <div class="mymessages">
                
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
@@ -197,7 +264,9 @@ get_header();
                         <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
                 </h4>
                      
-                </div> <?php 
+                </div> 
+                <ul>
+                <?php 
                     
                     foreach($current_messages as $messagess) : 
                     
@@ -284,16 +353,15 @@ get_header();
                     if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; }
                                                                                                                                 
                 ?> 
-                 <h3>My Messages ( <?php if(isset($message_count) &&is_array($message_count)){
+                 <h3>My Messages (<?php if(isset($message_count) &&is_array($message_count)){
                         echo count($message_count);
-                    }else{ echo "0";} ?> )</h3>  
+                    }else{ echo "0";} ?>)</h3>  
  <div class="message-count">
                 <h4><?php if(isset($unread_count) && is_array($unread_count)){ ?>unread( <span id="unread-count">
                     <?php echo intval(count($unread_count)); 
                  ?></span>)<?php }?></h4>
                      
                 </div>  
-                
                    <li class="message-item">
                          <div style="display:none;" class="messageWrap-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">
                             <div class="messageOverlay">
@@ -336,7 +404,12 @@ get_header();
    
                   
                    <?php endforeach; }}?>
+                </ul>
             </div>
+            
+            <p>
+        <a href="edit-profile-info">Edit Profile</a>
+            </p>
 
 <?php
 get_footer();
@@ -440,24 +513,24 @@ get_footer();
     
         jQuery("#submit").click(function() {
         
-            if(jQuery("#decstatus").val() === 'ondec'){ 
+            if(jQuery("#decstatus").val() === 'Open'){ 
 
-                jQuery('#submit').removeClass('currently-offdec').addClass('currently-ondec');
+                jQuery('#submit').removeClass('currently-closed').addClass('currently-open');
 
-                jQuery( "#decstatus").val('offdec');
+                jQuery( "#decstatus").val('Closed');
 
-                var decstatus = 'ondec';
+                var decstatus = 'Open';
 
-                jQuery( "#submit" ).val('Currently ondec');
+                jQuery( "#submit" ).val('Currently Open');
             } else {
 
-                jQuery('#submit').removeClass('currently-ondec').addClass('currently-offdec');
+                jQuery('#submit').removeClass('currently-open').addClass('currently-closed');
 
-                jQuery( "#decstatus").val('ondec');
+                jQuery( "#decstatus").val('Open');
 
-                var decstatus = 'offdec';
+                var decstatus = 'Closed';
 
-                jQuery( "#submit").val('Currently offdec');
+                jQuery( "#submit").val('Currently Closed');
             }    
 
             jQuery.post( 

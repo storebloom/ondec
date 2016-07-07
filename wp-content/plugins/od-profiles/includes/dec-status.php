@@ -328,7 +328,7 @@ class Decstatus {
 
         $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
         
-        if(!is_array($current_messages[0])){
+        if(is_array($current_messages[0][0])){
             foreach($current_messages[0] as $message_key => $message){
                 foreach($message as $messages_key => $messages){
                     if($message['messageid'] === $messageid){
@@ -338,12 +338,13 @@ class Decstatus {
                 }       
              }
         } else {
-            
-            foreach($current_messages[0] as $message_key => $message){
-                    if($message['messageid'] === $messageid){
+    
+         
+                    if($current_messages[0]['messageid'] === $messageid){
 
-                        $current_messages[0][$message_key]['read_status'] = 'read';
-                    }               
+                        $current_messages[0]['read_status'] = 'read';
+                        
+                                  
             }         
         }
 

@@ -287,19 +287,21 @@ get_header();
                 ?>
                 
                    
-                <div class="message-count">
-                <h3>My Messages ( <?php if(isset($message_count) &&is_array($message_count)){
+               
+                    
+               <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
+                    
+            ?> <div class="message-count">
+                <h3>My Messages ( <?php if(isset($message_count) && is_array($message_count)){
                         echo count($message_count);
                     }else{ echo "0";} ?> )</h3>  
                     
-                    <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>| unread( 
+                    <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>unread( 
                         <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
                 </h4>
                      
                 </div> 
-                    
-               <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
-                    
+                <?php
                     foreach($current_messages as $messagess) : 
                     
                     foreach(array_reverse($messagess) as $messages) :
@@ -387,11 +389,13 @@ get_header();
                 ?> 
                 
                 <div class="message-count">
-                <h4>messages( <?php if(is_array($message_count) && isset($message_count)){
+                <h3>My Messages ( <?php if(isset($message_count) && is_array($message_count)){
                         echo count($message_count);
-                    }else{ echo "0";} ?> ) | unread( <span id="unread-count"><?php if(is_array($unread_count) && isset($unread_count)){
-                    echo intval(count($unread_count)); 
-                }else{ echo "0";} ?></span> )</h4>
+                    }else{ echo "0";} ?> )</h3>  
+                    
+                    <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>| unread( 
+                        <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
+                </h4>
                      
                 </div> 
                 
@@ -492,7 +496,6 @@ get_footer();
                     }, 
                     function(response){
             
-                         
                 }
             );
             

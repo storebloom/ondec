@@ -43,7 +43,9 @@ get_header();
                 <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
                 <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             </form>
-            <a href="/professionals/<?php echo $current_user->user_login; ?>">view my profile</a>
+            <p>
+            <a href="/professionals/<?php echo $current_user->user_login; ?>">View Profile</a> | <a href="edit-profile-info">Edit Profile</a>
+            </p>
             <span>
                 <div style="display:none;" id="msgsuccess">success!</div>
             </span>
@@ -184,7 +186,7 @@ get_header();
                     
                 $mylikes = null !== get_user_meta($current_user->ID, 'mylikers', false) ? get_user_meta($current_user->ID, 'mylikers', false) : "";
 
-                if(isset($mylikes) && is_array($mylikes[0])){
+                if(isset($mylikes[0]) && is_array($mylikes[0])){
                     foreach($mylikes[0] as $single_like){
                         $like_count[] = $single_like;
                         
@@ -406,10 +408,6 @@ get_header();
                    <?php endforeach; }}?>
                 </ul>
             </div>
-            
-            <p>
-        <a href="edit-profile-info">Edit Profile</a>
-            </p>
 
 <?php
 get_footer();

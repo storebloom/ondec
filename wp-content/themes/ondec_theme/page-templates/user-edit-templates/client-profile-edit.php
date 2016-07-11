@@ -41,8 +41,10 @@ get_header();
                 </select>
                 <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             </form>
-            
-            <a href="/clients/<?php echo $current_user->user_login; ?>">view my profile</a>
+            <p>
+            <a href="/clients/<?php echo $current_user->user_login; ?>">view my profile</a> | 
+        <a href="edit-profile-info">Edit Profile</a>
+            </p>
             
             <span>
             <div style="display:none;" id="msgsuccess">success!</div>
@@ -51,7 +53,64 @@ get_header();
                 <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
                 <input id="msgsubmit" type="button" value="update">
             </form>
-            <?php endif; ?> 
+            <?php endif; ?>
+            
+            <?php 
+                    
+                $mylikes = null !== get_user_meta($current_user->ID, 'mylikes', false) ? get_user_meta($current_user->ID, 'mylikes', false) : "";
+
+                if(isset($mylikes[0]) && is_array($mylikes[0])){
+                    foreach($mylikes[0] as $single_like){
+                        $like_count[] = $single_like;
+                        
+                        $my_likes_info[] = get_userdata($single_like);
+                    }
+                }
+           
+                if(isset($like_count)):
+                    $like_count = intval(count($like_count));
+                ?>
+                <div class="od-my-likes">
+                    
+                    <h3>Likes (<?php echo $like_count; ?>)</h3>
+                    
+                    <ul id="like-list">
+                    <?php 
+                    
+                    foreach($my_likes_info as $single_dec_like) : ?>
+                        
+                      <?php if(isset($single_dec_like->ID)) : ?>
+                        <a href='/businesses/<?php echo $single_dec_like->user_login; ?>'>
+
+                                <div class="dec-name">
+
+                                    <?php echo isset($single_dec_like->display_name) ? $single_dec_like->display_name : ""; ?>
+
+                                </div>
+
+                                <div class="dec-image">
+
+                                    <?php echo get_wp_user_avatar($single_dec_like->ID, 96); ?>
+
+                                </div>
+                            
+                            <div>
+                             </a>
+                            
+                            <form id="declikeform-<?php echo $single_dec_like->ID; ?>" name="declikeform-<?php echo $single_dec_like->ID; ?>">
+                                <input id="like-<?php echo $single_dec_like->ID; ?>" type="hidden" value="like">
+                                <input id="<?php echo $single_dec_like->ID; ?>" class="decremove" type="button" value="remove from list">
+                                
+                            </form>
+                            
+                        </div>
+
+                           
+                        
+                    <?php endif; endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
         
             <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
             
@@ -191,9 +250,6 @@ get_header();
                 </div>
             <?php endif; ?>
 
- <p>
-        <a href="edit-profile-info">Edit Profile</a>
-            </p>
             <div class="mymessages">
                
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
@@ -419,7 +475,9 @@ get_footer();
         
         jQuery('.decremove').click(function(){
             var rmdecid = jQuery(this).attr('id');
-            var rmclass = ".decmember-" + rmdecid; 
+            var rmclass = ".decmember-" + rmdecid;
+            var rmtypeclass = "#like-" + rmdecid
+            var rmtype = jQuery(rmtypeclass).val();
 
             if (window.confirm("Do you really want to remove them from your list?")) {
 
@@ -428,7 +486,8 @@ get_footer();
                     ajaxurl,
                         {   
                             'action': 'remove_decmember',
-                            'rmdecid': rmdecid
+                            'rmdecid': rmdecid,
+                            'rmtype' : rmtype
                         }, 
                         function(response){
 

@@ -463,7 +463,7 @@ get_footer();
                             'rmdecid': rmdecid
                         }, 
                         function(response){
-
+alert(response);
                         jQuery(rmclass).slideDown(800).fadeOut(400);    
                         jQuery("#rmsuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
                     }

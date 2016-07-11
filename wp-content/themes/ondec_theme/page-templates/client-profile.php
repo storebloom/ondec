@@ -58,7 +58,7 @@ get_header(); ?>
                     $user_type = $user_information->roles;
                 ?>
                     <li class="decmember-<?php echo $single_dec_member; ?>">
-                        <a href='/<?php echo $user_type[0].'s/'.$user_information->user_login; ?>'>
+                        <a href='/professionals/'.$user_information->user_login; ?>'>
                         <div class="dec-name">
                             
                             <?php echo $user_information->display_name; ?>
@@ -98,6 +98,52 @@ get_header(); ?>
                     </li>
                     
                 <?php endforeach; endif; ?>
+                    
+                </ul>
+            </div>
+            
+           <?php  $my_like_info = get_user_meta( $user_info->ID, 'mylikes', false);
+                 
+            if(isset($my_like_info[0]) && $my_like_info[0] !== "") :
+                            foreach($my_like_info[0] as $single_like_info){
+                                $like_count[] = $single_like_info;
+                            }
+                          if(isset($like_count)) :
+            ?>
+            
+            <div class="profile-part profile-dec">
+                <h3>Businesses I Like (<?php echo count($like_count); ?>) </h3>
+                <ul>
+                    <?php 
+                    
+                    $my_like_info = get_user_meta( $user_info->ID, 'mylikes', false);
+                    
+                    if(isset($my_like_info[0])):
+                    
+                    foreach($my_like_info[0] as $single_like_member) :
+                    
+                    $like_information = get_userdata($single_like_member);
+                ?>
+                    <li class="decmember-<?php echo $single_like_member; ?>">
+                        <a href='<?php echo '/businesses/'.$like_information->user_login; ?>'>
+                        <div class="dec-name">
+                            
+                            <?php echo $like_information->display_name; ?>
+                            
+                        </div>
+                        
+                        <div class="dec-image">
+                            
+                            <?php echo get_wp_user_avatar($single_like_member, 96); ?>                     
+                        </div>                            
+                        </a>
+                        
+                        <div class="dec-status">
+                            We Are <?php echo get_user_meta($single_like_member, 'decstatus', true); ?>  
+                        </div>
+                    </li>
+                    
+                <?php endforeach; endif; endif; endif; ?>
                     
                 </ul>
             </div>

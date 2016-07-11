@@ -390,24 +390,28 @@ class Decstatus {
         $user_role = $current_user->roles[0];
         
         $rmdecid = isset($_POST['rmdecid']) ? $_POST['rmdecid'] : "";
+        $rmtype = isset($_POST['rmtype']) ? $_POST['rmtype'] : "";
         
         $current_dec_members = get_user_meta($current_user->ID, 'mydec', false);
         $current_biz = get_user_meta($rmdecid, 'mybusinesses', false);
         $client_pro = get_user_meta($rmdecid, 'mydec', false);
+        $client_likes = get_user_meta($current_user->ID, 'mylikes', false);
+        $biz_likers = get_user_meta($rmdecid, 'mylikers', false);
         
         $new_array = array();
         
-        if(isset($current_dec_members[0])){
-            foreach( $current_dec_members[0] as $dec_member => $member){
-
-                if($member !== $rmdecid){
-
-                    $new_array[] = $member;
-                }
-            }
-        }
-      
-        update_user_meta($current_user->ID, 'mydec', $new_array);
+//        if($user_role === 'professional'){
+//        if(isset($current_dec_members[0])){
+//            foreach( $current_dec_members[0] as $dec_member => $member){
+//
+//                if($member !== $rmdecid){
+//
+//                    $new_array[] = $member;
+//                }
+//            }
+//        }
+//      
+//        update_user_meta($current_user->ID, 'mydec', $new_array);
         
         if($user_role === 'business'){
             $new_biz = array();
@@ -425,7 +429,8 @@ class Decstatus {
             }
         }
         
-        if($user_role === 'client'){
+        if($user_role === 'client' && $rmtype === "follow"){
+            
             $new_follower = array();
 
             if(isset($client_pro[0])){
@@ -438,6 +443,38 @@ class Decstatus {
                 }
 
                 update_user_meta($rmdecid, 'mydec', $new_follower);
+            }
+        }
+        
+        if($user_role === 'client' && $rmtype === "like"){
+            
+            $new_like = array();
+
+            if(isset($client_likes[0])){
+                foreach( $client_likes[0] as $c_likes => $c_like){
+
+                    if(intval($c_like) !== intval($rmdecid)){
+
+                        $new_like[] = $c_like;
+                    }
+                }
+
+                update_user_meta($current_user->ID, 'mylikes', $new_like);
+            }
+            
+            
+            $new_liker = array();
+
+            if(isset($biz_likers[0])){
+                foreach( $biz_likers[0] as $b_likers => $b_liker){
+
+                    if(intval($b_liker) !== intval($current_user->ID)){
+
+                        $new_liker[] = $b_liker;
+                    }
+                }
+
+                update_user_meta($rmdecid, 'mylikers', $new_liker);
             }
         }
         //print_r($rmdecid); 
@@ -453,29 +490,32 @@ class Decstatus {
         
         $new_array = array();
        
-        if(isset($current_businesses[0])){
-            foreach( $current_businesses[0] as $businesses => $business){
+            $new_pro_biz = array();
 
-                if($business !== intval($rmbizid)){
+            if(isset($current_businesses[0])){
+                foreach( $current_businesses[0] as $c_bizs => $c_biz){
 
-                    $new_array[] = $business;
+                    if(intval($c_biz) !== intval($rmdecid)){
+
+                        $new_pro_biz[] = $c_biz;
+                    }
                 }
+
+                update_user_meta($current_user->ID, 'mybusinesses', $new_pro_biz);
             }
-            update_user_meta($current_user->ID, 'mybusinesses', $new_array); 
-        }
-            
-        $new_pro = array();
-        
-        if(isset($current_pros[0])){
-            foreach( $current_pros[0] as $c_pros => $c_pro){
+            var_dump($new_pro_biz);
+            $new_biz_pro = array();
 
-                if(intval($c_pro) !== $current_user->ID){
+            if(isset($current_pros[0])){
+                foreach( $current_pros[0] as $c_bizs => $c_biz){
 
-                    $new_pro[] = $c_pro;
+                    if(intval($c_biz) !== intval($current_user->ID)){
+
+                        $new_biz_pro[] = $c_biz;
+                    }
                 }
-            }
-            
-            update_user_meta($rmbizid, 'mydec', $new_pro); 
+
+                update_user_meta($current_user->ID, 'mybusinesses', $new_biz_pro);
         }
     }
 }

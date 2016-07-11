@@ -44,13 +44,13 @@ get_header(); ?>
                 </form>
             </div>
             
-            <?php elseif($current_user->roles[0] === 'professional'): ?>
+            <?php elseif($current_user->roles[0] === 'professional' && $profile_pages->is_not_on_list($user_info->ID, 'mybusinesses')): ?>
             
             <div class='decrequestbutton_wrapper'>
                 <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Request submitted!</span>
                 <form id='decrequestmeform-<?php echo $user_info->ID; ?>' name='decrequestmeform'>
-                    <input type='hidden' id='decrequestmebutton-<?php echo $user_info->ID; ?>' value='<?php echo $user_info->ID; ?>'>
-                    <input type='button' id='requesttoyourdec-<?php echo $user_info->ID; ?>' value='Request Business'>
+                    <input type='hidden' id='decrequestmebutton' value='<?php echo $user_info->ID; ?>'>
+                    <input type='button' id='requesttoyourdec' value='Request Business'>
                 </form>
             </div>
             
@@ -64,18 +64,16 @@ get_header(); ?>
                 <h3>Bio:</h3>
                 <?php echo html_entity_decode(get_user_meta($user_info->ID, 'description', true)); ?>
             </div>
-            
-            
                     
                     <?php 
                     
                     $mylikes = null !== get_user_meta($user_info->ID, 'mylikers', false) ? get_user_meta($user_info->ID, 'mylikers', false) : array( 0 => array());
                     
-                    if(isset($mylikes[0])) :
+                    if(isset($mylikes[0]) && $mylikes[0] !== "") :
                         foreach($mylikes[0] as $single_like){
                             $like_count[] = $single_like;
                         }
-                            
+                      if(isset($like_count)) :      
                     ?>
                 <div class="od-my-likes">
                     <h3>Likes (<?php echo count($like_count); ?>)</h3>
@@ -101,16 +99,22 @@ get_header(); ?>
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <?php endif; ?>
-            
+            <?php endif; endif;
+               
+            $my_dec_info = get_user_meta( $user_info->ID, 'mydec', false);
+                 
+            if(isset($my_dec_info[0]) && $my_dec_info[0] !== "") :
+                            foreach($my_dec_info[0] as $single_dec_info){
+                                $pro_count[] = $single_dec_info;
+                            }
+                          if(isset($pro_count)) :
+            ?>
             <div class="profile-part profile-dec">
-                <h3>My Professionals:</h3>
+                <h3>My Professionals (<?php echo count($pro_count); endif; ?>)</h3>
                 <ul>
                     <?php 
-                   
-                    $my_dec_info = get_user_meta( $user_info->ID, 'mydec', false);
                      
-                    if(isset($my_dec_info[0])) :
+                    
                     
                     foreach($my_dec_info[0] as $single_dec_member) :
                     
@@ -226,8 +230,8 @@ get_footer(); ?>
             }
         );
     });
-    jQuery('#requesttoyourdec-<?php echo $user_info->ID; ?>').click(function(){
-        var requestdecid = jQuery('#decrequestmebutton-<?php echo $user_info->ID; ?>').val();
+    jQuery('#requesttoyourdec').click(function(){
+        var requestdecid = jQuery('#decrequestmebutton').val();
         jQuery.post( 
             ajaxurl,
                 {   

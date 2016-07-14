@@ -10,8 +10,8 @@ google.maps.event.addDomListener( window, 'load', gmaps_results_initialize );
 
 	map = new google.maps.Map( document.getElementById( 'map-canvas' ), {
 
-		zoom:           7,
-		center:         new google.maps.LatLng( 33.748995, -84.387982 ),
+		zoom:           3,
+		center:         new google.maps.LatLng( 34.1791595, -118.3031945 ),
 
 	});
     
@@ -19,7 +19,6 @@ google.maps.event.addDomListener( window, 'load', gmaps_results_initialize );
     
         function showMarkers() {
     var bounds = map.getBounds();
-        alert(bounds);
     // Call you server with ajax passing it the bounds
 
     // In the ajax callback delete the current markers and add new markers
@@ -28,11 +27,10 @@ google.maps.event.addDomListener( window, 'load', gmaps_results_initialize );
 	// Place a marker in Atlanta
 	marker = new google.maps.Marker({
 
-		position: new google.maps.LatLng( 33.748995, -84.387982 ),
+		position: new google.maps.LatLng( 34.1791595, -118.3031945 ),
 		map:      map,
         animation: google.maps.Animation.DROP,
 		content:  "Atlanta, Georgia"
-
 	});
 
 	// Add an InfoWindow for Atlanta

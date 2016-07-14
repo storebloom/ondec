@@ -55,6 +55,10 @@ get_header();
                     }
                 }
                 
+                if($current_user->roles[0] === 'business' && !empty( $_POST['address'] )){
+                    update_user_meta( $current_user->ID, 'address', esc_attr( $_POST['address'] ) );
+                }
+                
                 
                 if ( !empty( $_POST['nickname'] ) )
                     update_user_meta( $current_user->ID, 'nickname', esc_attr( $_POST['nickname'] ) );
@@ -147,6 +151,10 @@ get_header();
                                 <p class="form-url">
                                     <label for="url"><?php _e('Website', 'profile'); ?></label>
                                     <input class="text-input" name="url" type="text" id="url" value="<?php the_author_meta( 'user_url', $current_user->ID ); ?>" />
+                                </p><!-- .form-url -->
+                                <p class="form-address">
+                                    <label for="address"><?php _e('Address', 'profile'); ?></label>
+                                    <input class="text-input" name="address" type="text" id="url" value="<?php the_author_meta( 'address', $current_user->ID ); ?>" />
                                 </p><!-- .form-url -->
                                 <p class="form-password">
                                     <label for="pass1"><?php _e('Password *', 'profile'); ?> </label>

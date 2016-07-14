@@ -22,6 +22,9 @@ function od_map_display(){
     
     $od_map->google_map_enqueue();
     $od_map->add_map_canvas();
+    
+    require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-geocode-form.php');
+    
 }
 
 add_shortcode( 'od-map',  'od_map_dispay');

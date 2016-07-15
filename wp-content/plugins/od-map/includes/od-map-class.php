@@ -82,12 +82,26 @@ class OD_Map {
 
                     $rows = array('no suggestions.');
                 }
-    
-                return $rows;
+                
                 $result->close();
 
                 $sql->close();
+        
+                $search_results = $rows[0][0];
+
+                $geocode_info = json_decode(self::geocode_address($search_results));
+
+                foreach($geocode_info as $geoloc){
+
+                     if(isset($geoloc[0]->geometry)){
+
+                        $coord[] = $geoloc[0]->geometry->location->lat . ", " . $geoloc[0]->geometry->location->lng;
+                     }
+
+                }
+
+                return $coord[0];
+        }
     }
-}
     
 $od_map = new OD_Map();

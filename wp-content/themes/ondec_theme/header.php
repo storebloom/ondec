@@ -35,42 +35,49 @@ global $current_user;
 	<a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'ondec_theme' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
-		<div class="site-branding">
-			<?php
-			if ( !is_user_logged_in()) : ?>
-               <a href="/"><img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
-			<?php else : ?>
-            <a href="/"><img class="site-logo-logged-in" src="/wp-content/themes/ondec_theme/img/ondeclogo.png" /></a>
-            <?php od_user_search(); ?>
-			<?php
-			endif; ?>
-		</div><!-- .site-branding -->
+            <section>
+                <?php
+                if ( is_user_logged_in()) : ?>
+                      <div class="site-branding">
+                <?php else : ?>
+                          <div class="site-branding loggedout">
+                <?php endif; ?>
+                <?php
+                if ( !is_user_logged_in()) : ?>
+                   <a href="/"><img class="site-logo" src="/wp-content/themes/ondec_theme/img/ondeclogow.png" /></a>
+                <?php else : ?>
+                <a href="/"><img class="site-logo-logged-in" src="/wp-content/themes/ondec_theme/img/ondeclogow.png" /></a>
+                <?php od_user_search(); ?>
+                <?php
+                endif; ?>
+            </div><!-- .site-branding -->
 
-		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'ondec_theme' ); ?></button>
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'ondec_theme' ); ?></button>
 
-            <?php if(is_user_logged_in()): ?>
-            <div class="hello-user">Hello <a href="/my-profile"><?php echo $current_user->display_name; ?></a></div> <a class="login-button" href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
-            <?php else:
-            $site_url = home_url( '/' );
-            
-            $page = get_page_by_path( 'my-profile' , OBJECT );
-    
-            if(isset($page)){
-                $location = $site_url . 'my-profile';
-            } else {
-                $location = $site_url;
-            }
+                <?php if(is_user_logged_in()): ?>
+                <div class="hello-user">Hello <a href="/my-profile"><?php echo $current_user->display_name; ?></a></div> <a class="login-button" href="<?php echo wp_logout_url(esc_url( home_url( '/' ) )); ?>">Logout</a>
+                <?php else:
+                $site_url = home_url( '/' );
 
-            $args = array(
-                'echo'           => true,
-                'redirect'       => $location,
-            );
-            
-            echo wp_login_form($args);
-            ?>
-            <?php endif; ?>
-		</nav><!-- #site-navigation -->
+                $page = get_page_by_path( 'my-profile' , OBJECT );
+
+                if(isset($page)){
+                    $location = $site_url . 'my-profile';
+                } else {
+                    $location = $site_url;
+                }
+
+                $args = array(
+                    'echo'           => true,
+                    'redirect'       => $location,
+                );
+
+                echo wp_login_form($args);
+                ?>
+                <?php endif; ?>
+            </nav><!-- #site-navigation -->  
+        </section>
 	</header><!-- #masthead -->
 
 	<div id="content" class="site-content">     

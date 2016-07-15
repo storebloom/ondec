@@ -1,23 +1,48 @@
 #page {
-    max-width: 98%;
+    max-width: 100%;
     margin: auto;
+    
+    #content{
+            max-width: 98%;
+            margin: auto;
+    }
     
     header{
         width: 100%;
-        max-width: 980px;
-        margin: auto;
-    
-        .site-branding{
-            float: left;
-            width: 40%;
-            padding-top: 1rem;
-            img.site-logo{ max-width: 170px; width: 100%; padding-top: -.7rem;}
-            img.site-logo-logged-in{
-                max-width: 80px; 
-                width: 100%; float: left;
-                padding-right: 1rem; 
+        background: #a95fb4;
+        background: -webkit-linear-gradient(#b364bf, #a95fb4 50%); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#b364bf, #a95fb4 50%); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#b364bf, #a95fb4 50%); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#b364bf, #a95fb4 50%); /* Standard syntax */
+
+        section{
+            width: 100%;
+            max-width: 980px;
+            margin: auto;
+            
+            #site-navigation{
+                color: #fff;
+                a{color: #fff; }
             }
-        }
+            
+            
+               
+            .site-branding{
+                float: left;
+                width: 75%;
+                padding-top: 1rem;
+                img.site-logo{ max-width: 170px; width: 100%; padding-top: -.7rem;}
+                img.site-logo-logged-in{
+                    max-width: 115px; 
+                    width: 100%; float: left;
+                    padding-right: 1rem; 
+                }
+            }
+            
+            .site-branding.loggedout{
+                width: 40%;
+            }
+        }    
         
     }
 

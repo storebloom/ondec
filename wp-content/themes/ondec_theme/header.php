@@ -14,7 +14,8 @@ global $current_user;
  * @package ondec_custom_theme
  */
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
     
 <head>
@@ -27,7 +28,7 @@ global $current_user;
 <script type="text/javascript">
 
     var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
-</script>    
+</script>
 </head>
 
 <body <?php body_class(); ?>>

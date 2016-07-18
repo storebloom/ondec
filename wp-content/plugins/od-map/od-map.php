@@ -16,15 +16,14 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function od_map_display(){
+function od_map_display($address = ""){
     
     require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-map-class.php');
     
     $od_map->google_map_enqueue();
     $od_map->add_map_canvas();
-    
-    require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-geocode-form.php');
-    
-}
+    $od_map->geocode_address($address);
 
-add_shortcode( 'od-map',  'od_map_dispay');
+    require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-geocode-form.php');
+
+}

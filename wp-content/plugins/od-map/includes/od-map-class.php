@@ -39,7 +39,7 @@ class OD_Map {
     
     public function add_map_canvas(){
         
-        echo '<div id="map-canvas"></div>';
+        echo '<div id="map_wrapper"><div id="close_map">X</div><div id="map-canvas"></div></div>';
     }
     
     public function geocode_address($address){
@@ -74,7 +74,7 @@ class OD_Map {
           exit;
         }
 
-        $query = "SELECT meta_value from od_usermeta WHERE user_id IN (SELECT user_id FROM od_usermeta WHERE meta_key = 'od_capabilities' AND meta_value LIKE '%business%') AND meta_key = 'address'";
+        $query = "SELECT user_id,  meta_value from od_usermeta WHERE user_id IN (SELECT user_id FROM od_usermeta WHERE meta_key = 'od_capabilities' AND meta_value LIKE '%business%') AND meta_key = 'address'";
 
         $result = $sql->query($query);
 
@@ -97,33 +97,47 @@ class OD_Map {
         $search_results = $rows;
 
         foreach($search_results as $results){
-            
-            $geocode_info = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD27PJsgKc4b4Jkm5swmUmeMOpbT8HcXtc&address=' . urlencode($results[0])));
+
+            $geocode_info = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD27PJsgKc4b4Jkm5swmUmeMOpbT8HcXtc&address=' . urlencode($results[1])));
         
-        foreach($geocode_info as $geoloc){
-            
-             if(isset($geoloc[0]->geometry) && $geoloc[0]->geometry->location->lat !== NULL && $geoloc[0]->geometry->location->lng !== NULL){
+            foreach($geocode_info as $geoloc){
 
-                $coord[] = array('lat' => $geoloc[0]->geometry->location->lat, 'lng' => $geoloc[0]->geometry->location->lng) ;
-             }
+                 if(isset($geoloc[0]->geometry) && $geoloc[0]->geometry->location->lat !== NULL && $geoloc[0]->geometry->location->lng !== NULL){
 
-        }
+                    $coord[] = array('lat' => $geoloc[0]->geometry->location->lat, 'lng' => $geoloc[0]->geometry->location->lng, 'info' => $results[0]) ;
+                 }
+
+            }
         }
 
         return $coord;
+    }
+    
+    public static function get_info_card($id){
+        
+        $user_info = get_userdata(intVal($id));
+        
+        $info_card = '<div class=\"map_name\">' . $user_info->display_name . '<\/div>';
+        $info_card .= '<div class=\"map_link\"><a href=\"/businesses/' . $user_info->user_login . '/\">view profile<\/a><\/div>';
+            
+        
+        return $info_card;
+
     }
         
     public static function define_global_var($coordlat, $coordlng){
         
         $coordinates = self::get_current_addresses();
-   
+
         echo '<script> var search_val = { "lat" : '.$coordlat.' , "long" : '. $coordlng . ' }; var data = {
         "markers_available":[ ';
         
         foreach($coordinates as $single_coor){
             
+            $info = self::get_info_card($single_coor['info']);
+            
         echo '
-            {"lat":"'.$single_coor['lat'].'","long":"'.$single_coor['lng'].'"},';
+            {"lat":"'.$single_coor['lat'].'","long":"'.$single_coor['lng'].'", "info":"'.$info.'"},';
             
         }
         

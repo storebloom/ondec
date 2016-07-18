@@ -16,6 +16,7 @@ google.maps.event.addDomListener(window, 'load', gmaps_results_initialize);
 var markers=[];
 var contents = [];
 var infowindows = [];
+var map_info = [];
 
 google.maps.event.addListener(map, 'bounds_changed', function() {
 for (var i in markers_available) { 
@@ -29,7 +30,7 @@ for (var i in markers_available) {
     markers[i].setMap(null);
     
      markers[i].index = i;
-    contents[i] = '<div class="popup_container">' +
+    contents[i] = '<div class="popup_container">' + map_info[i] +
     '</div>';
 
 
@@ -40,7 +41,7 @@ for (var i in markers_available) {
          }      
 
     infowindows[i] = new google.maps.InfoWindow({
-    content: contents[i],
+    content: markers_available[i].info,
     maxWidth: 300
     });
 
@@ -56,13 +57,8 @@ for (var i in markers_available) {
     });
 
 }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
+
+jQuery("#close_map").click(function(){
+    
+    jQuery('#map_wrapper').slideUp(300).delay(800).fadeOut(400);
+});

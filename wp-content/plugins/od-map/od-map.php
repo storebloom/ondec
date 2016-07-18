@@ -17,13 +17,23 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 function od_map_display($address = ""){
-    
-    require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-map-class.php');
-    
-    $od_map->google_map_enqueue();
-    $od_map->add_map_canvas();
-    $od_map->geocode_address($address);
+    if(isset($_POST['search_val'])){  
 
-    require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-geocode-form.php');
+        $address = $_POST['search_val'];
 
+        require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-map-class.php');
+
+        $od_map->google_map_enqueue();
+        $od_map->add_map_canvas();
+        $od_map->geocode_address($address);
+    }
+    
+    $display_search_form = '<form method="post" id="search-address">
+    <input name="search_val" type="text" placeholder="enter your address here" >
+    <input name="submit" type="submit" value="search" >
+    </form>';
+
+    return $display_search_form;
 }
+
+add_shortcode('od_map_display', 'od_map_display');

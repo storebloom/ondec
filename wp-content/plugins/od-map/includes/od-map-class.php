@@ -63,7 +63,7 @@ class OD_Map {
     
     public static function get_current_addresses(){
 
-        $config = array('host'=>'localhost', 'user'=>'root', 'pass'=>'root', 'db_name'=>'odwp2016');
+        $config = array('host'=>'sql312.byethost17.com', 'user'=>'b17_18426836', 'pass'=>'Burbank45243!', 'db_name'=>'b17_18426836_ondecwp2016');
 
         $sql = new mysqli($config['host'], $config['user'], $config['pass'], $config['db_name']);
 
@@ -99,12 +99,12 @@ class OD_Map {
         foreach($search_results as $results){
 
             $geocode_info = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD27PJsgKc4b4Jkm5swmUmeMOpbT8HcXtc&address=' . urlencode($results[1])));
-        
+        var_dump($geocode_info);
             foreach($geocode_info as $geoloc){
 
                  if(isset($geoloc[0]->geometry) && $geoloc[0]->geometry->location->lat !== NULL && $geoloc[0]->geometry->location->lng !== NULL){
 
-                    $coord[] = array('lat' => $geoloc[0]->geometry->location->lat, 'lng' => $geoloc[0]->geometry->location->lng, 'info' => $results[0]) ;
+                    $coord[] = array('lat' => $geoloc[0]->geometry->location->lat, 'lng' => $geoloc[0]->geometry->location->lng, 'info' => $results[0], 'address' => $geoloc[0]->geometry->location) ;
                  }
 
             }
@@ -113,11 +113,20 @@ class OD_Map {
         return $coord;
     }
     
-    public static function get_info_card($id){
+   public static function get_info_card($id, $address = ""){
         
         $user_info = get_userdata(intVal($id));
         
+        $user_avatar = intVal(get_user_meta($user_info->ID, 'od_user_avatar', true));
+        
+        $open_close =  !empty(get_user_meta($user_info->ID, 'decstatus', true)) ? get_user_meta($user_info->ID, 'decstatus', true) : "Closed";
+        
+        $pro_url = get_the_guid($user_avatar);
+        
         $info_card = '<div class=\"map_name\">' . $user_info->display_name . '<\/div>';
+        $info_card .= '<div class=\"map_avatar\"><img width=\"60px\" src=\"'.  $pro_url . '\" ><\/div>';
+        $info_card .= '<div class=\"map_open\">We Are '.  $open_close . '<\/div>';
+        $info_card .= '<div class=\"map_address\">We Are '.  $open_close . '<\/div>';
         $info_card .= '<div class=\"map_link\"><a href=\"/businesses/' . $user_info->user_login . '/\">view profile<\/a><\/div>';
             
         
@@ -137,7 +146,7 @@ class OD_Map {
             $info = self::get_info_card($single_coor['info']);
             
         echo '
-            {"lat":"'.$single_coor['lat'].'","long":"'.$single_coor['lng'].'", "info":"'.$info.'"},';
+            {"lat":"'.$single_coor['lat'].'","long":"'.$single_coor['lng'].'", "info":"'.$info.'","address":"' . $single_coor['address'] .'"},';
             
         }
         

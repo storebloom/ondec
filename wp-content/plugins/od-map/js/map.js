@@ -8,7 +8,7 @@ google.maps.event.addDomListener(window, 'load', gmaps_results_initialize);
         
     var mapOptions = {
         center: new google.maps.LatLng(search_val.lat, search_val.long),
-        zoom: 11
+        zoom: 13
     };
         
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);

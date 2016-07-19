@@ -13,7 +13,7 @@ class Business_Registration {
         add_shortcode( 'business-registration-form', array( $this, 'business_registration_function' ) );
     }
     
-    private static function business_registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio ) {
+    private static function business_registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $address, $business_type ) {
     
         echo '
         <style>
@@ -45,6 +45,33 @@ class Business_Registration {
         </div>
 
         <div>
+            <label for="business_type">Select your business type</label>
+
+            <select name="business_type" id="business_type">
+            ';
+                $business_type = array();
+                $business_type['tattoo']  = 'Tattoo Shop';
+                $business_type['barber']  = 'Barber / Hair Cutter';
+                $business_type['weed'] = 'Dispensary';
+                $business_type['salon'] = 'Beauty Salon';
+                $business_type['bar'] = 'Bar / Restaurant';
+                $business_type['contruction'] = 'Construction / Landscaping';
+                $business_type['grooming'] = 'Pet Shop/Groomers';
+
+                foreach ( $business_type as $id => $item ) {
+            
+            echo '        
+                <option '. selected( $business_type, $item ) . '>' . $item .'</option>
+            ';
+                }
+            echo '
+            </select>
+        </div>
+        <div>        
+        <label for="address">Address (leave blank to remain off the map)</label>
+        <input type="text" name="address" value="' . ( isset( $_POST['address']) ? $address : null ) . '">
+        </div>
+        <div>        
         <label for="website">Website</label>
         <input type="text" name="website" value="' . ( isset( $_POST['website']) ? $website : null ) . '">
         </div>
@@ -75,15 +102,17 @@ class Business_Registration {
     
     public function business_registration_function() {
         
-            $username   = "";
-            $password   = "";
-            $email      = "";
-            $website    = "";
-            $first_name = "";
-            $last_name  = "";
-            $nickname   = "";
-            $bio        = "";
-            $role       = "";        
+            $username      = "";
+            $password      = "";
+            $email         = "";
+            $website       = "";
+            $first_name    = "";
+            $last_name     = "";
+            $nickname      = "";
+            $bio           = "";
+            $role          = "";
+            $address       = "";
+            $business_type = "";
         
         if(is_user_logged_in ()){ 
             echo '<h2>You are already logged in.  To create a new account log out first and revist this form.</h2>';
@@ -115,7 +144,7 @@ class Business_Registration {
             );
 
             // sanitize user form input
-            global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio;
+            global $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $address, $business_type;
             $username   =   sanitize_user( $_POST['username'] );
             $password   =   esc_attr( $_POST['password'] );
             $email      =   sanitize_email( $_POST['email'] );
@@ -125,6 +154,8 @@ class Business_Registration {
             $nickname   =   sanitize_text_field( $_POST['nickname'] );
             $bio        =   esc_textarea( $_POST['bio'] );
             $role       =   isset($role) ? $role : "";
+            $address    =   sanitize_text_field( $_POST['address'] );
+            $business_type = isset($_POST['business_type']) ? $_POST['business_type'] : "";
 
             // call @function complete_registration to create the user
             // only when no WP_error is found
@@ -137,7 +168,9 @@ class Business_Registration {
                 $last_name,
                 $nickname,
                 $bio,
-                $role
+                $role,
+                $address,
+                $business_type
             );
         }
 
@@ -149,7 +182,9 @@ class Business_Registration {
             $first_name,
             $last_name,
             $nickname,
-            $bio
+            $bio, 
+            $address,
+            $business_type
         );
     } 
 }

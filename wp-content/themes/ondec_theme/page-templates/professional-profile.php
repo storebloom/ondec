@@ -216,6 +216,21 @@ get_header(); ?>
             </div>
             
             <?php if(isset($current_user->roles[0])) : ?>
+            
+            <?php if($current_user->roles[0] === 'client') : ?>
+
+                <div class="endorse-me">
+                    <h3>Endorse Me</h3>
+                    <p class="endorse-sent-sucess" style="display:none;">
+                     Your endorsement has been submitted!    
+                    </p>    
+                    <form id="endorseuserform" name="endorseuserform">
+                        <input id="endorseinput" type="text" placeholder="write endorsement here" name="decendorse" class="<?php echo $user_info->ID; ?>" value="">
+                        <input id="endorsesend" class="endorsesend" type="button" value="submit">
+                    </form>
+                </div>
+            <? endif; ?>
+            
             <a name="messages"></a>
                 <div class="messge-me-section">
                 <p class="message-sent-sucess" style="display:none;">
@@ -264,6 +279,29 @@ get_footer(); ?>
             }
         );
     });
+    jQuery("#endorsesend").click(function(){    
+            
+        var userendorse = jQuery('#endorseinput').val();
+        var endorseusrid = jQuery('#endorseinput').attr('class');
+        var x = Math.floor((Math.random() * 100000000000) + 1);
+        var endorseid = endorseusrid + "_" + x;
+            
+            jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'add_userendorse',
+                    'userendorse': userendorse,
+                    'endorseusrid' : endorseusrid,
+                    'endorseid' : endorseid
+                }, 
+                function(response){
+                 
+                jQuery('#endorseinput').val("");    
+                jQuery(".endorse-sent-sucess").slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);    
+               
+            }
+        );
+    });    
 });
 </script>
         

@@ -60,6 +60,13 @@ get_header(); ?>
                 <h3>We Are: <?php echo "" !== $openclosed ? $openclosed : "Undecided"; ?></h3>
                 
             </div>
+            <?php if(!empty(get_user_meta($user_info->ID, 'address'))): ?>
+            <div class="direction_address">
+                <a target="_blank" href="https://www.google.com/maps/dir/<?php echo get_user_meta($user_info->ID, 'address', true); ?>'">
+                    <?php echo get_user_meta($user_info->ID, 'address', true); ?>
+                </a>
+            </div>
+            <?php endif;?>
             <div class="profile-part profile-bio">
                 <h3>Bio:</h3>
                 <?php echo html_entity_decode(get_user_meta($user_info->ID, 'description', true)); ?>

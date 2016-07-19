@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 class OD_Complete_Registration {
 
-    public function complete_registration($username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role) {
+    public function complete_registration($username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $role, $address ="", $business_type="") {
         
         global $reg_errors;
 
@@ -22,10 +22,15 @@ class OD_Complete_Registration {
             'last_name'     =>   $last_name,
             'nickname'      =>   $nickname,
             'description'   =>   $bio,
-            'role'          =>   $role,
+            'role'          =>   $role, 
             );
             
             $user = wp_insert_user( $userdata );
+            
+            if($address !== "" || $business_type !== ""){
+                update_user_meta($user, 'address', $address);
+                update_user_meta($user, 'business_type', $business_type);
+            }
             echo 'Registration Successful!';  
             
             $site_url = home_url( '/' );

@@ -6,9 +6,19 @@ google.maps.event.addDomListener(window, 'load', gmaps_results_initialize);
 
     var markers_available = data.markers_available;
         
+    var pinColor = "FE7569";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));    
+        
     var mapOptions = {
         center: new google.maps.LatLng(search_val.lat, search_val.long),
-        zoom: 13
+        zoom: 11
     };
         
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -23,7 +33,9 @@ for (var i in markers_available) {
         
     markers[i] = new google.maps.Marker({
       position: new google.maps.LatLng(markers_available[i].lat, markers_available[i].long),
-      title: 'samplemarker'
+      title: 'samplemarker',
+      icon: pinImage,
+      shadow: pinShadow
       
     });
     

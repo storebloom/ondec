@@ -62,6 +62,8 @@ get_header();
                 
                 if ( !empty( $_POST['nickname'] ) )
                     update_user_meta( $current_user->ID, 'nickname', esc_attr( $_POST['nickname'] ) );
+                if ( !empty( $_POST['business_type'] ) )
+                    update_user_meta( $current_user->ID, 'business_type', esc_attr( $_POST['business_type'] ) );
                 if ( !empty( $_POST['first-name'] ) )
                     update_user_meta( $current_user->ID, 'first_name', esc_attr( $_POST['first-name'] ) );
                 if ( !empty( $_POST['last-name'] ) )
@@ -127,12 +129,43 @@ get_header();
                                     </select>
                                 </p>
                                  
-                                <?php if($current_user->roles[0] === 'business'): ?>
+                                <?php if($current_user->roles[0] === 'business'):  
+                                $current_type = !empty(get_user_meta($current_user->ID, 'business_type')) ? get_user_meta($current_user->ID, 'business_type') : ""; ?>
                                 
                                 <p class="form-username">
                                     <label for="nickname"><?php _e('Business Name', 'profile'); ?></label>
                                     <input class="text-input" name="nickname" type="text" id="nickname" value="<?php the_author_meta( 'nickname', $current_user->ID ); ?>" />
                                 </p><!-- .form-username -->
+                                
+                                <p>
+                                    <label for="business_type"><?php _e('Select your business') ?></label>
+
+                                    <select name="business_type" id="business_type">
+                                    <?php
+                                        $business_type = array();
+                                        $business_type['tattoo']  = 'Tattoo Shop';
+                                        $business_type['barber']  = 'Barber / Hair Cutter';
+                                        $business_type['weed'] = 'Dispensary';
+                                        $business_type['salon'] = 'Beauty Salon';
+                                        $business_type['bar'] = 'Bar / Restaurant';
+                                        $business_type['contruction'] = 'Construction / Landscaping';
+                                        $business_type['grooming'] = 'Pet Shop/Groomers';
+
+                                        foreach ( $business_type as $id => $item ) {
+                                      
+                                            if($item === $current_type[0]){
+                                          
+                                          echo '<option selected>'. $item .'</option>';
+                                          
+                                      } else{     
+                                    ?>
+                                        <option><?php echo $item; ?></option>
+                                    <?php
+                                            }
+                                        }
+                                    ?>
+                                    </select>
+                                </p>
                                 
                                 <?php endif; ?>
                                 

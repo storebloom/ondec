@@ -63,7 +63,7 @@ class OD_Map {
     
     public static function get_current_addresses(){
 
-        $config = array('host'=>'sql312.byethost17.com', 'user'=>'b17_18426836', 'pass'=>'Burbank45243!', 'db_name'=>'b17_18426836_ondecwp2016');
+        $config = array('host'=>'localhost', 'user'=>'root', 'pass'=>'root', 'db_name'=>'odwp2016');
 
         $sql = new mysqli($config['host'], $config['user'], $config['pass'], $config['db_name']);
 
@@ -99,12 +99,14 @@ class OD_Map {
         foreach($search_results as $results){
 
             $geocode_info = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD27PJsgKc4b4Jkm5swmUmeMOpbT8HcXtc&address=' . urlencode($results[1])));
-        var_dump($geocode_info);
+        
             foreach($geocode_info as $geoloc){
+                
+                $type = !empty(get_user_meta($results[0], 'business_type', true)) ? get_user_meta($results[0], 'business_type', true) : "default";
 
                  if(isset($geoloc[0]->geometry) && $geoloc[0]->geometry->location->lat !== NULL && $geoloc[0]->geometry->location->lng !== NULL){
 
-                    $coord[] = array('lat' => $geoloc[0]->geometry->location->lat, 'lng' => $geoloc[0]->geometry->location->lng, 'info' => $results[0], 'address' => $geoloc[0]->geometry->location) ;
+                    $coord[] = array('lat' => $geoloc[0]->geometry->location->lat, 'lng' => $geoloc[0]->geometry->location->lng, 'info' => $results[0], 'address' => $geoloc[0]->formatted_address, 'business_type' => $type);
                  }
 
             }
@@ -126,7 +128,7 @@ class OD_Map {
         $info_card = '<div class=\"map_name\">' . $user_info->display_name . '<\/div>';
         $info_card .= '<div class=\"map_avatar\"><img width=\"60px\" src=\"'.  $pro_url . '\" ><\/div>';
         $info_card .= '<div class=\"map_open\">We Are '.  $open_close . '<\/div>';
-        $info_card .= '<div class=\"map_address\">We Are '.  $open_close . '<\/div>';
+        $info_card .= '<div class=\"map_address\"><a href=\"https://www.google.com/maps/dir/'.$address.'\">'.$address.'<\/a><\/div>';
         $info_card .= '<div class=\"map_link\"><a href=\"/businesses/' . $user_info->user_login . '/\">view profile<\/a><\/div>';
             
         
@@ -143,10 +145,10 @@ class OD_Map {
         
         foreach($coordinates as $single_coor){
             
-            $info = self::get_info_card($single_coor['info']);
+            $info = self::get_info_card($single_coor['info'], $single_coor['address']);
             
         echo '
-            {"lat":"'.$single_coor['lat'].'","long":"'.$single_coor['lng'].'", "info":"'.$info.'","address":"' . $single_coor['address'] .'"},';
+            {"lat":"'.$single_coor['lat'].'","long":"'.$single_coor['lng'].'", "info":"'.$info.'","business_type":"' . $single_coor['business_type'] .'"},';
             
         }
         

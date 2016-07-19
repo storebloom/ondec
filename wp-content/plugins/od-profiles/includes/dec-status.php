@@ -40,8 +40,10 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_add_usermessage',      array($this, 'prefix_ajax_add_usermessage') );
         add_action( 'wp_ajax_add_read_status',             array($this, 'prefix_ajax_add_read_status') );
         add_action( 'wp_ajax_nopriv_add_read_status',      array($this, 'prefix_ajax_add_read_status') );
-         add_action( 'wp_ajax_like_decmember',            array($this, 'prefix_ajax_like_decmember') );
+        add_action( 'wp_ajax_like_decmember',            array($this, 'prefix_ajax_like_decmember') );
         add_action( 'wp_ajax_nopriv_like_decmember',     array($this, 'prefix_ajax_like_decmember') );
+        add_action( 'wp_ajax_add_userendorse',             array($this, 'prefix_ajax_add_userendorse') );
+        add_action( 'wp_ajax_nopriv_add_userendorse',      array($this, 'prefix_ajax_add_userendorse') );
     }
     
     public function prefix_ajax_add_decmember() {
@@ -346,6 +348,41 @@ class Decstatus {
         $new_message_array = array_merge($current_messages[0], array($usermessage_id));
             
         update_user_meta( $msgid, 'my_messages', $new_message_array ); 
+        }
+        
+        
+        echo "success!";
+    }
+    
+    public function prefix_ajax_add_userendorse() {
+        
+        global $current_user;
+        
+        $usermessage = isset($_POST['userendorse']) ? $_POST['userendorse'] : "";
+        $msgid = isset($_POST['endorseusrid']) ? $_POST['endorseusrid'] : "";
+        $messageid = isset($_POST['endorseid']) ? $_POST['endorseid'] : "";
+        $c_date = time();
+        
+        $usermessage_id = array('messageid' => $messageid, 'message_date' => $c_date, 'user' => $current_user->ID, 'endorsement' => $usermessage, 'approval_status' => 'pending'); 
+        
+        $current_message_array = get_user_meta($msgid, 'my_endorsements', false);
+        
+        $current_messages = isset($current_message_array) ? $current_message_array : "";
+       
+        if(NULL === $current_messages[0]){
+    
+        update_user_meta( $msgid, 'my_endorsements', $usermessage_id );
+            
+        } elseif( 1 === count($current_messages) && 5 === count($current_messages[0]) && NULL === $current_messages[0][0])  {
+            
+        $new_message_array = array_merge($current_messages, array($usermessage_id));
+            
+        update_user_meta( $msgid, 'my_endorsements', $new_message_array );
+        } elseif( 2 <= count($current_messages[0]) ){
+            
+        $new_message_array = array_merge($current_messages[0], array($usermessage_id));
+            
+        update_user_meta( $msgid, 'my_endorsements', $new_message_array ); 
         }
         
         

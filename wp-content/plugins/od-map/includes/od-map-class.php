@@ -128,7 +128,7 @@ class OD_Map {
         $info_card = '<div class=\"map_name\">' . $user_info->display_name . '<\/div>';
         $info_card .= '<div class=\"map_avatar\"><img width=\"60px\" src=\"'.  $pro_url . '\" ><\/div>';
         $info_card .= '<div class=\"map_open\">We Are '.  $open_close . '<\/div>';
-        $info_card .= '<div class=\"map_address\"><a href=\"https://www.google.com/maps/dir/'.$address.'\">'.$address.'<\/a><\/div>';
+        $info_card .= '<div class=\"map_address\"><a target=\"_blank\" href=\"https://www.google.com/maps/dir/'.$address.'\">'.$address.'<\/a><\/div>';
         $info_card .= '<div class=\"map_link\"><a href=\"/businesses/' . $user_info->user_login . '/\">view profile<\/a><\/div>';
             
         

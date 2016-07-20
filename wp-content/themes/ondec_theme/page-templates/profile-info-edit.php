@@ -70,6 +70,8 @@ get_header();
                     update_user_meta($current_user->ID, 'last_name', esc_attr( $_POST['last-name'] ) );
                 if ( !empty( $_POST['description'] ) )
                     update_user_meta( $current_user->ID, 'description', esc_attr( $_POST['description'] ) );
+                if( !empty( $_POST['pro-types'] ) )
+                    update_user_meta( $current_user->ID, 'protype', esc_attr( $_POST['pro-types']) );
 
                 /* Redirect so the page will show updated info.*/
               /*I am not Author of this Code- i dont know why but it worked for me after changing below line to if ( count($error) == 0 ){ */
@@ -166,6 +168,37 @@ get_header();
                                     ?>
                                     </select>
                                 </p>
+                                
+                                <?php endif; ?>
+                                
+                                <?php if($current_user->roles[0] === 'professional' ): 
+                                
+                                $professional_types = array("tattoo" => "Tattoo Artist", "makeup" => "Makeup Artist", "hair" => "Hair Stylist", "bar" => "Bartender", "other" =>                                 "Other");
+                                $pro_types_str = str_replace("pro-types=", "", get_user_meta($current_user->ID, 'protype', true));
+                                $current_pro_types = explode("&", $pro_types_str );
+                                ?>
+                                
+                                
+                                
+                                <div class="pro-type-section">
+                                    <h3>Choose your professional type</h3>
+                                    
+                                    
+                                            <ul>
+                                                <?php foreach($professional_types as $profession => $professional_readable): ?>
+
+                                                <li>
+                                                    <?php if(array_intersect($current_pro_types, array($profession))){ ?>
+                                                    <input name="pro-types" class="pro-types" type="checkbox" value="<?php echo $profession; ?>" checked>
+                                                   <? } else { ?>
+                                                    <input name="pro-types" class="pro-types" type="checkbox" value="<?php echo $profession; ?>">
+                                                  <?php  } ?>
+                                                    <?php echo $professional_readable; ?>
+                                                </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+
+                                </div>
                                 
                                 <?php endif; ?>
                                 

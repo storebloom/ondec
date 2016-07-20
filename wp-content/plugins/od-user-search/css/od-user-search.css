@@ -15,7 +15,7 @@
 	line-height: 30px;
 	outline: medium none;
 	padding: 8px 12px;
-    width: 433px;
+    width: 420px;
 }
 
 .twitter-typeahead{
@@ -40,7 +40,7 @@
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	margin-top: 12px;
 	padding: 8px 0;
-    width: 433px;
+    width: 420px;
 }
 .tt-suggestion {
 	font-size: 24px;

@@ -363,7 +363,7 @@ class Decstatus {
         $messageid = isset($_POST['endorseid']) ? $_POST['endorseid'] : "";
         $c_date = time();
         
-        $usermessage_id = array('messageid' => $messageid, 'message_date' => $c_date, 'user' => $current_user->ID, 'endorsement' => $usermessage, 'approval_status' => 'pending'); 
+        $usermessage_id = array('endorsementid' => $messageid, 'endorsement_date' => $c_date, 'user' => $current_user->ID, 'endorsement' => $usermessage, 'approval_status' => 'pending'); 
         
         $current_message_array = get_user_meta($msgid, 'my_endorsements', false);
         

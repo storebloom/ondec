@@ -5,13 +5,12 @@ $mydec = null !== get_user_meta($current_user->ID, 'mydec', false) ? get_user_me
 $decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "no dec status";
 $current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
 $mybusinesses = null !== get_user_meta($current_user->ID, 'mybusinesses', false) ? get_user_meta($current_user->ID, 'mybusinesses', false) : array( 0 => array());
-$professional_types = array("tattoo" => "Tattoo Artist", "makeup" => "Makeup Artist", "hair" => "Hair Stylist", "bar" => "Bartender", "other" => "Other");
-$pro_types_str = str_replace("pro-types=", "", get_user_meta($current_user->ID, 'protype', true));
-$current_pro_types = explode("&", $pro_types_str );
 $my_dec_info = array();
 $my_business_info = array();    
 $myrequests = null !== get_user_meta($current_user->ID, 'business_requests', false) ? get_user_meta($current_user->ID, 'business_requests', false) : array( 0 => array());
 $my_request_info = array();
+$endorsement_user_info = array();
+$endorsment_requests = null !== get_user_meta($current_user->ID, 'my_endorsements', false) ? get_user_meta($current_user->ID, 'my_endorsements', false) : array( 0 => array());
 
 if(isset($mybusinesses[0])){
     foreach($mybusinesses[0] as $single_business){
@@ -56,7 +55,9 @@ get_header();
                 <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
                 <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             </form>
-            <a href="/professionals/<?php echo $current_user->user_login; ?>">view my profile</a>
+            <p>
+            <a href="/professionals/<?php echo $current_user->user_login; ?>">view my profile</a> | <a href="edit-profile-info">Edit Profile</a>
+            </p>
             <span>
                 <div style="display:none;" id="msgsuccess">success!</div>
             </span>
@@ -172,6 +173,7 @@ get_header();
 
             </div>
             
+            <?php if( !is_array($my_request_info) && $my_request !== array() ) : ?>
             <h3>Requests From Businesses</h3>
             
             <div class="od-my-biz-requests">
@@ -230,33 +232,174 @@ get_header();
 
             </div>
             
-            <div class="pro-type-section">
-                <h3>Choose your professional type</h3>
+            <?php endif; ?>
+      
+  <div class="myendorsements">
+               
+            <?php $current_endorsements = get_user_meta($current_user->ID, 'my_endorsements', false);
                 
-                <form id="profesional-type-<?php echo $current_user->ID; ?>" name="professional-type-<?php echo $current_user->ID; ?>">
+                if(isset($current_endorsements)){
                     
-                    <div style="display:none;" id="typesuccess">successfully updated!</div>
+                if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){
                     
-                        <ul>
-                            <?php foreach($professional_types as $profession => $professional_readable): ?>
+                    foreach($current_endorsements as $endorsements) : 
+                    
+                    foreach(array_reverse($endorsements) as $endorsement) :
+                    
+                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
+                
+                    if(isset($endorsement['approval_status'])){
+                        
+                        if($endorsement['approval_status'] === 'pending' ){
                             
-                            <li>
-                                <?php if(array_intersect($current_pro_types, array($profession))){ ?>
-                                <input name="pro-types" class="pro-types" type="checkbox" value="<?php echo $profession; ?>" checked>
-                               <? } else { ?>
-                                <input name="pro-types" class="pro-types" type="checkbox" value="<?php echo $profession; ?>">
-                              <?php  } ?>
-                                <?php echo $professional_readable; ?>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
+                            $unread_count[] = $endorsement['approval_status'];
+                        }
+                        
+                         $message_count[] = $endorsement['approval_status'];
+                    }
+                    endforeach; endforeach; } 
+                
+                if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Endorsements"; } else { $singleor = "Endorsement"; }
+                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; } 
+                ?>
+                
+                   
+               
                     
-                        <input id="professional-type" class="professional-type" type="button" value="update">
-                </form>
+               <?php if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){
+                    
+            ?> <div class="endorsement-count">
+                <h3>My Endorsements ( <?php if(isset($endorsement_count) && is_array($endorsement_count)){
+                        echo count($endorsement_count);
+                    }else{ echo "0";} ?> )</h3>  
+                </div> 
+                <?php
+                    foreach($current_endorsements as $endorsements) : 
+                    
+                    foreach(array_reverse($endorsements) as $endorsement) :
+                    
+                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
+                ?> 
+                
+                  <li class="endorsement-item">
+                            <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
+                            <div class="endorsementOverlay">
+                                &nbsp;
+                            </div>
+                            <div class="vertical-offset">
+                                <div class="endorsementBox">
+                                    <div class="view-message-<?php echo isset($endorsement['endorsementid']) ? $messages['endorsementid'] : ""; ?>" >
+                                        <h2>
+                                            <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                        </h2>
+                                        <h3>
+                                            <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
+                                        </h3>
+                                    </div>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($endorsement_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >reply</a> <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
+                                </div>
+                            </div>
+                        </div>  
+                            <div class="endorsement-date">
+                                <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $messages['endorsement_date']) : ""; ?>
+                            </div>
+                            <div class="user-endorsement-info">
+                                <div class="endorsement-user">
+                                    <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                </div>
+                                <div class="prof-image-endorsement">
+                                    <?php echo isset($endorsement_user_info->ID) ? get_wp_user_avatar($endorsement_user_info->ID, 36) : ""; ?>
+                                </div>
+                            </div>
+                            <div class="user-endorsement">
+                                <div class="endorsement-wrapper">
+                                    <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
+                                </div>
+                                <div class="view-endorsement">
+                                    <input class="view-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+                                </div>
+                            </div>
+                        </li>
+   
+                  
+                   <?php endforeach; endforeach; }else{
+                    
+                       foreach(array_reverse($current_endorsements) as $endorsement) :
+                    
+                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
+                    
+                    if(isset($endorsement['approval_status'])){
+                        
+                        if($endorsement['approval_status'] === 'pending' ){
+                            
+                            $unread_count[] = $endorsement['approval_status'];
+                        }
+                        
+                         $endorsement_count[] = $endorsement['approval_status'];
+                    }
+                    endforeach; ?>
+                    
+                <?php  foreach(array_reverse($current_endorsements) as $endorsement) :
+                    
+                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
+                    
+                   if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Endorsements"; } else { $singleor = "Endorsement"; }
+                    
+                    if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; }
+                                                                                                                                
+                ?> 
+                
+                <div class="message-count">
+                <h3>My Endorsements ( <?php if(isset($endorsement_count) && is_array($endorsement_count)){
+                        echo count($endorsement_count);
+                    }else{ echo "0";} ?> )</h3>  
+                                         
+                </div> 
+                
+                   <li class="endorsement-item">
+                         <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
+                            <div class="endorsementOverlay">
+                                &nbsp;
+                            </div>
+                            <div class="vertical-offset">
+                                <div class="endorsementBox">
+                                    <div class="view-endorsement-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >
+                                        <h2>
+                                            <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                        </h2>
+                                        <h3>
+                                            <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
+                                        </h3>
+                                    </div>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($endorsement_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >reply</a> <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
+                                </div>
+                            </div>
+                        </div>    
+                            <div class="endorsement-date">
+                                <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $endorsement['endorsement_date']) : ""; ?>
+                            </div>
+                            <div class="user-endorsement-info">
+                                <div class="endorsement-user">
+                                    <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                </div>
+                                <div class="prof-image-endorsement">
+                                    <?php echo isset($endorsement_user_info->ID) ? get_wp_user_avatar($endorsement_user_info->ID, 36) : ""; ?>
+                                </div>
+                            </div>
+                            <div class="user-endorsement">
+                                <div class="endorsement-wrapper">
+                                    <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
+                                </div>
+                                <div class="view-endorsement">
+                                    <input class="view-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+                                </div>
+                            </div>
+                        </li>
+   
+                  
+                   <?php endforeach; }}?>
             </div>
-            <p>
-        <a href="edit-profile-info">Edit Profile</a>
-            </p>
+
             <div class="mymessages">
                
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
@@ -463,7 +606,7 @@ get_footer();
                             'rmdecid': rmdecid
                         }, 
                         function(response){
-alert(response);
+
                         jQuery(rmclass).slideDown(800).fadeOut(400);    
                         jQuery("#rmsuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
                     }
@@ -502,6 +645,40 @@ alert(response);
             if(jQuery(this).val() == 'unread'){ jQuery('#unread-count').text(jQuery('#unread-count').text()-1); }
             
             jQuery(this).val('read');
+        });
+        
+        jQuery(".closeEndorsement").click(function(){
+            
+            var closeendorsement_id = jQuery(this).attr('id');
+            var closeendorsementclass = ".endorsementWrap-" + closeendorsement_id;
+            var endorsementbuttonclass = "#" + closeendorsement_id;
+            
+            jQuery(closeendorsementclass).hide();
+            
+        });
+        
+        
+        jQuery(".view-endorsement-button").click(function(){    
+
+            var endorsement_id = jQuery(this).attr('id');
+            var endorsementWrap = ".endorsementWrap-" + endorsement_id;
+            
+            jQuery(endorsementWrap).show();    
+        
+            jQuery.post( 
+                ajaxurl,
+                    {   
+                        'action': 'approve_endorsement',
+                        'endorsement_id': endorsement_id
+                    }, 
+                    function(response){
+            
+                }
+            );
+            
+            if(jQuery(this).val() == 'pending'){ jQuery('#pending-count').text(jQuery('#pending-count').text()-1); }
+            
+            jQuery(this).val('approved');
         });
         
         jQuery('.not-current-location').click(function(){

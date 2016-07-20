@@ -13,7 +13,7 @@ if (mysqli_connect_errno()) {
   exit;
 }
 
-$query = "SELECT * from od_users WHERE ID IN (SELECT user_id FROM od_usermeta WHERE meta_key = 'od_capabilities' AND meta_value LIKE '%business%') AND ID IN (SELECT ID from od_users WHERE user_nicename LIKE '%{$key}%' OR display_name LIKE '%{$key}%' OR user_email LIKE '%{$key}%')";
+$query = "SELECT * from od_users WHERE ID IN (SELECT user_id FROM od_usermeta WHERE meta_key = 'od_capabilities' AND meta_value LIKE '%business%' OR meta_value LIKE '%client%') AND ID IN (SELECT ID from od_users WHERE user_nicename LIKE '%{$key}%' OR display_name LIKE '%{$key}%' OR user_email LIKE '%{$key}%')";
 
 $result = $sql->query($query);
 

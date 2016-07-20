@@ -44,6 +44,10 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_like_decmember',     array($this, 'prefix_ajax_like_decmember') );
         add_action( 'wp_ajax_add_userendorse',             array($this, 'prefix_ajax_add_userendorse') );
         add_action( 'wp_ajax_nopriv_add_userendorse',      array($this, 'prefix_ajax_add_userendorse') );
+        add_action( 'wp_ajax_remove_end',             array($this, 'prefix_ajax_remove_end') );
+        add_action( 'wp_ajax_nopriv_remove_end',      array($this, 'prefix_ajax_remove_end') );
+        add_action( 'wp_ajax_approve_endorsement',             array($this, 'prefix_ajax_approve_endorsement') );
+        add_action( 'wp_ajax_nopriv_approve_endorsement',      array($this, 'prefix_ajax_approve_endorsement') );
     }
     
     public function prefix_ajax_add_decmember() {
@@ -354,6 +358,38 @@ class Decstatus {
         echo "success!";
     }
     
+    public function prefix_ajax_approve_endorsement() {
+        
+        global $current_user;
+        
+        $endorseid = isset($_POST['endorseid']) ? $_POST['endorseid'] : "";
+        
+        $current_endorsements = get_user_meta($current_user->ID, 'my_endorsements');
+        
+        if(is_array($current_endorsements[0][0])){
+            foreach($current_endorsements[0] as $message_key => $message){
+                foreach($message as $messages_key => $messages){
+                    if($message['endorseid'] === $messageid){
+
+                        $current_endorsements[0][$message_key]['approval_status'] = 'approved';
+                    }               
+                }       
+             }
+        } else {
+    
+         
+                    if($current_endorsements[0]['endorseid'] === $messageid){
+
+                        $current_endorsements[0]['approval_status'] = 'approved';
+                        
+                                  
+            }         
+        }
+
+        update_user_meta( $current_user->ID, 'my_endorsements', $current_messages[0] ); 
+        
+    }
+    
     public function prefix_ajax_add_userendorse() {
         
         global $current_user;
@@ -387,6 +423,46 @@ class Decstatus {
         
         
         echo "success!";
+    }
+    
+    public function prefix_ajax_remove_end() {
+        
+        global $current_user;
+        
+        $rmendid = isset($_POST['rmendid']) ? $_POST['rmendid'] : "";
+        
+        $current_message_array = get_user_meta($current_user->ID, 'my_endorsements', false);
+        
+        $current_messages = isset($current_message_array) ? $current_message_array : "";
+
+        if(NULL === $current_messages[0][0]){
+                
+                delete_user_meta( $current_user->ID, 'my_endorsements' );     
+            
+        } elseif( 2 === count($current_messages[0]) ){
+  
+        foreach($current_messages[0] as $endorsement){
+            
+            if($endorsement['endorsementid'] !== $rmendid ){
+                
+                $new_message_array[] = $endorsement;
+            }
+        } 
+            
+        update_user_meta( $current_user->ID, 'my_endorsements', $new_message_array[0] );
+        } elseif( 2 < count($current_messages[0]) ){
+
+        foreach($current_messages[0] as $endorsement){
+            
+            if($endorsement['endorsementid'] !== $rmendid ){
+                
+                $new_message_array[] = $endorsement;
+            }
+        } 
+            
+        update_user_meta( $current_user->ID, 'my_endorsements', $new_message_array );
+        }
+        
     }
     
     public function prefix_ajax_add_read_status(){
@@ -436,20 +512,7 @@ class Decstatus {
         $biz_likers = get_user_meta($rmdecid, 'mylikers', false);
         
         $new_array = array();
-        
-//        if($user_role === 'professional'){
-//        if(isset($current_dec_members[0])){
-//            foreach( $current_dec_members[0] as $dec_member => $member){
-//
-//                if($member !== $rmdecid){
-//
-//                    $new_array[] = $member;
-//                }
-//            }
-//        }
-//      
-//        update_user_meta($current_user->ID, 'mydec', $new_array);
-        
+
         if($user_role === 'business'){
             $new_biz = array();
 

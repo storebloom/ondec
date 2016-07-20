@@ -14,12 +14,12 @@ global $current_user, $wp_roles, $profile_pages;
 $user_role = isset($current_user->roles[0]) ? $current_user->roles[0] : "";
 echo '<style type="text/css">
 
-.messageWrap { /* The div that shows/hides. */
+.messageWrap, .endorsementWrap { /* The div that shows/hides. */
     display:none; /* starts out hidden */
     z-index:40001; /* High z-index to ensure it appears above all content */
 }
 
-.messageOverlay { /* Shades out background when selector is active */
+.messageOverlay, .endorsementOverlay { /* Shades out background when selector is active */
     position:fixed;
     width:100%;
     height:100%;
@@ -39,7 +39,7 @@ echo '<style type="text/css">
     z-index:40002; /* ensures box appears above overlay */  
 }
     
-.messageBox { /* The actual box, centered in the fixed-position div */
+.messageBox, .endorsementBox { /* The actual box, centered in the fixed-position div */
     width:405px; /* Whatever width you want the box to be */
     position:relative;
     margin:0 auto;

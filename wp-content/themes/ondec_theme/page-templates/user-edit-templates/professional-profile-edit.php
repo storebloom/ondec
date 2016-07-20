@@ -237,7 +237,7 @@ get_header();
   <div class="myendorsements">
                
             <?php $current_endorsements = get_user_meta($current_user->ID, 'my_endorsements', false);
-                
+
                 if(isset($current_endorsements)){
                     
                 if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){
@@ -250,30 +250,22 @@ get_header();
                 
                     if(isset($endorsement['approval_status'])){
                         
-                        if($endorsement['approval_status'] === 'pending' ){
-                            
-                            $unread_count[] = $endorsement['approval_status'];
-                        }
-                        
-                         $message_count[] = $endorsement['approval_status'];
+                         $endorsement_count[] = $endorsement['approval_status'];
                     }
                     endforeach; endforeach; } 
-                
-                if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Endorsements"; } else { $singleor = "Endorsement"; }
-                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; } 
+
                 ?>
-                
-                   
-               
-                    
+                            
                <?php if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){
                     
             ?> <div class="endorsement-count">
-                <h3>My Endorsements ( <?php if(isset($endorsement_count) && is_array($endorsement_count)){
-                        echo count($endorsement_count);
-                    }else{ echo "0";} ?> )</h3>  
+                <h3>My Endorsements ( <span id="endorsement-count"><?php if(isset($endorsement_count) && is_array($endorsement_count)){
+                        echo intVal(count($endorsement_count));
+            }else{ echo "0";} ?></span> )</h3>  
                 </div> 
+      
                 <?php
+                    
                     foreach($current_endorsements as $endorsements) : 
                     
                     foreach(array_reverse($endorsements) as $endorsement) :
@@ -281,7 +273,7 @@ get_header();
                     $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
                 ?> 
                 
-                  <li class="endorsement-item">
+                  <li class="decend-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
                             <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
                             <div class="endorsementOverlay">
                                 &nbsp;
@@ -301,7 +293,7 @@ get_header();
                             </div>
                         </div>  
                             <div class="endorsement-date">
-                                <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $messages['endorsement_date']) : ""; ?>
+                                <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $endorsement['endorsement_date']) : ""; ?>
                             </div>
                             <div class="user-endorsement-info">
                                 <div class="endorsement-user">
@@ -316,24 +308,22 @@ get_header();
                                     <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-endorsement">
-                                    <input class="view-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+                                    
+                                    <input type="button" class="view-endorsement-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+                                    
+                                    <input id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="removeendorsement" type="button" value="remove">
                                 </div>
                             </div>
                         </li>
    
                   
                    <?php endforeach; endforeach; }else{
-                    
+                    if(array(0=> NULL) !== $current_endorsements) :
                        foreach(array_reverse($current_endorsements) as $endorsement) :
                     
                     $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
                     
                     if(isset($endorsement['approval_status'])){
-                        
-                        if($endorsement['approval_status'] === 'pending' ){
-                            
-                            $unread_count[] = $endorsement['approval_status'];
-                        }
                         
                          $endorsement_count[] = $endorsement['approval_status'];
                     }
@@ -342,21 +332,17 @@ get_header();
                 <?php  foreach(array_reverse($current_endorsements) as $endorsement) :
                     
                     $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
-                    
-                   if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Endorsements"; } else { $singleor = "Endorsement"; }
-                    
-                    if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; }
                                                                                                                                 
                 ?> 
                 
                 <div class="message-count">
-                <h3>My Endorsements ( <?php if(isset($endorsement_count) && is_array($endorsement_count)){
-                        echo count($endorsement_count);
-                    }else{ echo "0";} ?> )</h3>  
+                <h3>My Endorsements ( <span id="endorsement-count"><?php if(isset($endorsement_count) && is_array($endorsement_count)){
+                        echo intVal(count($endorsement_count));
+                }else{ echo "0";} ?></span> )</h3>  
                                          
                 </div> 
                 
-                   <li class="endorsement-item">
+                   <li class="decend-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
                          <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
                             <div class="endorsementOverlay">
                                 &nbsp;
@@ -371,7 +357,10 @@ get_header();
                                             <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
                                         </h3>
                                     </div>
-                                    <a href="<?php echo $profile_pages->get_user_profile_url($endorsement_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >reply</a> <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
+                                    <?php if($endorsement['approval_status'] === 'pending'): ?>
+                                    <input type="button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="approve-endorsement" value="approve">
+                                    <?php endif; ?>
+                                    <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
                                 </div>
                             </div>
                         </div>    
@@ -391,13 +380,16 @@ get_header();
                                     <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-endorsement">
-                                    <input class="view-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+                                    
+                                    <input class="view-endorsement-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+                                    
+                                    <input id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="removeendorsement" type="button" value="remove">
                                 </div>
                             </div>
                         </li>
    
                   
-                   <?php endforeach; }}?>
+                   <?php endforeach; endif; }}?>
             </div>
 
             <div class="mymessages">
@@ -645,6 +637,7 @@ get_footer();
             if(jQuery(this).val() == 'unread'){ jQuery('#unread-count').text(jQuery('#unread-count').text()-1); }
             
             jQuery(this).val('read');
+            
         });
         
         jQuery(".closeEndorsement").click(function(){
@@ -657,28 +650,65 @@ get_footer();
             
         });
         
-        
         jQuery(".view-endorsement-button").click(function(){    
+            
+            var endorsement_id = jQuery(this).attr('id');
+            var endorsementWrap = ".endorsementWrap-" + endorsement_id;
+            
+            jQuery(endorsementWrap).show();    
+
+        });
+        
+        
+        jQuery(".approve-endorsement-button").click(function(){    
 
             var endorsement_id = jQuery(this).attr('id');
             var endorsementWrap = ".endorsementWrap-" + endorsement_id;
             
             jQuery(endorsementWrap).show();    
+            
+        });
         
+        jQuery(".approve-endorsement").click(function(){
+                                             
+            var endorseid = jQuery(this).attr('id');
+            
             jQuery.post( 
                 ajaxurl,
                     {   
                         'action': 'approve_endorsement',
-                        'endorsement_id': endorsement_id
+                        'endorseid': endorseid
                     }, 
                     function(response){
-            
+            jQuery(this).val('approved');
+            jQuery('.endorsementOverlay').fadeOut(400);
                 }
             );
-            
-            if(jQuery(this).val() == 'pending'){ jQuery('#pending-count').text(jQuery('#pending-count').text()-1); }
-            
-            jQuery(this).val('approved');
+
+        });
+        
+        jQuery('.removeendorsement').click(function(){
+            var rmendid = jQuery(this).attr('id');
+            var rmendclass = ".decend-" + rmendid; 
+
+            if (window.confirm("Do you really want to remove this endorsement?")) {
+
+                jQuery.post(
+
+                    ajaxurl,
+                        {   
+                            'action': 'remove_end',
+                            'rmendid': rmendid
+                        }, 
+                        function(response){
+
+                        jQuery(rmendclass).slideDown(800).fadeOut(400);    
+                        jQuery("#rmendsuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                    }
+                );
+                
+                jQuery('#endorsement-count').text(jQuery('#endorsement-count').text()-1);
+            }
         });
         
         jQuery('.not-current-location').click(function(){

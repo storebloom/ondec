@@ -215,6 +215,51 @@ get_header(); ?>
 
             </div>
             
+            <?php if(null !== get_user_meta($user_info->ID, 'my_endorsements')) : ?>
+            
+            <div class="my-endorsements">
+                <h3>My Endorsements</h3>
+                
+                <ul>
+                    
+                    <?php $my_endorsements = get_user_meta($user_info->ID, 'my_endorsements', true);
+                    
+                foreach($my_endorsements as $single_endorsement) :
+                    if($single_endorsement['approval_status'] === 'approved'):
+                        $user_information = get_userdata($single_endorsement['user']);
+                    ?>
+                        <li class="decbiz-<?php echo $user_information->ID; ?>">
+
+                            <a href='/clients/<?php echo $user_information->user_login; ?>'>
+
+                                <div class="dec-name">
+
+                                    <?php echo $user_information->display_name; ?>
+
+                                </div>
+
+                                <div class="dec-image">
+
+                                    <?php echo get_wp_user_avatar($user_information->ID, 96); ?>
+
+                                </div>
+                                
+
+                            </a>
+                            
+                            <div class="endorsement-message">
+                            <em><?php echo $single_endorsement['endorsement']; ?></em>
+                            </div>
+
+                        </li>
+
+                    <?php endif; endforeach; ?>
+
+                </ul>
+                
+            
+            </div>
+            <?php endif; ?>
             <?php if(isset($current_user->roles[0])) : ?>
             
             <?php if($current_user->roles[0] === 'client') : ?>

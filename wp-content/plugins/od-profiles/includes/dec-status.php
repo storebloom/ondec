@@ -128,9 +128,18 @@ class Decstatus {
 
         update_user_meta($requestdecid, 'pro_requests', $new_pros);
         
-        } else {
+        } elseif($user_role === 'business') {
             
         $business_pros = get_user_meta($requestdecid, 'business_requests', false);
+        
+        $business_pros = array() !== $business_pros ? $business_pros : array(0 => array());
+        
+        $new_pros = array_merge($business_pros[0], array($current_user->ID));
+
+        update_user_meta($requestdecid, 'business_requests', $new_pros);
+        } elseif($user_role === 'client'){
+            
+        $current_friends = get_user_meta($requestdecid, 'myfriends', false);
         
         $business_pros = array() !== $business_pros ? $business_pros : array(0 => array());
         
@@ -386,7 +395,7 @@ class Decstatus {
             }         
         }
 
-        update_user_meta( $current_user->ID, 'my_endorsements', $current_messages[0] ); 
+        update_user_meta( $current_user->ID, 'my_endorsements', $current_endorsements[0] ); 
         
     }
     

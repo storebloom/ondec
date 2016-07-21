@@ -280,7 +280,7 @@ get_header();
                             </div>
                             <div class="vertical-offset">
                                 <div class="endorsementBox">
-                                    <div class="view-message-<?php echo isset($endorsement['endorsementid']) ? $messages['endorsementid'] : ""; ?>" >
+                                    <div class="view-endorsement-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >
                                         <h2>
                                             <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
                                         </h2>
@@ -288,7 +288,10 @@ get_header();
                                             <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
                                         </h3>
                                     </div>
-                                    <a href="<?php echo $profile_pages->get_user_profile_url($endorsement_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >reply</a> <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
+                                    <?php if($endorsement['approval_status'] === 'pending'): ?>
+                                    <input type="button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="approve-endorsement" value="approve">
+                                    <?php endif; ?>
+                                    <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
                                 </div>
                             </div>
                         </div>  
@@ -660,18 +663,10 @@ get_footer();
         });
         
         
-        jQuery(".approve-endorsement-button").click(function(){    
-
-            var endorsement_id = jQuery(this).attr('id');
-            var endorsementWrap = ".endorsementWrap-" + endorsement_id;
-            
-            jQuery(endorsementWrap).show();    
-            
-        });
-        
         jQuery(".approve-endorsement").click(function(){
                                              
             var endorseid = jQuery(this).attr('id');
+            var closeendorsementclass = ".endorsementWrap-" + endorseid;
             
             jQuery.post( 
                 ajaxurl,
@@ -681,7 +676,7 @@ get_footer();
                     }, 
                     function(response){
             jQuery(this).val('approved');
-            jQuery('.endorsementOverlay').fadeOut(400);
+            jQuery(closeendorsementclass).fadeOut(400);
                 }
             );
 

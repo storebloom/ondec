@@ -31,6 +31,17 @@ get_header(); ?>
             <div class="profile-part profile-image">
                 <?php echo get_wp_user_avatar($user_info->ID, 96); ?>
             </div>
+            <?php elseif($current_user->roles[0] === 'client' && $profile_pages->is_not_on_list($user_info->ID, 'myfriends')): ?>
+            
+            <div class='decrequestbutton_wrapper'>
+                <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Friend Request submitted!</span>
+                <form id='decrequestmeform-<?php echo $user_info->ID; ?>' name='decrequestmeform'>
+                    <input type='hidden' id='decrequestmebutton' value='<?php echo $user_info->ID; ?>'>
+                    <input type='button' id='requesttoyourdec' value='Friend Me'>
+                </form>
+            </div>
+            
+            <?php endif; ?>
             <div class="profile-part profile-status">
                 <?php echo get_user_meta($user_info->ID, 'decstatus', true); ?>
             </div>
@@ -197,6 +208,21 @@ get_footer(); ?>
             }
         );
     });
+    jQuery('#requesttoyourdec').click(function(){
+        var requestdecid = jQuery('#decrequestmebutton').val();
+        jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'request_decmember',
+                    'requestdecid': requestdecid
+                }, 
+                function(response){
+                jQuery('#decrequestmeform-<?php echo $user_info->ID; ?>').slideDown(800).fadeOut(400);    
+                jQuery('#successrequest-<?php echo $user_info->ID; ?>').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);
+            }
+        );
+    });      
+    
 });
 </script>
         

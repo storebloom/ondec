@@ -75,11 +75,33 @@ class Profile_Pages {
 
         if(isset($current_dec) && $current_dec !== "" && $current_dec !== false){
             
-            foreach($current_dec as $dec_members){
-                
-                if(intval($dec_members) === intval($id)){
-                    
-                    return false;
+            if($type === "myfriends" ){
+              
+                if(isset($current_dec[0][0]) && null !== $current_dec[0][0]){
+                  
+                    foreach($current_dec as $dec_members){
+
+                        if(intval($dec_members['user']) === intval($id)){
+
+                            return false;
+                        }
+                    }
+                } else {
+                  
+                    if(intval($current_dec['user']) === intval($id)){
+
+                        return false;
+                    }
+                }
+            
+            } else {
+            
+                foreach($current_dec as $dec_members){
+
+                    if(intval($dec_members) === intval($id)){
+
+                        return false;
+                    }
                 }
             }
         }

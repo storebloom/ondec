@@ -6,6 +6,7 @@ $decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "no dec statu
 $current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
 $biz_title = array("client" => "dec", "professional" => "Followers", "business" => "Current Professoinal"); 
 $professional_types = array("tattoo" => "Tattoo Artist", "makeup" => "Makeup Artist", "hair" => "Hair Stylist", "bar" => "Bartender", "other" => "Other");
+$current_friends = null !== get_user_meta($current_user->ID, 'myfriends') ? get_user_meta($current_user->ID, 'myfriends') : array();
 
 $my_dec_info = array();
 
@@ -54,6 +55,38 @@ get_header();
                 <input id="msgsubmit" type="button" value="update">
             </form>
             <?php endif; ?>
+            <div class="friends">
+             <div class="friend-count">
+                <h3>My Friends</h3>
+                <div style="display:none;" id="friendapproved">Now your friends!</div>
+                </div>
+                <ul>
+                    <?php foreach($current_friends as $friends) : ?>
+                    
+                <?php $friend_user_info = isset($friends['user']) ? get_userdata($friends['user']) : ""; ?>
+                
+                   <li class="friend-item">
+                            <div class="user-friend-info">
+                                <a href="/clients/<?php echo $friend_user_info->user_login; ?>" >
+                                <div class="friend-user">
+                                    <?php echo isset($friend_user_info->display_name) ? $friend_user_info->display_name : ""; ?>
+                                </div>
+                                <div class="prof-image-friend">
+                                    <?php echo isset($friend_user_info->ID) ? get_wp_user_avatar($friend_user_info->ID, 36) : ""; ?>
+                                </div>
+                                </a>
+                            </div>
+                       <?php if($friends['approval_status'] === 'pending') : ?>  
+                            <div class="user-friend">
+                                <input id="<?php echo $friend_user_info->ID; ?>" class="approve-friend" value="accept friend request" type="button">
+                            </div>
+                       <?php endif; ?>
+                        </li>
+   
+                  
+                   <?php endforeach;?>
+                </ul>
+            </div>
             
             <?php 
                     
@@ -496,6 +529,26 @@ get_footer();
                     }
                 );
             }
+        });
+        
+        jQuery(".approve-friend").click(function(){
+            
+            var friendid = jQuery(this).attr('id');
+            
+            jQuery.post(
+                
+                ajaxurl,
+                    {
+                        'action': 'approve_friend',
+                        'friendid' : friendid
+                    },
+                    function(response){
+                        
+                        jQuery('#friendapproved').slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                   alert(response);     
+                    }
+            );
+
         });
     
         jQuery("#submit").click(function() {

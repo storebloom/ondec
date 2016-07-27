@@ -31,7 +31,7 @@ get_header(); ?>
             <div class="profile-part profile-image">
                 <?php echo get_wp_user_avatar($user_info->ID, 96); ?>
             </div>
-            <?php elseif($current_user->roles[0] === 'client' && $profile_pages->is_not_on_list($user_info->ID, 'myfriends')): ?>
+            <?php if($current_user->roles[0] === 'client' && $profile_pages->is_not_on_list($user_info->ID, 'myfriends')): ?>
             
             <div class='decrequestbutton_wrapper'>
                 <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Friend Request submitted!</span>
@@ -109,6 +109,44 @@ get_header(); ?>
                     </li>
                     
                 <?php endforeach; endif; ?>
+                    
+                </ul>
+            </div>
+                    <?php $my_friend_info = get_user_meta( $user_info->ID, 'myfriends', false);
+                 
+            if(isset($my_friend_info[0][0]) && is_array($my_friend_info[0][0])) :
+                            foreach($my_friend_info[0] as $single_friend_info){
+                                $friend_count[] = $single_friend_info;
+                            }
+                          if(isset($friend_count)) :
+            ?>
+            
+            <div class="profile-part profile-dec">
+                <h3>My Friends (<?php echo count($friend_count); ?>) </h3>
+                <ul>
+                    <?php
+                    if(isset($my_friend_info[0][0]) && is_array($my_friend_info[0][0])) :
+                    
+                    foreach($my_friend_info[0] as $single_friend_member) :
+                    
+                    $friend_information = get_userdata($single_friend_member);
+                ?>
+                    <li class="decmember-<?php echo $single_friend_member; ?>">
+                        <a href='<?php echo '/clients/'.$friend_information->user_login; ?>'>
+                        <div class="dec-name">
+                            
+                            <?php echo $friend_information->display_name; ?>
+                            
+                        </div>
+                        
+                        <div class="dec-image">
+                            
+                            <?php echo get_wp_user_avatar($single_friend_member, 96); ?>                     
+                        </div>                            
+                        </a>
+                    </li>
+                    
+                <?php endforeach; endif; endif; endif; ?>
                     
                 </ul>
             </div>

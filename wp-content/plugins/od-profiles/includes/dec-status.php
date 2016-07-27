@@ -48,6 +48,8 @@ class Decstatus {
         add_action( 'wp_ajax_nopriv_remove_end',      array($this, 'prefix_ajax_remove_end') );
         add_action( 'wp_ajax_approve_endorsement',             array($this, 'prefix_ajax_approve_endorsement') );
         add_action( 'wp_ajax_nopriv_approve_endorsement',      array($this, 'prefix_ajax_approve_endorsement') );
+        add_action( 'wp_ajax_approve_friend',             array($this, 'prefix_ajax_approve_friend') );
+        add_action( 'wp_ajax_nopriv_approve_friend',      array($this, 'prefix_ajax_approve_friend') );
     }
     
     public function prefix_ajax_add_decmember() {
@@ -139,13 +141,20 @@ class Decstatus {
         update_user_meta($requestdecid, 'business_requests', $new_pros);
         } elseif($user_role === 'client'){
             
-        $current_friends = get_user_meta($requestdecid, 'myfriends', false);
-        
-        $business_pros = array() !== $business_pros ? $business_pros : array(0 => array());
-        
-        $new_pros = array_merge($business_pros[0], array($current_user->ID));
+            $current_friends = get_user_meta($requestdecid, 'myfriends', false);
 
-        update_user_meta($requestdecid, 'business_requests', $new_pros);
+            $my_friends = array() !== $current_friends ? $current_friends : array(0 => array());
+
+            if(!is_array($new_friends[0])){
+
+                $new_friends = array_merge($my_friends[0], array('user' => $current_user->ID, 'approval_status' => 'pending'));
+
+                update_user_meta($requestdecid, 'myfriends', array($new_friends));
+            } else {
+                $new_friends = array_merge($my_friends, array(array('user' => $current_user->ID, 'approval_status' => 'pending')));
+
+                update_user_meta($requestdecid, 'myfriends', $new_friends);
+            }
         }
         print_r($new_array, true);
     }
@@ -365,6 +374,43 @@ class Decstatus {
         
         
         echo "success!";
+    }
+    
+    public function prefix_ajax_approve_friend() {
+        
+        global $current_user;
+        
+        $friendid = isset($_POST['friendid']) ? $_POST['friendid'] : "";
+        
+        $current_friends = get_user_meta($current_user->ID, 'myfriends');
+        $request_friends = get_user_meta($friendid, 'myfriends', false);
+        var_dump($current_friends[0]['user']);
+        if(is_array($current_friends[0][0])){
+            foreach($current_friends[0] as $message_key => $message){
+                foreach($message as $messages_key => $messages){
+                    if($message['friendid'] === $messageid){
+
+                        $current_friends[0][$message_key]['approval_status'] = 'approved';
+                    }               
+                }       
+             }
+        } else {
+    
+         
+                    if($current_friends[0]['user'] === intVal($friendid)){
+
+                        $current_friends[0]['approval_status'] = 'approved';      
+            }         
+        }
+
+        update_user_meta( $current_user->ID, 'myfriends', $current_friends[0] );
+        
+        $my_friends = array() !== $request_friends ? $request_friends : array(0 => array());
+        
+        $new_friends = array_merge($my_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
+
+        update_user_meta($friendid, 'myfriends', $new_friends);
+        
     }
     
     public function prefix_ajax_approve_endorsement() {

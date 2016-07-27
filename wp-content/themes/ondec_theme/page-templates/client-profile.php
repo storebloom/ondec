@@ -32,7 +32,6 @@ get_header(); ?>
                 <?php echo get_wp_user_avatar($user_info->ID, 96); ?>
             </div>
             <?php if($current_user->roles[0] === 'client' && $profile_pages->is_not_on_list($user_info->ID, 'myfriends')): ?>
-            
             <div class='decrequestbutton_wrapper'>
                 <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Friend Request submitted!</span>
                 <form id='decrequestmeform-<?php echo $user_info->ID; ?>' name='decrequestmeform'>
@@ -116,7 +115,10 @@ get_header(); ?>
                  
             if(isset($my_friend_info[0][0]) && is_array($my_friend_info[0][0])) :
                             foreach($my_friend_info[0] as $single_friend_info){
-                                $friend_count[] = $single_friend_info;
+                                
+                                if($single_friend_info['approval_status'] === 'approved'){
+                                    $friend_count[] = $single_friend_info;
+                                }
                             }
                           if(isset($friend_count)) :
             ?>
@@ -129,7 +131,7 @@ get_header(); ?>
                     
                     foreach($my_friend_info[0] as $single_friend_member) :
                     
-                    $friend_information = get_userdata($single_friend_member);
+                    $friend_information = get_userdata($single_friend_member['user']);
                 ?>
                     <li class="decmember-<?php echo $single_friend_member; ?>">
                         <a href='<?php echo '/clients/'.$friend_information->user_login; ?>'>
@@ -141,7 +143,7 @@ get_header(); ?>
                         
                         <div class="dec-image">
                             
-                            <?php echo get_wp_user_avatar($single_friend_member, 96); ?>                     
+                            <?php echo get_wp_user_avatar($single_friend_member['user'], 96); ?>                     
                         </div>                            
                         </a>
                     </li>
@@ -155,7 +157,9 @@ get_header(); ?>
                  
             if(isset($my_like_info[0]) && $my_like_info[0] !== "") :
                             foreach($my_like_info[0] as $single_like_info){
+                                if(isset($single_like_info) && "" !== $single_like_info) :
                                 $like_count[] = $single_like_info;
+                                endif; 
                             }
                           if(isset($like_count)) :
             ?>
@@ -170,8 +174,10 @@ get_header(); ?>
                     if(isset($my_like_info[0])):
                     
                     foreach($my_like_info[0] as $single_like_member) :
+                    if(isset($single_like_member) && "" !== $single_like_member) :
+                        
+                        $like_information = get_userdata($single_like_member);
                     
-                    $like_information = get_userdata($single_like_member);
                 ?>
                     <li class="decmember-<?php echo $single_like_member; ?>">
                         <a href='<?php echo '/businesses/'.$like_information->user_login; ?>'>
@@ -192,7 +198,7 @@ get_header(); ?>
                         </div>
                     </li>
                     
-                <?php endforeach; endif; endif; endif; ?>
+                <?php endif; endforeach; endif; endif; endif; ?>
                     
                 </ul>
             </div>

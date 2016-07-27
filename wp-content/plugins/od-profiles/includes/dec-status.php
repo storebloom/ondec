@@ -145,13 +145,13 @@ class Decstatus {
 
             $my_friends = array() !== $current_friends ? $current_friends : array(0 => array());
 
-            if(!is_array($new_friends[0])){
+            if(!is_array($my_friends[0][0])){
 
                 $new_friends = array_merge($my_friends[0], array('user' => $current_user->ID, 'approval_status' => 'pending'));
 
                 update_user_meta($requestdecid, 'myfriends', array($new_friends));
             } else {
-                $new_friends = array_merge($my_friends, array(array('user' => $current_user->ID, 'approval_status' => 'pending')));
+                $new_friends = array_merge($my_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'pending')));
 
                 update_user_meta($requestdecid, 'myfriends', $new_friends);
             }
@@ -384,11 +384,11 @@ class Decstatus {
         
         $current_friends = get_user_meta($current_user->ID, 'myfriends');
         $request_friends = get_user_meta($friendid, 'myfriends', false);
-        var_dump($current_friends[0]['user']);
+
         if(is_array($current_friends[0][0])){
             foreach($current_friends[0] as $message_key => $message){
                 foreach($message as $messages_key => $messages){
-                    if($message['friendid'] === $messageid){
+                    if($message['user'] === intVal($friendid)){
 
                         $current_friends[0][$message_key]['approval_status'] = 'approved';
                     }               
@@ -405,11 +405,20 @@ class Decstatus {
 
         update_user_meta( $current_user->ID, 'myfriends', $current_friends[0] );
         
-        $my_friends = array() !== $request_friends ? $request_friends : array(0 => array());
-        
-        $new_friends = array_merge($my_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
+        $approved_friends = get_user_meta($friendid, 'myfriends', false);
 
-        update_user_meta($friendid, 'myfriends', $new_friends);
+        $approver_friends = array() !== $approved_friends ? $approved_friends : array(0 => array());
+
+        if(!is_array($approver_friends[0])){
+
+            $new_friends = array_merge($approver_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
+
+            update_user_meta($friendid, 'myfriends', array($new_friends));
+        } else {
+            $new_friends = array_merge($approver_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'approved')));
+
+            update_user_meta($friendid, 'myfriends', $new_friends);
+        }
         
     }
     
@@ -564,6 +573,8 @@ class Decstatus {
         $current_biz = get_user_meta($rmdecid, 'mybusinesses', false);
         $client_pro = get_user_meta($rmdecid, 'mydec', false);
         $client_likes = get_user_meta($current_user->ID, 'mylikes', false);
+        $client_friends = get_user_meta($current_user->ID, 'myfriends', false);
+        $client_frienders = get_user_meta($rmdecid, 'myfriends', false);
         $biz_likers = get_user_meta($rmdecid, 'mylikers', false);
         
         $new_array = array();
@@ -599,9 +610,7 @@ class Decstatus {
 
                 update_user_meta($rmdecid, 'mydec', $new_follower);
             }
-        }
-        
-        if($user_role === 'client' && $rmtype === "like"){
+        }elseif($user_role === 'client' && $rmtype === "like"){
             
             $new_like = array();
 
@@ -630,6 +639,36 @@ class Decstatus {
                 }
 
                 update_user_meta($rmdecid, 'mylikers', $new_liker);
+            }
+        }elseif($user_role === 'client' && $rmtype === "friend"){
+            
+            $new_friend = array();
+
+            if(isset($client_friends[0])){
+                foreach( $client_friends[0] as $c_friends){
+
+                    if(intval($c_friends['user']) !== intval($rmdecid)){
+
+                        $new_friend[] = $c_friends;
+                    }
+                }
+
+                update_user_meta($current_user->ID, 'myfriends', $new_friend);
+            }
+            
+            
+            $new_friender = array();
+
+            if(isset($client_frienders[0])){
+                foreach( $client_frienders[0] as $client_friender){
+
+                    if(intval($client_friender['user']) !== intval($current_user->ID)){
+
+                        $new_friender[] = $client_friender;
+                    }
+                }
+
+                update_user_meta($rmdecid, 'myfriends', $new_friender);
             }
         }
         //print_r($rmdecid); 

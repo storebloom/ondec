@@ -72,26 +72,24 @@ class Profile_Pages {
         global $current_user;
         
         $current_dec = get_user_meta($current_user->ID, $type, true);
+        $request_dec = get_user_meta($id, $type, true);
 
-        if(isset($current_dec) && $current_dec !== "" && $current_dec !== false){
-            
+        if(isset($current_dec) && $current_dec !== "" && $current_dec !== false || "" !== $request_dec){
+
             if($type === "myfriends" ){
-              
-                if(isset($current_dec[0][0]) && null !== $current_dec[0][0]){
-                  
-                    foreach($current_dec as $dec_members){
 
-                        if(intval($dec_members['user']) === intval($id)){
+                if(isset($request_dec[0][0]) && null !== $request_dec[0][0]){
+                  
+                    foreach($request_dec[0] as $dec_members){
+
+                        if(isset($dec_members['user']) && intval($dec_members['user']) === intval($current_user->ID)){
 
                             return false;
                         }
                     }
-                } else {
-                  
-                    if(intval($current_dec['user']) === intval($id)){
+                } elseif(isset($request_dec[0]) && intval($request_dec[0]['user']) === intval($current_user->ID)){
 
                         return false;
-                    }
                 }
             
             } else {

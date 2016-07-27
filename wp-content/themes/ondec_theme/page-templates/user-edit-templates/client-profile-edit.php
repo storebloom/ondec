@@ -55,104 +55,16 @@ get_header();
                 <input id="msgsubmit" type="button" value="update">
             </form>
             <?php endif; ?>
-            <div class="friends">
-             <div class="friend-count">
-                <h3>My Friends</h3>
-                <div style="display:none;" id="friendapproved">Now your friends!</div>
-                </div>
-                <ul>
-                    <?php foreach($current_friends as $friends) : ?>
-                    
-                <?php $friend_user_info = isset($friends['user']) ? get_userdata($friends['user']) : ""; ?>
-                
-                   <li class="friend-item">
-                            <div class="user-friend-info">
-                                <a href="/clients/<?php echo $friend_user_info->user_login; ?>" >
-                                <div class="friend-user">
-                                    <?php echo isset($friend_user_info->display_name) ? $friend_user_info->display_name : ""; ?>
-                                </div>
-                                <div class="prof-image-friend">
-                                    <?php echo isset($friend_user_info->ID) ? get_wp_user_avatar($friend_user_info->ID, 36) : ""; ?>
-                                </div>
-                                </a>
-                            </div>
-                       <?php if($friends['approval_status'] === 'pending') : ?>  
-                            <div class="user-friend">
-                                <input id="<?php echo $friend_user_info->ID; ?>" class="approve-friend" value="accept friend request" type="button">
-                            </div>
-                       <?php endif; ?>
-                        </li>
-   
-                  
-                   <?php endforeach;?>
-                </ul>
-            </div>
             
-            <?php 
-                    
-                $mylikes = null !== get_user_meta($current_user->ID, 'mylikes', false) ? get_user_meta($current_user->ID, 'mylikes', false) : "";
-
-                if(isset($mylikes[0]) && is_array($mylikes[0])){
-                    foreach($mylikes[0] as $single_like){
-                        $like_count[] = $single_like;
-                        
-                        $my_likes_info[] = get_userdata($single_like);
-                    }
-                }
-           
-                if(isset($like_count)):
-                    $like_count = intval(count($like_count));
-                ?>
-                <div class="od-my-likes">
-                    
-                    <h3>Likes (<?php echo $like_count; ?>)</h3>
-                    
-                    <ul id="like-list">
-                    <?php 
-                    
-                    foreach($my_likes_info as $single_dec_like) : ?>
-                        
-                      <?php if(isset($single_dec_like->ID)) : ?>
-                        <a href='/businesses/<?php echo $single_dec_like->user_login; ?>'>
-
-                                <div class="dec-name">
-
-                                    <?php echo isset($single_dec_like->display_name) ? $single_dec_like->display_name : ""; ?>
-
-                                </div>
-
-                                <div class="dec-image">
-
-                                    <?php echo get_wp_user_avatar($single_dec_like->ID, 96); ?>
-
-                                </div>
-                            
-                            <div>
-                             </a>
-                            
-                            <form id="declikeform-<?php echo $single_dec_like->ID; ?>" name="declikeform-<?php echo $single_dec_like->ID; ?>">
-                                <input id="like-<?php echo $single_dec_like->ID; ?>" type="hidden" value="like">
-                                <input id="<?php echo $single_dec_like->ID; ?>" class="decremove" type="button" value="remove from list">
+            
+             <span>
                                 
-                            </form>
-                            
-                        </div>
-
-                           
-                        
-                    <?php endif; endforeach; ?>
-                </ul>
-            </div>
-            <?php endif; ?>
-        
+                                <div style="display:none;" id="rmsuccess">successfully removed!</div>
+                                
+                            </span>
             <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
             
             <div class="od-my-list">
-                <span>
-                                
-                                <div style="display:none;" id="rmsuccess">successfully removed member!</div>
-                                
-                            </span>
                 <ul>
                 <?php foreach($my_dec_info as $single_dec_member) :
                     
@@ -211,76 +123,110 @@ get_header();
                 </ul>
                 
             </div>
+            <div class="friends">
+             <?php 
+            if(isset($current_friends[0][0]) && is_array($current_friends[0][0])) :
+                            foreach($current_friends[0] as $single_friend_info){                          
+        
+                                    $friend_count[] = $single_friend_info;                            
+                            }
+                          endif;
+            ?>
             
-            <?php if($user_role === "professional"):
+            <div class="profile-part profile-dec">
+                <h3>My Friends (<?php echo isset($friend_count) ? count($friend_count) : "0"; ?>) </h3>
+                <div style="display:none;" id="friendapproved">Now your friends!</div>
+                </div>
+                <?php if(isset($current_friends[0])) : ?>
+                <ul>
+                    <?php foreach($current_friends[0] as $friends) : ?>
+                    
+                <?php $friend_user_info = isset($friends['user']) ? get_userdata($friends['user']) : ""; ?>
+                
+                   <li class="decmember-<?php echo $friend_user_info->ID; ?>">
+                            <div class="user-friend-info">
+                                <a href="/clients/<?php echo $friend_user_info->user_login; ?>" >
+                                <div class="friend-user">
+                                    <?php echo isset($friend_user_info->display_name) ? $friend_user_info->display_name : ""; ?>
+                                </div>
+                                <div class="prof-image-friend">
+                                    <?php echo isset($friend_user_info->ID) ? get_wp_user_avatar($friend_user_info->ID, 36) : ""; ?>
+                                </div>
+                                </a>
+                            </div>
+                       <?php if($friends['approval_status'] === 'pending') : ?>  
+                            <div class="user-friend">
+                                <input id="<?php echo $friend_user_info->ID; ?>" class="approve-friend approve-friend-<?php echo $friend_user_info->ID; ?>" value="accept friend request" type="button">
+                            </div>
+                       <?php endif; ?>
+                            <input id="like-<?php echo $friend_user_info->ID; ?>" type="hidden" value="friend">
+                            <input id="<?php echo $friend_user_info->ID; ?>" class="decremove" type="button" value="remove friend">
+                        </li>
+   
+                  
+                   <?php endforeach;?>
+                </ul>
+                <?php endif; ?>
+            </div>
             
-                $mybusinesses = null !== get_user_meta($current_user->ID, 'mybusinesses', false) ? get_user_meta($current_user->ID, 'mybusinesses', false) : array( 0 => array());
-                $my_business_info = array();    
-            
-                if(isset($mybusinesses[0])){
-                    foreach($mybusinesses[0] as $single_business){
-                        $my_business_info[] = get_userdata($single_business);
+            <?php 
+                    
+                $mylikes = null !== get_user_meta($current_user->ID, 'mylikes', false) ? get_user_meta($current_user->ID, 'mylikes', false) : "";
+
+                if(isset($mylikes[0]) && is_array($mylikes[0])){
+                    foreach($mylikes[0] as $single_like){
+                        if(null !== $single_like && "" !== $single_like){
+                            
+                            $like_count[] = $single_like;
+                        
+                        $my_likes_info[] = get_userdata($single_like);
+                        }
                     }
                 }
-            ?>  
-                <h3>My Business Locations</h3>
-                <div class="od-my-businesses">
-                    <span>
-
-                        <div style="display:none;" id="rmsuccess">successfully removed business!</div>
-
-                    </span>
+           
+                if(isset($like_count)):
+                    $like_count = intval(count($like_count));
+                ?>
+                <div class="od-my-likes">
                     
-                    <ul id="business-list">
-                    <?php foreach($my_business_info as $single_dec_business) :
+                    <h3>Likes (<?php echo $like_count; ?>)</h3>
+                    
+                    <ul id="like-list">
+                    <?php 
+                    
+                    foreach($my_likes_info as $single_dec_like) : ?>
                         
-                     $user_information = get_userdata($single_dec_business->ID);
-                    ?>
-                        <li class="decmember-<?php echo $single_dec_business->ID; ?>">
-                            <a href='/businesses/<?php echo $single_dec_business->user_login; ?>'>
-                            <div class="dec-name">
+                      <?php if(isset($single_dec_like->ID)) : ?>
+                        <a href='/businesses/<?php echo $single_dec_like->user_login; ?>'>
 
-                                <?php echo $single_dec_business->display_name; ?>
+                                <div class="dec-name">
 
-                            </div>
+                                    <?php echo isset($single_dec_like->display_name) ? $single_dec_like->display_name : ""; ?>
 
-                            <div class="dec-image">
+                                </div>
 
-                                <?php echo get_wp_user_avatar($single_dec_business->ID, 96); ?>
+                                <div class="dec-image">
 
-                            </div>
+                                    <?php echo get_wp_user_avatar($single_dec_like->ID, 96); ?>
 
-                            </a>
-
-                            <div class="dec-status">
-
-                                <?php echo get_user_meta($single_dec_business->ID, 'decstatus', true); ?>
-
-                            </div>
-
-                            <div class="dec-message">
-
-                                <?php echo get_user_meta($single_dec_business->ID, 'decmessage', true); ?>
-
-                            </div>
-
+                                </div>
+                        </a>
                             <div>
+                             
+                            
+                            <form id="declikeform-<?php echo $single_dec_like->ID; ?>" name="declikeform-<?php echo $single_dec_like->ID; ?>">
+                                <input id="like-<?php echo $single_dec_like->ID; ?>" type="hidden" value="like">
+                                <input id="<?php echo $single_dec_like->ID; ?>" class="decremove" type="button" value="remove from list">
+                                
+                            </form>
+                            
+                        </div>
 
-                                <form id="decmsgform-<?php echo $single_dec_business->ID; ?>" name="decmsgform-<?php echo $single_dec_business->ID; ?>">
-
-                                    <input id="<?php echo $single_dec_business->ID; ?>" class="decremovebiz" type="button" value="remove from list">
-
-                                </form>
-
-                            </div>
-
-                        </li>
-
-                    <?php endforeach; ?>
-
-                    </ul>
-
-                </div>
+                           
+                        
+                    <?php endif; endforeach; ?>
+                </ul>
+            </div>
             <?php endif; ?>
 
             <div class="mymessages">
@@ -314,9 +260,9 @@ get_header();
                 
                    
                 <div class="message-count">
-                <h3>My Messages ( <?php if(isset($message_count) &&is_array($message_count)){
+                <h3>My Messages (<?php if(isset($message_count) && is_array($message_count)){
                         echo count($message_count);
-                    }else{ echo "0";} ?> )</h3>  
+                    }else{ echo "0";} ?>)</h3>  
                     
                     <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>| unread( 
                         <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
@@ -534,6 +480,7 @@ get_footer();
         jQuery(".approve-friend").click(function(){
             
             var friendid = jQuery(this).attr('id');
+            var approveclass = ".approve-friend-" + friendid;
             
             jQuery.post(
                 
@@ -545,7 +492,7 @@ get_footer();
                     function(response){
                         
                         jQuery('#friendapproved').slideUp(800).fadeIn(400).delay(800).fadeOut(400);
-                   alert(response);     
+                        jQuery(approveclass).hide();
                     }
             );
 

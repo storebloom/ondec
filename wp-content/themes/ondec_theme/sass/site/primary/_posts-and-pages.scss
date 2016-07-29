@@ -5,15 +5,27 @@
     #content{
             max-width: 98%;
             margin: auto;
+        
+        .siteorigin-panels-stretch{
+            
+            margin-left: 0px!important;
+            margin-right: 0px!important;
+        }
+        
+        #pg-4-0, #pg-4-1, #search-map, #pg-4-3 {
+            
+            margin-left: -12px!important;
+            margin-right: -12px!important;
+        }
     }
     
     header{
         width: 100%;
-        background: #a95fb4;
-        background: -webkit-linear-gradient(#b364bf, #a95fb4 50%); /* For Safari 5.1 to 6.0 */
-        background: -o-linear-gradient(#b364bf, #a95fb4 50%); /* For Opera 11.1 to 12.0 */
-        background: -moz-linear-gradient(#b364bf, #a95fb4 50%); /* For Firefox 3.6 to 15 */
-        background: linear-gradient(#b364bf, #a95fb4 50%); /* Standard syntax */
+        background: #507972;
+        background: -webkit-linear-gradient(#5c857e, #507972 50%); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#5c857e, #507972 50%); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#5c857e, #507972 50%); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#5c857e, #507972 50%); /* Standard syntax */
 
         section{
             width: 100%;
@@ -47,8 +59,34 @@
     }
 
     footer{
+        
+        background: #507972;
+        min-height: 70px;
+        
+        #menu-footer-menu{
+            
+            list-style: none;
+            padding-left: 0px;
+            margin: .5rem 0px;
+            
+            li{ 
+                a{ padding-right: .6rem; float: left; color: #ffffff; text-decoration: none; font-size: 12px;}
+            }
+            
+        }
+        
+        .footer-content-wrapper{
+            margin-top: .6rem;            
+            max-width: 75%;
+            margin:auto;
+        }
+
         .site-info{
-            text-align: center;
+            color: #fff;
+            margin: 1rem 0 3rem;
+            font-size: 10px;
+            width: 10%;
+            padding-top: 2rem;
         }
     }
 }

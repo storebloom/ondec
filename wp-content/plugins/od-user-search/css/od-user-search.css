@@ -1,6 +1,7 @@
 #od-user-search{
     float: left;
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
 }
 .bs-example{
 	font-family: sans-serif;
@@ -11,11 +12,27 @@
 	border: 2px solid #CCCCCC;
 	border-radius: 8px;
 	font-size: 24px;
-	height: 30px;
-	line-height: 30px;
+	height: 32px;
+	line-height: 32px;
 	outline: medium none;
 	padding: 8px 12px;
-    width: 420px;
+    max-width: 400px;
+    width: 100%
+}
+
+#openSearchModal{
+    border: 0px;
+    border-color: none;
+    background: #ecce70;
+    box-shadow: none;
+    color: #fff;
+    font-size: 12px;
+    font-size: 1rem;
+    text-shadow: none;
+}
+
+#openSearchModal:hover{
+    background: #edd27e;
 }
 
 .twitter-typeahead{
@@ -40,10 +57,11 @@
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	margin-top: 12px;
 	padding: 8px 0;
-    width: 420px;
+    max-width: 400px;
+    width: 100%;
 }
 .tt-suggestion {
-	font-size: 24px;
+	font-size: 18px;
 	line-height: 24px;
 	padding: 3px 20px;
     color: #a95fb4!important;

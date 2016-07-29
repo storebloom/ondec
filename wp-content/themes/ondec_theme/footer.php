@@ -14,11 +14,14 @@
 	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'ondec_theme' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'ondec_theme' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'ondec_theme' ), 'ondec_theme', '<a href="http://underscores.me/" rel="designer">Scott Adrian</a>' ); ?>
-		</div><!-- .site-info -->
+        <div class="footer-content-wrapper">
+            <div class="footermenu">
+            <?php wp_nav_menu( array( 'footer1' => 'footer-menu' ) ); ?>
+            </div>
+            <div class="site-info">
+                Ondec © 2016
+            </div><!-- .site-info -->
+        </div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

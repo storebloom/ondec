@@ -25,22 +25,32 @@ get_header();
 ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
-            <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
-            <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
-            
-            <p>
-            <a href="/clients/<?php echo $current_user->user_login; ?>">view profile</a> | 
-        <a href="edit-profile-info">edit profile</a>
-            </p>
-            
-            <span>
-            <div style="display:none;" id="msgsuccess">success!</div>
-            </span>
-            <form id="decmsgform" name="decmsgform">
-                <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
-                <input id="msgsubmit" type="button" value="update">
-            </form>
+            <div class="message-notification"></div>
+            <div class="user-wrapper">
+                <div class="user-information">
+                <?php echo "<h2>" . $current_user->display_name . "'s Profile</h2>"; ?>
+                <?php echo get_wp_user_avatar($current_user->ID, 170); ?>
 
+                <p>
+                <a href="/clients/<?php echo $current_user->user_login; ?>">view profile</a> | 
+            <a href="edit-profile-info">edit profile</a>
+                </p>
+
+                <span>
+                <div style="display:none;" id="msgsuccess">success!</div>
+                </span>
+                <form id="decmsgform" name="decmsgform">
+                    <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
+                    <input id="msgsubmit" type="button" value="update">
+                </form>
+                </div>
+                <div class="user-tools">
+                <h2>Your Tools</h2>
+                
+                    <h3>Search for a business near you:</h3>
+                <?php echo do_shortcode('[od_map_display]'); ?>
+                </div>
+            </div>
             
             <div class="member-lists">
                 
@@ -49,7 +59,17 @@ get_header();
                 <div style="display:none;" id="rmsuccess">successfully removed!</div>
             
                 <div class="list-section-wrapper">
-                <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
+                 <?php 
+            if(isset($my_dec_info[0]) && is_array($my_dec_info[0])) :
+                            foreach($my_dec_info as $single_dec_info){                          
+        
+                                    $dec_count[] = $single_dec_info;                            
+                            }
+                          endif;
+            ?>
+            
+
+                <h3>My dec (<?php echo isset($dec_count) ? count($dec_count) : "0"; ?>) </h3>
                 
                 <div class="od-my-list single-member-list">
                   
@@ -62,7 +82,7 @@ get_header();
                 ?>
                     <li class="decmember-<?php echo $single_dec_member->ID; ?>">
                         <a href='/<?php echo $user_type[0].'s/'.$user_information->user_login; ?>'>
-                        <div class="dec-name">
+                        <div class="dec-user">
                             
                             <?php echo $single_dec_member->display_name; ?>
                             
@@ -70,17 +90,11 @@ get_header();
                         
                         <div class="dec-image">
                             
-                            <?php echo get_wp_user_avatar($single_dec_member->ID, 96); ?>
+                            <?php echo get_wp_user_avatar($single_dec_member->ID, 130); ?>
                             
                         </div>
                             
                         </a>
-                        
-                        <div class="dec-status">
-                            
-                            <?php echo get_user_meta($single_dec_member->ID, 'decstatus', true); ?>
-                            
-                        </div>
                         
                         <div class="dec-status">
                             
@@ -138,11 +152,11 @@ get_header();
                    <li class="decmember-<?php echo $friend_user_info->ID; ?>">
                             <div class="user-friend-info">
                                 <a href="/clients/<?php echo $friend_user_info->user_login; ?>" >
-                                <div class="friend-user">
+                                <div class="dec-user">
                                     <?php echo isset($friend_user_info->display_name) ? $friend_user_info->display_name : ""; ?>
                                 </div>
                                 <div class="prof-image-friend">
-                                    <?php echo isset($friend_user_info->ID) ? get_wp_user_avatar($friend_user_info->ID, 36) : ""; ?>
+                                    <?php echo isset($friend_user_info->ID) ? get_wp_user_avatar($friend_user_info->ID, 130) : ""; ?>
                                 </div>
                                 </a>
                             </div>
@@ -166,7 +180,7 @@ get_header();
                     <div class="list-section-wrapper">
                         <?php
                          $mylikes = null !== get_user_meta($current_user->ID, 'mylikes', false) ? get_user_meta($current_user->ID, 'mylikes', false) : "";
-
+                    $like_count = array();
                 if(isset($mylikes[0]) && is_array($mylikes[0])){
                     foreach($mylikes[0] as $single_like){
                         if(null !== $single_like && "" !== $single_like){
@@ -178,7 +192,7 @@ get_header();
                     }
                 }
            
-                if(isset($like_count)):
+                
                     $like_count = intval(count($like_count));
                 ?>
                          <h3>Likes (<?php echo $like_count; ?>)</h3>
@@ -190,13 +204,15 @@ get_header();
                     
                     <ul id="like-list">
                     <?php 
-                    
+                    if(isset($my_likes_info)):
                     foreach($my_likes_info as $single_dec_like) : ?>
                         
                       <?php if(isset($single_dec_like->ID)) : ?>
+                        
+                        <li>
                         <a href='/businesses/<?php echo $single_dec_like->user_login; ?>'>
 
-                                <div class="dec-name">
+                                <div class="dec-user">
 
                                     <?php echo isset($single_dec_like->display_name) ? $single_dec_like->display_name : ""; ?>
 
@@ -204,7 +220,7 @@ get_header();
 
                                 <div class="dec-image">
 
-                                    <?php echo get_wp_user_avatar($single_dec_like->ID, 96); ?>
+                                    <?php echo get_wp_user_avatar($single_dec_like->ID, 130); ?>
 
                                 </div>
                         </a>
@@ -219,13 +235,15 @@ get_header();
                             
                         </div>
 
-                           
+                        </li> 
                         
                     <?php endif; endforeach; ?>
                 </ul>
-            </div>
-                    </div>
+            
+                    
             <?php endif; ?>
+                    </div>
+                        </div>
             </div>
             </div>
 
@@ -257,21 +275,23 @@ get_header();
                     endforeach; endforeach; } 
                 
                 if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
-                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; } 
+                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '
+                
+                <script>
+                
+                    jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                 ?>
                 
                    
                 <div class="message-count">
-                <h3>My Messages (<?php if(isset($message_count) && is_array($message_count)){
+                                <h3>Messages(<?php if(is_array($message_count) && isset($message_count)){
                         echo count($message_count);
-                    }else{ echo "0";} ?>)</h3>  
-                    
-                    <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>| unread( 
-                        <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
-                </h4>
+                    }else{ echo "0";} ?>) | unread(<span id="unread-count"><?php if(isset($unread_count) && is_array($unread_count)){
+                    echo intval(count($unread_count)); 
+                }else{ echo "0";} ?></span>)</h3>
                      
                 </div> 
-                    
+                <ul class="messages-ul">       
                <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
                     
                     foreach($current_messages as $messagess) : 
@@ -327,7 +347,7 @@ get_header();
                                     <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-message">
-                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                    <input class="view-button <?php if($messages['read_status'] === "read") : echo "read-message"; endif; ?>" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
                                 </div>
                             </div>
                         </li>
@@ -356,18 +376,21 @@ get_header();
                     
                    if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
                     
-                    if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; }
+                    if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>
+                
+                    jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                                                                                                                                 
                 ?> 
                 
                 <div class="message-count">
-                <h4>messages( <?php if(is_array($message_count) && isset($message_count)){
+                <h3>messages( <?php if(is_array($message_count) && isset($message_count)){
                         echo count($message_count);
                     }else{ echo "0";} ?> ) | unread( <span id="unread-count"><?php if(is_array($unread_count) && isset($unread_count)){
                     echo intval(count($unread_count)); 
-                }else{ echo "0";} ?></span> )</h4>
+                }else{ echo "0";} ?></span> )</h3>
                      
                 </div> 
+                 
                 
                    <li class="message-item">
                          <div style="display:none;" class="messageWrap-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">
@@ -404,13 +427,13 @@ get_header();
                                     <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-message">
-                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                    <input class="view-button <?php if($messages['read_status'] === "read") : echo "read-message"; endif; ?>" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
                                 </div>
                             </div>
                         </li>
    
                   
-                   <?php endforeach; }}?>
+                    <?php endforeach; }}?></ul>
             </div>
                 </div>
         </main></div>
@@ -452,7 +475,7 @@ get_footer();
             
             if(jQuery(this).val() == 'unread'){ jQuery('#unread-count').text(jQuery('#unread-count').text()-1); }
             
-            jQuery(this).val('read');
+            jQuery(this).val('read').addClass('read-message');
         });
         
         jQuery('.decremove').click(function(){

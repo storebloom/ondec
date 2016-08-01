@@ -17,6 +17,46 @@ html{
                 height:100%;
                 display:table;
                 width:100%;
+                color: #507972;
+                
+                a{
+                    color: #507972;
+                }
+                
+                .user-wrapper{
+                    
+                    width:100%;
+                
+                    .user-information{
+                        float: left;
+                        max-width: 40%;
+                        width: 100%;
+                    }
+
+                    .user-tools{
+                        float: left;
+                        max-width: 60%;
+                        width: 100%;
+                        
+                        form{
+                            
+                            margin: 0px!important;
+                            
+                            input{
+                                max-width: 600px;
+                                width: 100%;
+                                margin: 0px!important;
+
+
+
+                                &[type='submit']{
+                                    width: inherit;
+                                    margin-top: .5rem!important;
+                                }
+                            }
+                        }
+                    }
+                }
                 
                 .mymessages{
                     
@@ -44,6 +84,45 @@ html{
                     }
                 }
                 
+                .mymessages{
+                    
+                    width: 100%;
+
+                    ul.messages-ul{
+                        width: 100%;
+                        list-style: none;
+                        padding-left: 0px;
+                        margin-left: 0px;
+
+                        li{
+                            width: 100%;                        
+                            border-bottom: lightgrey solid medium; 
+                            margin-bottom: 1rem;
+                            padding: 1rem;
+                            
+                            .message-user{
+                                
+                                font-weight: bold;
+                                font-size: 18px;
+                            }
+                            
+                            .message-date{
+                                
+                                font-size: 12px;
+                                color: darkgrey;
+                            }
+                            
+                            .view-message{
+                                
+                                input.read-message{
+                                    
+                                    background: grey;
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 .member-lists{
                     
                     width:102%;
@@ -67,6 +146,51 @@ html{
                                  h3{
                                     color:#fff; 
                                  }
+                                 
+                                 .friends, .od-my-list, .od-my-likes{
+                                     
+                                     ul{
+                                         list-style: none;
+                                         margin-left: -20px;
+                                         
+                                         li{
+                                             float: left;
+                                             margin:.5rem;
+                                             max-width: 130px;
+                                             overflow: hidden;
+                                             
+                                             input{
+                                                 width: 130px;
+                                                 font-size: 13px;
+                                             }
+                                             
+                                             .dec-status{
+                                                 
+                                                 font-weight: bold;
+                                                 font-size: 36px;
+                                                 color: limegreen;
+                                                 
+                                             }
+                                             
+                                             .dec-image{
+                                                 
+                                                 img{
+                                                     width: 100%;
+                                                     max-width: 130px;
+                                                 }
+                                             }
+                                             
+                                             .dec-user{
+                                                 
+                                                font-weight: bold;
+                                                font-size: 14px;
+                                                width: 200px;
+                                                overflow:hidden;
+                                             }
+                                             
+                                         }
+                                     }
+                                 } 
 
                             .single-member-list{
 

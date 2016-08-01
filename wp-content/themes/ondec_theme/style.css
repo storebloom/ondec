@@ -642,7 +642,29 @@ html {
         padding-bottom: 2rem;
         height: 100%;
         display: table;
-        width: 100%; }
+        width: 100%;
+        color: #507972; }
+        html body #page #content a {
+          color: #507972; }
+        html body #page #content .user-wrapper {
+          width: 100%; }
+          html body #page #content .user-wrapper .user-information {
+            float: left;
+            max-width: 40%;
+            width: 100%; }
+          html body #page #content .user-wrapper .user-tools {
+            float: left;
+            max-width: 60%;
+            width: 100%; }
+            html body #page #content .user-wrapper .user-tools form {
+              margin: 0px !important; }
+              html body #page #content .user-wrapper .user-tools form input {
+                max-width: 600px;
+                width: 100%;
+                margin: 0px !important; }
+                html body #page #content .user-wrapper .user-tools form input[type='submit'] {
+                  width: inherit;
+                  margin-top: 0.5rem !important; }
         html body #page #content .mymessages {
           margin-top: 1rem;
           float: left; }
@@ -657,6 +679,26 @@ html {
           html body #page #content #decmsgform #decmessage {
             font-size: 13px;
             margin-bottom: 0.5rem !important; }
+        html body #page #content .mymessages {
+          width: 100%; }
+          html body #page #content .mymessages ul.messages-ul {
+            width: 100%;
+            list-style: none;
+            padding-left: 0px;
+            margin-left: 0px; }
+            html body #page #content .mymessages ul.messages-ul li {
+              width: 100%;
+              border-bottom: lightgrey solid medium;
+              margin-bottom: 1rem;
+              padding: 1rem; }
+              html body #page #content .mymessages ul.messages-ul li .message-user {
+                font-weight: bold;
+                font-size: 18px; }
+              html body #page #content .mymessages ul.messages-ul li .message-date {
+                font-size: 12px;
+                color: darkgrey; }
+              html body #page #content .mymessages ul.messages-ul li .view-message input.read-message {
+                background: grey; }
         html body #page #content .member-lists {
           width: 102%;
           background: #507972;
@@ -673,6 +715,29 @@ html {
               margin-right: 2.2rem; }
               html body #page #content .member-lists .list-sections .list-section-wrapper h3 {
                 color: #fff; }
+              html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul {
+                list-style: none;
+                margin-left: -20px; }
+                html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li {
+                  float: left;
+                  margin: .5rem;
+                  max-width: 130px;
+                  overflow: hidden; }
+                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li input {
+                    width: 130px;
+                    font-size: 13px; }
+                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-status {
+                    font-weight: bold;
+                    font-size: 36px;
+                    color: limegreen; }
+                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-image img, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-image img, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-image img {
+                    width: 100%;
+                    max-width: 130px; }
+                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-user {
+                    font-weight: bold;
+                    font-size: 14px;
+                    width: 200px;
+                    overflow: hidden; }
               html body #page #content .member-lists .list-sections .list-section-wrapper .single-member-list {
                 width: 100%;
                 background: #fff;

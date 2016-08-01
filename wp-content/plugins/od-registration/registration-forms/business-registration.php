@@ -16,19 +16,8 @@ class Business_Registration {
     private static function business_registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $address, $business_type ) {
     
         echo '
-        <style>
-        div {
-            margin-bottom:2px;
-        }
-
-        input{
-            margin-bottom:4px;
-        }
-        </style>
-        ';
-
-        echo '
-        <form action="' . $_SERVER['REQUEST_URI'] . '" method="post">
+        <form class="registration-form" action="' . $_SERVER['REQUEST_URI'] . '" method="post">
+        <h1>Business Signup</h1>
         <div>
         <label for="username">Username <strong>*</strong></label>
         <input type="text" name="username" value="' . ( isset( $_POST['username'] ) ? $username : null ) . '">

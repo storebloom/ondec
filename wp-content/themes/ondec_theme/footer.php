@@ -19,7 +19,7 @@
             <?php wp_nav_menu( array( 'footer1' => 'footer-menu' ) ); ?>
             </div>
             <div class="site-info">
-                Ondec © 2016
+                Ondec © <?php echo date( 'Y' ); ?>
             </div><!-- .site-info -->
         </div>
 	</footer><!-- #colophon -->

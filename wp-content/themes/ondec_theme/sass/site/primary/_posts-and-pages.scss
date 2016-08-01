@@ -1,120 +1,188 @@
-#page {
-    max-width: 100%;
-    margin: auto;
-    
-    #content{
-            max-width: 98%;
+html{
+    height:100%;
+    body{
+        height:100%;
+        min-height:100%;
+        #page {
+            max-width: 100%;
             margin: auto;
-        
-        .siteorigin-panels-stretch{
-            
-            margin-left: 0px!important;
-            margin-right: 0px!important;
-        }
-        
-        #pg-4-0, #pg-4-1, #search-map, #pg-4-3 {
-            
-            margin-left: -12px!important;
-            margin-right: -12px!important;
-        }
-    }
-    
-    header{
-        width: 100%;
-        background: #507972;
-        background: -webkit-linear-gradient(#5c857e, #507972 50%); /* For Safari 5.1 to 6.0 */
-        background: -o-linear-gradient(#5c857e, #507972 50%); /* For Opera 11.1 to 12.0 */
-        background: -moz-linear-gradient(#5c857e, #507972 50%); /* For Firefox 3.6 to 15 */
-        background: linear-gradient(#5c857e, #507972 50%); /* Standard syntax */
+            min-height: 100%;
+            display:table;
+            width:100%;
 
-        section{
-            width: 100%;
-            max-width: 980px;
-            margin: auto;
-            
-            #site-navigation{
-                color: #fff;
-                a{color: #fff; }
-            }
-            
-            
-               
-            .site-branding{
-                float: left;
-                width: 63%;
-                padding-top: 1rem;
-                img.site-logo{ max-width: 170px; width: 100%; padding-top: -.7rem;}
-                img.site-logo-logged-in{
-                    max-width: 115px; 
-                    width: 100%; float: left;
-                    padding-right: 1rem; 
+            #content{
+                max-width: 98%;
+                margin: auto;
+                padding-bottom: 2rem;
+                height:100%;
+                display:table;
+                width:100%;
+                
+                .mymessages{
+                    
+                    margin-top: 1rem;
+                    float:left;
+                    
+                    .message-section{
+                    
+                        max-width:1550px;
+                        margin:auto;
+                    }
+                }
+                
+                .sow-slide-nav, .sow-slider-pagination
+                {display: none!important;}
+                
+                #decmsgform{
+                    max-width:400px;
+                    margin-bottom: 1rem;
+                    
+                    #decmessage{
+                        
+                        font-size:13px;
+                        margin-bottom: .5rem!important;
+                    }
+                }
+                
+                .member-lists{
+                    
+                    width:102%;
+                    background: #507972;
+                    padding: 2rem;
+                    float: left;
+                    margin-left: -17px;
+                    
+                        .list-sections{
+
+                            max-width:1550px;
+                            margin:auto;
+                            width:100%;
+                            
+                             .list-section-wrapper{
+                                 
+                                float:left;
+                                width:31%;
+                                margin-right: 2.2rem;
+                                 
+                                 h3{
+                                    color:#fff; 
+                                 }
+
+                            .single-member-list{
+
+                                width:100%;
+                                background: #fff;
+                                border-radius: 10px;
+                                max-height: 400px;
+                                overflow: auto;
+                            
+                            }
+                        }
+                    }
                 }
             }
-            
-            .site-branding.loggedout{
-                width: 40%;
+
+            header{
+                width: 100%;
+                background: #507972;
+                background: -webkit-linear-gradient(#5c857e, #507972 50%); /* For Safari 5.1 to 6.0 */
+                background: -o-linear-gradient(#5c857e, #507972 50%); /* For Opera 11.1 to 12.0 */
+                background: -moz-linear-gradient(#5c857e, #507972 50%); /* For Firefox 3.6 to 15 */
+                background: linear-gradient(#5c857e, #507972 50%); /* Standard syntax */
+                display: table-header-group;
+
+                section{
+                    width: 100%;
+                    max-width: 980px;
+                    margin: auto;
+
+                    #site-navigation{
+                        color: #fff;
+                        a{color: #fff; }
+                    }
+
+
+
+                    .site-branding{
+                        float: left;
+                        width: 63%;
+                        padding-top: 1rem;
+                        img.site-logo{ max-width: 170px; width: 100%; padding-top: -.7rem;}
+                        img.site-logo-logged-in{
+                            max-width: 115px; 
+                            width: 100%; float: left;
+                            padding-right: 1rem; 
+                        }
+                    }
+
+                    .site-branding.loggedout{
+                        width: 40%;
+                    }
+                }    
+
             }
-        }    
-        
-    }
 
-    footer{
-        
-        background: #507972;
-        min-height: 70px;
-        
-        #menu-footer-menu{
-            
-            list-style: none;
-            padding-left: 0px;
-            margin: .5rem 0px;
-            
-            li{ 
-                a{ padding-right: .6rem; float: left; color: #ffffff; text-decoration: none; font-size: 12px;}
+            footer{
+
+                background: #507972;
+                height: 170px;
+                display: table-footer-group;
+                width:100%;  
+
+                #menu-footer-menu{
+
+                    list-style: none;
+                    padding-left: 0px;
+                    margin: .5rem 0px;
+
+                    li{ 
+                        a{ padding-right: .6rem; float: left; color: #ffffff; text-decoration: none; font-size: 12px;}
+                    }
+
+                }
+
+                .footer-content-wrapper{
+                    margin-top: .6rem;            
+                    max-width: 75%;
+                    margin:auto;
+                }
+
+                .site-info{
+                    color: #fff;
+                    margin: 1rem 0 3rem;
+                    font-size: 10px;
+                    width: 10%;
+                    padding-top: 2rem;
+                }
             }
-            
         }
-        
-        .footer-content-wrapper{
-            margin-top: .6rem;            
-            max-width: 75%;
-            margin:auto;
+        .sticky {
+            display: block;
         }
 
-        .site-info{
-            color: #fff;
-            margin: 1rem 0 3rem;
-            font-size: 10px;
-            width: 10%;
-            padding-top: 2rem;
+        .hentry {
+            margin: 0 0 1.5em;
+        }
+
+        .byline,
+        .updated:not(.published){
+            display: none;
+        }
+
+        .single .byline,
+        .group-blog .byline {
+            display: inline;
+        }
+
+        .page-content,
+        .entry-content,
+        .entry-summary {
+            margin: 1.5em 0 0;
+        }
+
+        .page-links {
+            clear: both;
+            margin: 0 0 1.5em;
         }
     }
-}
-.sticky {
-	display: block;
-}
-
-.hentry {
-	margin: 0 0 1.5em;
-}
-
-.byline,
-.updated:not(.published){
-	display: none;
-}
-
-.single .byline,
-.group-blog .byline {
-	display: inline;
-}
-
-.page-content,
-.entry-content,
-.entry-summary {
-	margin: 1.5em 0 0;
-}
-
-.page-links {
-	clear: both;
-	margin: 0 0 1.5em;
 }

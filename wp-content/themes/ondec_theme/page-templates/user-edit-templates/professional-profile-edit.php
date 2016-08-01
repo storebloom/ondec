@@ -580,6 +580,8 @@ get_header();
                   
                    <?php endforeach; }}?>
             </div>
+            </main><!-- #main -->
+	</div><!-- #primary -->
 <?php
 get_footer();
 

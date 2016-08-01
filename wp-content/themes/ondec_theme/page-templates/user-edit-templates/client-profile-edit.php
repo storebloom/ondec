@@ -28,23 +28,9 @@ get_header();
             <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
             <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
             
-            <?php if($user_role !== "business" ) : ?>
-            <h3>current dec status:</h3>
-                        
-            <form id="decform" name="decform">
-                <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
-                <select id="decmood">
-                    <option disabled selected value="">Choose mood</option>
-                    <option value="Happiness">Happiness</option>
-                    <option value="Sadness">Sadness</option>
-                    <option value="Excitement">Excitement</option>
-                    <option value="Coolness">Coolness</option>
-                </select>
-                <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
-            </form>
             <p>
-            <a href="/clients/<?php echo $current_user->user_login; ?>">view my profile</a> | 
-        <a href="edit-profile-info">Edit Profile</a>
+            <a href="/clients/<?php echo $current_user->user_login; ?>">view profile</a> | 
+        <a href="edit-profile-info">edit profile</a>
             </p>
             
             <span>
@@ -54,17 +40,19 @@ get_header();
                 <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
                 <input id="msgsubmit" type="button" value="update">
             </form>
-            <?php endif; ?>
+
             
-            
-             <span>
+            <div class="member-lists">
+                
+                <div class="list-sections">
                                 
-                                <div style="display:none;" id="rmsuccess">successfully removed!</div>
-                                
-                            </span>
-            <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
+                <div style="display:none;" id="rmsuccess">successfully removed!</div>
             
-            <div class="od-my-list">
+                <div class="list-section-wrapper">
+                <h3>My <?php echo $biz_title[$user_role]; ?></h3>  
+                
+                <div class="od-my-list single-member-list">
+                  
                 <ul>
                 <?php foreach($my_dec_info as $single_dec_member) :
                     
@@ -123,7 +111,10 @@ get_header();
                 </ul>
                 
             </div>
-            <div class="friends">
+                    </div>
+                    
+                    
+            <div class="list-section-wrapper">
              <?php 
             if(isset($current_friends[0][0]) && is_array($current_friends[0][0])) :
                             foreach($current_friends[0] as $single_friend_info){                          
@@ -133,10 +124,11 @@ get_header();
                           endif;
             ?>
             
-            <div class="profile-part profile-dec">
+
                 <h3>My Friends (<?php echo isset($friend_count) ? count($friend_count) : "0"; ?>) </h3>
+               <div class="friends single-member-list">
                 <div style="display:none;" id="friendapproved">Now your friends!</div>
-                </div>
+                
                 <?php if(isset($current_friends[0])) : ?>
                 <ul>
                     <?php foreach($current_friends[0] as $friends) : ?>
@@ -167,11 +159,13 @@ get_header();
                    <?php endforeach;?>
                 </ul>
                 <?php endif; ?>
+                </div>
             </div>
-            
-            <?php 
+                 
                     
-                $mylikes = null !== get_user_meta($current_user->ID, 'mylikes', false) ? get_user_meta($current_user->ID, 'mylikes', false) : "";
+                    <div class="list-section-wrapper">
+                        <?php
+                         $mylikes = null !== get_user_meta($current_user->ID, 'mylikes', false) ? get_user_meta($current_user->ID, 'mylikes', false) : "";
 
                 if(isset($mylikes[0]) && is_array($mylikes[0])){
                     foreach($mylikes[0] as $single_like){
@@ -187,9 +181,12 @@ get_header();
                 if(isset($like_count)):
                     $like_count = intval(count($like_count));
                 ?>
-                <div class="od-my-likes">
+                         <h3>Likes (<?php echo $like_count; ?>)</h3>
                     
-                    <h3>Likes (<?php echo $like_count; ?>)</h3>
+               
+                <div class="od-my-likes single-member-list">
+                    
+                   
                     
                     <ul id="like-list">
                     <?php 
@@ -227,9 +224,14 @@ get_header();
                     <?php endif; endforeach; ?>
                 </ul>
             </div>
+                    </div>
             <?php endif; ?>
+            </div>
+            </div>
 
             <div class="mymessages">
+                
+                <div class="message-section">
                
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
                 
@@ -410,7 +412,8 @@ get_header();
                   
                    <?php endforeach; }}?>
             </div>
-
+                </div>
+        </main></div>
 <?php
 get_footer();
 

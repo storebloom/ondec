@@ -50,6 +50,10 @@
 .tt-hint {
 	color: #999999;
 }
+input[type="text"],input[type="search"]{
+        display: inherit!important;
+    margin: 0 0 0rem auto!important;   
+}
 .tt-dropdown-menu {
 	background-color: #FFFFFF;
 	border: 1px solid rgba(0, 0, 0, 0.2);

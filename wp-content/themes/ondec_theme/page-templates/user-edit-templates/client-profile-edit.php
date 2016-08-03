@@ -60,7 +60,7 @@ get_header();
             
                 <div class="list-section-wrapper">
                  <?php 
-            if(isset($my_dec_info[0]) && is_array($my_dec_info[0])) :
+            if(isset($my_dec_info) && is_array($my_dec_info)) :
                             foreach($my_dec_info as $single_dec_info){                          
         
                                     $dec_count[] = $single_dec_info;                            
@@ -281,16 +281,6 @@ get_header();
                 
                     jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                 ?>
-                
-                   
-                <div class="message-count">
-                                <h3>Messages(<?php if(is_array($message_count) && isset($message_count)){
-                        echo count($message_count);
-                    }else{ echo "0";} ?>) | unread(<span id="unread-count"><?php if(isset($unread_count) && is_array($unread_count)){
-                    echo intval(count($unread_count)); 
-                }else{ echo "0";} ?></span>)</h3>
-                     
-                </div> 
                 <ul class="messages-ul">       
                <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
                     
@@ -383,11 +373,11 @@ get_header();
                 ?> 
                 
                 <div class="message-count">
-                <h3>messages( <?php if(is_array($message_count) && isset($message_count)){
+                <h3>Messages (<?php if(is_array($message_count) && isset($message_count)){
                         echo count($message_count);
-                    }else{ echo "0";} ?> ) | unread( <span id="unread-count"><?php if(is_array($unread_count) && isset($unread_count)){
-                    echo intval(count($unread_count)); 
-                }else{ echo "0";} ?></span> )</h3>
+                    }else{ echo "0";} ?>) <?php if(is_array($unread_count) && isset($unread_count)){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
+                   
+               <?php }else{ echo "(0)</h3>";} ?>
                      
                 </div> 
                  

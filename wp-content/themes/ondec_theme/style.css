@@ -644,6 +644,10 @@ html {
         display: table;
         width: 100%;
         color: #507972; }
+        html body #page #content .message-notification {
+          text-align: center;
+          height: 10px;
+          margin-top: -10px; }
         html body #page #content a {
           color: #507972; }
         html body #page #content .user-wrapper {

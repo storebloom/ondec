@@ -10,7 +10,7 @@
 get_header();
 ?>
 <h1><?php echo $current_user->display_name; ?>'s Profile Information</h1>
-<h3>Profile Photo:</h3>
+<h2>Profile Photo:</h2>
 
             <?php                /* Get user info. */
             
@@ -94,7 +94,7 @@ get_header();
                                 </p><!-- .warning -->
                         <?php else : ?>
                             <?php if ( count($error) > 0 ) echo '<p class="error">' . implode("<br />", $error) . '</p>'; ?>
-                        <h3>Your Information:</h3>
+                        <h2>Your Information:</h2>
                             <form method="post" id="adduser" action="<?php the_permalink(); ?>">
 
                                 <p>
@@ -214,10 +214,12 @@ get_header();
                                     <label for="email"><?php _e('E-mail *', 'profile'); ?></label>
                                     <input class="text-input" name="email" type="text" id="email" value="<?php the_author_meta( 'user_email', $current_user->ID ); ?>" />
                                 </p><!-- .form-email -->
+                                <?php if($current_user->roles[0] !== 'client' ): ?>
                                 <p class="form-url">
                                     <label for="url"><?php _e('Website', 'profile'); ?></label>
                                     <input class="text-input" name="url" type="text" id="url" value="<?php the_author_meta( 'user_url', $current_user->ID ); ?>" />
                                 </p><!-- .form-url -->
+                                <?php endif; ?>
                                 <p class="form-address">
                                     <label for="address"><?php _e('Address', 'profile'); ?></label>
                                     <input class="text-input" name="address" type="text" id="url" value="<?php the_author_meta( 'address', $current_user->ID ); ?>" />
@@ -230,11 +232,12 @@ get_header();
                                     <label for="pass2"><?php _e('Repeat Password *', 'profile'); ?></label>
                                     <input class="text-input" name="pass2" type="password" id="pass2" />
                                 </p><!-- .form-password -->
+                                <?php if($current_user->roles[0] !== 'client' ): ?>
                                 <p class="form-textarea">
                                     <label for="description"><?php _e('About You:', 'profile') ?></label>
                                     <?php wp_editor($content, 'description', $settings = array('textarea_name' => 'description')); ?>
                                 </p><!-- .form-textarea -->
-                                
+                                <?php endif; ?>
                             <p class="form-submit">
                                 <input name="updateuser" type="submit" id="updateuser" class="submit button" value="<?php _e('Update', 'profile'); ?>" />
                                 <?php wp_nonce_field( 'update-user' ) ?>
@@ -254,7 +257,7 @@ get_header();
             </p><!-- .no-data -->
         <?php endif; ?>                
             
-	<a href="/my-profile">back to my profile</a>
-
+<p><a href="/my-profile">back to my profile</a></p>
+</main></div>
 <?php
 get_footer();

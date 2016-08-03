@@ -8,6 +8,8 @@ $biz_title = array("client" => "dec", "professional" => "Followers", "business" 
 $professional_types = array("tattoo" => "Tattoo Artist", "makeup" => "Makeup Artist", "hair" => "Hair Stylist", "bar" => "Bartender", "other" => "Other");
 $current_friends = null !== get_user_meta($current_user->ID, 'myfriends') ? get_user_meta($current_user->ID, 'myfriends') : array();
 
+date_default_timezone_set('America/Los_Angeles');
+
 $my_dec_info = array();
 
 if(isset($mydec[0])){
@@ -96,7 +98,7 @@ get_header();
                             
                         </a>
                         
-                        <div class="dec-status">
+                        <div class="dec-status <?php if(get_user_meta($single_dec_member->ID, 'decstatus', true) === "offdec"){ echo "offdec";} ?>">
                             
                             <?php echo get_user_meta($single_dec_member->ID, 'decstatus', true); ?>
                             
@@ -128,7 +130,7 @@ get_header();
                     </div>
                     
                     
-            <div class="list-section-wrapper">
+            <div class="list-section-wrapper middle">
              <?php 
             if(isset($current_friends[0][0]) && is_array($current_friends[0][0])) :
                             foreach($current_friends[0] as $single_friend_info){                          
@@ -224,6 +226,10 @@ get_header();
 
                                 </div>
                         </a>
+                            <div class="biz-status <?php if(get_user_meta($single_dec_like->ID, 'decstatus', true) === "Closed"){ echo "closed";} ?>">
+                                
+                                <?php echo get_user_meta($single_dec_like->ID, 'decstatus', true); ?>
+                            </div>
                             <div>
                              
                             
@@ -281,6 +287,13 @@ get_header();
                 
                     jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                 ?>
+                   <div class="message-count">
+                <h3>Messages (<?php if(is_array($message_count) && isset($message_count)){
+                        echo count($message_count);
+                    }else{ echo "0";} ?>) <?php if(isset($unread_count) && is_array($unread_count) ){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
+                   
+               <?php } ?> 
+                    
                 <ul class="messages-ul">       
                <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
                     
@@ -317,20 +330,22 @@ get_header();
                                             <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
                                         </h3>
                                     </div>
-                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" class="replyMessage" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a>  <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">close</a>
                                 </div>
                             </div>
                         </div>  
                             <div class="message-date">
-                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
+                                <?php echo isset($messages['message_date']) ? date("F j, Y h:i A", $messages['message_date']) : ""; ?>
                             </div>
                             <div class="user-message-info">
+                                <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID); ?>">
                                 <div class="message-user">
                                     <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
                                 </div>
                                 <div class="prof-image-message">
                                     <?php echo isset($message_user_info->ID) ? get_wp_user_avatar($message_user_info->ID, 36) : ""; ?>
                                 </div>
+                                </a>    
                             </div>
                             <div class="user-message">
                                 <div class="message-wrapper">
@@ -375,9 +390,9 @@ get_header();
                 <div class="message-count">
                 <h3>Messages (<?php if(is_array($message_count) && isset($message_count)){
                         echo count($message_count);
-                    }else{ echo "0";} ?>) <?php if(is_array($unread_count) && isset($unread_count)){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
+                    }else{ echo "0";} ?>) <?php if(isset($unread_count) && is_array($unread_count)){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
                    
-               <?php }else{ echo "(0)</h3>";} ?>
+               <?php } ?>
                      
                 </div> 
                  
@@ -397,13 +412,14 @@ get_header();
                                             <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
                                         </h3>
                                     </div>
-                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" class="replyMessage" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a>  <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">close</a>
                                 </div>
                             </div>
                         </div>    
                             <div class="message-date">
-                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
+                                <?php echo isset($messages['message_date']) ? date("F j, Y h:i A", $messages['message_date']) : ""; ?>
                             </div>
+                            <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID); ?>">
                             <div class="user-message-info">
                                 <div class="message-user">
                                     <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
@@ -412,6 +428,7 @@ get_header();
                                     <?php echo isset($message_user_info->ID) ? get_wp_user_avatar($message_user_info->ID, 36) : ""; ?>
                                 </div>
                             </div>
+                            </a>    
                             <div class="user-message">
                                 <div class="message-wrapper">
                                     <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>

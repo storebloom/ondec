@@ -344,6 +344,8 @@ class Decstatus {
     public function prefix_ajax_add_usermessage() {
         
         global $current_user;
+            
+        date_default_timezone_set('America/Los_Angeles');
         
         $usermessage = isset($_POST['usermessage']) ? $_POST['usermessage'] : "";
         $msgid = isset($_POST['msgid']) ? $_POST['msgid'] : "";
@@ -457,6 +459,8 @@ class Decstatus {
     public function prefix_ajax_add_userendorse() {
         
         global $current_user;
+        
+        date_default_timezone_set('America/Los_Angeles');
         
         $usermessage = isset($_POST['userendorse']) ? $_POST['userendorse'] : "";
         $msgid = isset($_POST['endorseusrid']) ? $_POST['endorseusrid'] : "";

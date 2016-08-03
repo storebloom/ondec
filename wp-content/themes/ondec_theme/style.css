@@ -626,16 +626,20 @@ a {
 ## Posts and pages
 --------------------------------------------------------------*/
 html {
-  height: 100%; }
+  height: 100%;
+  position: relative; }
   html body {
     height: 100%;
-    min-height: 100%; }
+    min-height: 100%;
+    position: absolute; }
     html body #page {
       max-width: 100%;
       margin: auto;
       min-height: 100%;
       display: table;
-      width: 100%; }
+      width: 100%;
+      height: 100%;
+      position: absolute; }
       html body #page #content {
         max-width: 98%;
         margin: auto;
@@ -644,8 +648,65 @@ html {
         display: table;
         width: 100%;
         color: #507972; }
+        html body #page #content #adduser input {
+          max-width: 600px;
+          width: auto;
+          float: left;
+          margin-bottom: 1rem !important; }
+        html body #page #content #adduser label {
+          display: block;
+          max-width: 300px; }
+        html body #page #content #adduser p.form-submit {
+          max-width: 300px; }
+        html body #page #content form.wpua-edit p.submit {
+          display: none; }
+        html body #page #content .messageWrap, html body #page #content .endorsementWrap {
+          /* The div that shows/hides. */
+          display: none;
+          /* starts out hidden */
+          z-index: 40001;
+          /* High z-index to ensure it appears above all content */ }
+        html body #page #content .messageOverlay, html body #page #content .endorsementOverlay {
+          /* Shades out background when selector is active */
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          background-color: black;
+          opacity: .5;
+          -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+          /* IE transparency */
+          filter: alpha(opacity=50);
+          /* More IE transparency */
+          z-index: 40001;
+          top: 0px;
+          left: 0px; }
+        html body #page #content .vertical-offset {
+          /* Fixed position to provide the vertical offset */
+          position: fixed;
+          top: 30%;
+          width: 100%;
+          z-index: 40002;
+          /* ensures box appears above overlay */ }
+        html body #page #content .messageBox, html body #page #content .endorsementBox {
+          /* The actual box, centered in the fixed-position div */
+          width: 100%;
+          /* Whatever width you want the box to be */
+          max-width: 480px;
+          position: relative;
+          margin: 0 auto;
+          /* Everything below is just visual styling */
+          background-color: white;
+          padding: 10px;
+          border-radius: 10px;
+          max-height: 700px;
+          overflow: auto; }
+          html body #page #content .messageBox .closeMessage, html body #page #content .messageBox .replyMessage, html body #page #content .messageBox .m_spacer, html body #page #content .endorsementBox .closeMessage, html body #page #content .endorsementBox .replyMessage, html body #page #content .endorsementBox .m_spacer {
+            cursor: pointer;
+            font-weight: 100;
+            color: grey; }
+          html body #page #content .messageBox h2, html body #page #content .endorsementBox h2 {
+            border-bottom: thin solid grey; }
         html body #page #content .message-notification {
-          text-align: center;
           height: 10px;
           margin-top: -10px; }
         html body #page #content a {
@@ -669,12 +730,6 @@ html {
                 html body #page #content .user-wrapper .user-tools form input[type='submit'] {
                   width: inherit;
                   margin-top: 0.5rem !important; }
-        html body #page #content .mymessages {
-          margin-top: 1rem;
-          float: left; }
-          html body #page #content .mymessages .message-section {
-            max-width: 1550px;
-            margin: auto; }
         html body #page #content .sow-slide-nav, html body #page #content .sow-slider-pagination {
           display: none !important; }
         html body #page #content #decmsgform {
@@ -684,7 +739,12 @@ html {
             font-size: 13px;
             margin-bottom: 0.5rem !important; }
         html body #page #content .mymessages {
-          width: 100%; }
+          width: 100%;
+          margin-top: 1rem;
+          float: left; }
+          html body #page #content .mymessages .message-section {
+            max-width: 1550px;
+            margin: auto; }
           html body #page #content .mymessages ul.messages-ul {
             width: 100%;
             list-style: none;
@@ -712,13 +772,18 @@ html {
           html body #page #content .member-lists .list-sections {
             max-width: 1550px;
             margin: auto;
-            width: 100%; }
+            width: 74%; }
             html body #page #content .member-lists .list-sections .list-section-wrapper {
               float: left;
-              width: 31%;
-              margin-right: 2.2rem; }
+              width: 32%; }
+              html body #page #content .member-lists .list-sections .list-section-wrapper.middle {
+                margin: 0 1.2rem; }
               html body #page #content .member-lists .list-sections .list-section-wrapper h3 {
                 color: #fff; }
+              html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list li {
+                height: 255px; }
+              html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes li {
+                height: 250px; }
               html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul {
                 list-style: none;
                 margin-left: -20px; }
@@ -730,10 +795,14 @@ html {
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li input {
                     width: 130px;
                     font-size: 13px; }
-                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-status {
+                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .biz-status {
                     font-weight: bold;
                     font-size: 36px;
                     color: limegreen; }
+                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-status.offdec, html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .biz-status.closed, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-status.offdec, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .biz-status.closed, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-status.offdec, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .biz-status.closed {
+                    font-weight: bold;
+                    font-size: 36px;
+                    color: lightgrey; }
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-image img, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-image img, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-image img {
                     width: 100%;
                     max-width: 130px; }
@@ -742,6 +811,9 @@ html {
                     font-size: 14px;
                     width: 200px;
                     overflow: hidden; }
+                  html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-message {
+                    font-size: 12px;
+                    margin-top: -11px; }
               html body #page #content .member-lists .list-sections .list-section-wrapper .single-member-list {
                 width: 100%;
                 background: #fff;
@@ -826,6 +898,145 @@ html {
       clear: both;
       margin: 0 0 1.5em; }
 
+body.page-template-client-profile.logged-in .site-content {
+  max-width: 100% !important;
+  padding-bottom: 0px !important; }
+body.page-template-client-profile.logged-in .content-area, body.page-template-client-profile.logged-in .site-main {
+  height: 100%; }
+body.page-template-client-profile.logged-in .profile-content-wrapper {
+  width: 100%; }
+  body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper {
+    float: left;
+    margin-right: 2rem;
+    padding-left: 2rem;
+    width: 20%;
+    background: #507972;
+    color: #fff;
+    height: 100%; }
+    body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper .user-info {
+      position: fixed;
+      top: 50px;
+      width: 18%; }
+    body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper h4 {
+      margin-bottom: -.1rem; }
+    body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper #msguserform {
+      max-width: 225px; }
+      body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper #msguserform #usermsginput {
+        height: 100px;
+        width: 100%;
+        font-size: 16px; }
+  body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper {
+    float: left;
+    width: 75%;
+    overflow: auto; }
+    body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part {
+      max-height: 600px;
+      overflow: auto;
+      float: left;
+      width: 30%;
+      margin-left: 1rem; }
+      body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part.first-part {
+        margin-left: 0px !important; }
+      body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec {
+        list-style: none;
+        margin-left: -20px;
+        margin-bottom: 0px; }
+        body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li {
+          margin-bottom: .8rem; }
+          body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status, body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status {
+            font-weight: bold;
+            font-size: 36px;
+            color: limegreen; }
+          body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status.offdec, body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status.closed {
+            font-weight: bold;
+            font-size: 36px;
+            color: lightgrey; }
+          body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-image img {
+            width: 100%;
+            max-width: 130px; }
+          body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-user {
+            font-weight: bold;
+            font-size: 14px;
+            width: 200px;
+            overflow: hidden; }
+          body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul {
+            list-style: none;
+            margin-left: -20px;
+            margin-bottom: 0; }
+            body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul li {
+              margin-bottom: 0;
+              border-bottom: 0; }
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  body.page-template-client-profile .site-content {
+    max-width: 100% !important;
+    padding-bottom: 0px !important;
+    background: #507972; }
+  body.page-template-client-profile .content-area, body.page-template-client-profile .site-main {
+    height: 100%; }
+  body.page-template-client-profile .profile-content-wrapper {
+    width: 100%; }
+    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper {
+      float: left;
+      margin-right: 2rem;
+      padding-left: 2rem;
+      width: 20%;
+      color: #fff;
+      height: 100%; }
+      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper .user-info {
+        position: fixed;
+        top: 5.2rem; }
+      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper h4 {
+        margin-bottom: -.1rem; }
+      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform {
+        max-width: 225px; }
+        body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform #usermsginput {
+          height: 100px;
+          width: 100%;
+          font-size: 16px; }
+    body.page-template-client-profile .profile-content-wrapper .user-list-wrapper {
+      float: right;
+      width: 80%;
+      overflow: auto;
+      background: #fff;
+      padding-left: 2%; }
+      body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part {
+        max-height: 600px;
+        overflow: auto;
+        float: left;
+        width: 30%;
+        margin-left: 1rem; }
+        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part.first-part {
+          margin-left: 0px !important; }
+        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec {
+          list-style: none;
+          margin-left: -20px;
+          margin-bottom: 0px; }
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li {
+            margin-bottom: .8rem; }
+            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status {
+              font-weight: bold;
+              font-size: 36px;
+              color: limegreen; }
+            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status.offdec, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status.closed {
+              font-weight: bold;
+              font-size: 36px;
+              color: lightgrey; }
+            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-image img {
+              width: 100%;
+              max-width: 130px; }
+            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-user {
+              font-weight: bold;
+              font-size: 14px;
+              width: 200px;
+              overflow: hidden; }
+            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul {
+              list-style: none;
+              margin-left: -20px;
+              margin-bottom: 0; }
+              body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul li {
+                margin-bottom: 0;
+                border-bottom: 0; } }
 /*--------------------------------------------------------------
 ## Comments
 --------------------------------------------------------------*/

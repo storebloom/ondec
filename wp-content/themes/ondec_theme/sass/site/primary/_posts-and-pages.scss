@@ -1,14 +1,19 @@
 html{
     height:100%;
+    position: relative;
     body{
         height:100%;
         min-height:100%;
+        position:absolute;
+        
         #page {
             max-width: 100%;
             margin: auto;
             min-height: 100%;
             display:table;
             width:100%;
+            height:100%;
+            position: absolute;
 
             #content{
                 max-width: 98%;
@@ -19,8 +24,83 @@ html{
                 width:100%;
                 color: #507972;
                 
+                #adduser{
+                    
+                    input{
+                        max-width: 600px;
+                        width: auto;
+                        float: left;
+                        margin-bottom: 1rem!important;
+                    }
+                    
+                    label{
+                        display: block;
+                        max-width: 300px;
+                    }
+                    
+                    p.form-submit{
+                        max-width: 300px;
+                    }
+                }
+                
+                form.wpua-edit{
+                    
+                    p.submit{
+                        display: none;
+                    }
+                }
+                
+                .messageWrap, .endorsementWrap { /* The div that shows/hides. */
+                    display:none; /* starts out hidden */
+                    z-index:40001; /* High z-index to ensure it appears above all content */
+                }
+
+                .messageOverlay, .endorsementOverlay { /* Shades out background when selector is active */
+                    position:fixed;
+                    width:100%;
+                    height:100%;
+                    background-color:black;
+                    opacity:.5;
+                    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE transparency */
+                    filter:alpha(opacity=50); /* More IE transparency */
+                    z-index:40001;
+                    top:0px;
+                    left:0px;
+                }
+
+                .vertical-offset { /* Fixed position to provide the vertical offset */
+                    position:fixed;
+                    top:30%;
+                    width:100%;
+                    z-index:40002; /* ensures box appears above overlay */  
+                }
+
+                .messageBox, .endorsementBox { /* The actual box, centered in the fixed-position div */
+                    width:100%; /* Whatever width you want the box to be */
+                    max-width: 480px;
+                    position:relative;
+                    margin:0 auto;
+                    /* Everything below is just visual styling */
+                    background-color:white;
+                    padding:10px;
+                    border-radius: 10px;
+                    max-height: 700px;
+                    overflow: auto;
+               
+                    .closeMessage, .replyMessage, .m_spacer{
+                        
+                        cursor: pointer;
+                        font-weight: 100;
+                        color: grey;
+                    }
+                    
+                    h2{
+                        border-bottom: thin solid grey;
+                    }
+                }
+                
                 .message-notification{
-                    text-align: center;
+                    
                     height: 10px;
                     margin-top: -10px;
                 }
@@ -64,18 +144,6 @@ html{
                     }
                 }
                 
-                .mymessages{
-                    
-                    margin-top: 1rem;
-                    float:left;
-                    
-                    .message-section{
-                    
-                        max-width:1550px;
-                        margin:auto;
-                    }
-                }
-                
                 .sow-slide-nav, .sow-slider-pagination
                 {display: none!important;}
                 
@@ -93,6 +161,14 @@ html{
                 .mymessages{
                     
                     width: 100%;
+                    margin-top: 1rem;
+                    float:left;
+                    
+                    .message-section{
+                    
+                        max-width:1550px;
+                        margin:auto;
+                    }
 
                     ul.messages-ul{
                         width: 100%;
@@ -141,16 +217,30 @@ html{
 
                             max-width:1550px;
                             margin:auto;
-                            width:100%;
+                            width:74%;
                             
                              .list-section-wrapper{
                                  
                                 float:left;
-                                width:31%;
-                                margin-right: 2.2rem;
+                                width:32%;
+                                
+                                 &.middle{
+                                     
+                                     margin: 0 1.2rem;
+                                 }
                                  
                                  h3{
                                     color:#fff; 
+                                 }
+                                 
+                                 .od-my-list li{
+                                     
+                                     height: 255px;
+                                 }
+                                 
+                                 .od-my-likes li{
+                                     
+                                     height: 250px;
                                  }
                                  
                                  .friends, .od-my-list, .od-my-likes{
@@ -170,12 +260,19 @@ html{
                                                  font-size: 13px;
                                              }
                                              
-                                             .dec-status{
+                                             .dec-status, .biz-status{
                                                  
                                                  font-weight: bold;
                                                  font-size: 36px;
                                                  color: limegreen;
                                                  
+                                             }
+                                             
+                                             .dec-status.offdec, .biz-status.closed{
+                                                 
+                                                 font-weight: bold;
+                                                 font-size: 36px;
+                                                 color: lightgrey;
                                              }
                                              
                                              .dec-image{
@@ -194,6 +291,10 @@ html{
                                                 overflow:hidden;
                                              }
                                              
+                                             .dec-message{
+                                                font-size: 12px;
+                                                margin-top: -11px;
+                                             }
                                          }
                                      }
                                  } 
@@ -315,4 +416,262 @@ html{
             margin: 0 0 1.5em;
         }
     }
+}
+
+body.page-template-client-profile.logged-in{
+    
+    .site-content{
+        
+        max-width: 100%!important;
+        padding-bottom: 0px!important;
+    }
+    .content-area, .site-main{
+        
+        height: 100%;
+    }
+.profile-content-wrapper{
+
+    width: 100%;
+
+    .user-info-wrapper{
+
+        float: left;
+        margin-right: 2rem;
+        padding-left: 2rem;
+        width: 20%;
+        background:#507972;
+        color: #fff;
+        height: 100%;
+        
+        .user-info{
+            
+            position:fixed;
+            top:50px;
+            width: 18%;
+        }
+        
+        h4{
+            margin-bottom: -.1rem;
+        }
+        
+        #msguserform{
+            
+            max-width: 225px;
+            
+            #usermsginput{
+
+                height: 100px;
+                width: 100%;
+                font-size: 16px;
+            }
+        }
+    }
+
+    .user-list-wrapper{
+
+        float: left;
+        width: 75%;
+        overflow:auto;
+        
+        .profile-part{
+            max-height: 600px;
+            overflow: auto;
+            float: left;
+            width: 30%;
+            margin-left: 1rem;
+            &.first-part{
+                margin-left: 0px!important;
+            }            
+                                     
+             ul.mydec{
+                 list-style: none;
+                 margin-left: -20px;
+                 margin-bottom: 0px;
+
+                 li{
+                     margin-bottom: .8rem;
+                
+                     .dec-status, .biz-status{
+
+                         font-weight: bold;
+                         font-size: 36px;
+                         color: limegreen;
+                     }
+
+                     .dec-status.offdec, .biz-status.closed{
+
+                         font-weight: bold;
+                         font-size: 36px;
+                         color: lightgrey;
+                         
+                     }
+
+                     .dec-image{
+
+                         img{
+                             width: 100%;
+                             max-width: 130px;
+                         }
+                     }
+
+                     .dec-user{
+
+                        font-weight: bold;
+                        font-size: 14px;
+                        width: 200px;
+                        overflow:hidden;
+                     }
+                     
+                     .pro-type{
+                         ul{
+                             
+                             list-style: none;
+                             margin-left: -20px;
+                             margin-bottom: 0;     
+                             
+                             li{
+
+                                 margin-bottom: 0;
+                                border-bottom: 0;
+                             }
+                         }
+                     }
+                     
+                 }
+             }                        
+        }
+    }
+}
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+
+body.page-template-client-profile{
+    
+    .site-content{
+        
+        max-width: 100%!important;
+        padding-bottom: 0px!important;
+        background:#507972;
+    }
+    .content-area, .site-main{
+        
+        height: 100%;
+    }
+    .profile-content-wrapper{
+
+        width: 100%;
+
+        .user-info-wrapper{
+
+            float: left;
+            margin-right: 2rem;
+            padding-left: 2rem;
+            width: 20%;
+
+            color: #fff;
+            height: 100%;
+
+            .user-info{
+
+                position:fixed;
+                top:5.2rem;
+            }
+
+            h4{
+                margin-bottom: -.1rem;
+            }
+
+            #msguserform{
+
+                max-width: 225px;
+
+                #usermsginput{
+
+                    height: 100px;
+                    width: 100%;
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .user-list-wrapper{
+
+            float: right;
+            width: 80%;
+            overflow:auto;
+            background: #fff;
+            padding-left: 2%;
+
+            .profile-part{
+                max-height: 600px;
+                overflow: auto;
+                float: left;
+                width: 30%;
+                margin-left: 1rem;
+                &.first-part{
+                    margin-left: 0px!important;
+                }            
+
+                 ul.mydec{
+                     list-style: none;
+                     margin-left: -20px;
+                     margin-bottom: 0px;
+
+                     li{
+                         margin-bottom: .8rem;
+
+                         .dec-status, .biz-status{
+
+                             font-weight: bold;
+                             font-size: 36px;
+                             color: limegreen;
+                         }
+
+                         .dec-status.offdec, .biz-status.closed{
+
+                             font-weight: bold;
+                             font-size: 36px;
+                             color: lightgrey;
+
+                         }
+
+                         .dec-image{
+
+                             img{
+                                 width: 100%;
+                                 max-width: 130px;
+                             }
+                         }
+
+                         .dec-user{
+
+                            font-weight: bold;
+                            font-size: 14px;
+                            width: 200px;
+                            overflow:hidden;
+                         }
+
+                         .pro-type{
+                             ul{
+
+                                 list-style: none;
+                                 margin-left: -20px;
+                                 margin-bottom: 0;     
+
+                                 li{
+
+                                     margin-bottom: 0;
+                                    border-bottom: 0;
+                                 }
+                             }
+                         }
+
+                     }
+                 }                        
+            }
+        }
+    }
+}
 }

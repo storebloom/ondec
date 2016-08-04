@@ -30,9 +30,9 @@ get_header(); ?>
             <div class="profile-content-wrapper">    
                 <div class="user-info-wrapper">
                     <div class="user-info">
-                        <h1 class="title-user-name"><?php echo $user_info->first_name . " " . $user_info->last_name; ?></h1>
+                        <h1 class="title-user-name"><?php echo $user_info->display_name; ?></h1>
                         <div class="profile-part profile-image">
-                            <?php echo get_wp_user_avatar($user_info->ID, 96); ?>
+                            <?php echo get_wp_user_avatar($user_info->ID, 200); ?>
                         </div>
                         <?php if(isset($current_user->roles[0]) && $current_user->roles[0] === 'client' && $profile_pages->is_not_on_list($user_info->ID, 'myfriends')): ?>
                         <div class='decrequestbutton_wrapper'>

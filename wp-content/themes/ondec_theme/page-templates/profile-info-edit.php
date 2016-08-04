@@ -9,7 +9,7 @@
  */
 get_header();
 ?>
-<h1><?php echo $current_user->display_name; ?>'s Profile Information</h1>
+<h1>Edit Profile</h1>
 <h2>Profile Photo:</h2>
 
             <?php                /* Get user info. */

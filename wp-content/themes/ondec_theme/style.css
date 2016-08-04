@@ -626,20 +626,16 @@ a {
 ## Posts and pages
 --------------------------------------------------------------*/
 html {
-  height: 100%;
-  position: relative; }
+  height: 100%; }
   html body {
     height: 100%;
-    min-height: 100%;
-    position: absolute; }
+    min-height: 100%; }
     html body #page {
       max-width: 100%;
       margin: auto;
       min-height: 100%;
-      display: table;
       width: 100%;
-      height: 100%;
-      position: absolute; }
+      height: 100%; }
       html body #page #content {
         max-width: 98%;
         margin: auto;
@@ -831,7 +827,8 @@ html {
         /* For Firefox 3.6 to 15 */
         background: linear-gradient(#5c857e, #507972 50%);
         /* Standard syntax */
-        display: table-header-group; }
+        display: table;
+        height: 86px; }
         html body #page header section {
           width: 100%;
           max-width: 980px;
@@ -858,7 +855,7 @@ html {
       html body #page footer {
         background: #507972;
         height: 170px;
-        display: table-footer-group;
+        display: table;
         width: 100%; }
         html body #page footer #menu-footer-menu {
           list-style: none;
@@ -967,76 +964,76 @@ body.page-template-client-profile.logged-in .profile-content-wrapper {
               margin-bottom: 0;
               border-bottom: 0; }
 
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  body.page-template-client-profile .site-content {
-    max-width: 100% !important;
-    padding-bottom: 0px !important;
-    background: #507972; }
-  body.page-template-client-profile .content-area, body.page-template-client-profile .site-main {
+body.page-template-client-profile .site-content {
+  max-width: 100% !important;
+  padding-bottom: 0px !important; }
+body.page-template-client-profile .content-area, body.page-template-client-profile .site-main {
+  height: 100%; }
+body.page-template-client-profile .profile-content-wrapper {
+  width: 100%; }
+  body.page-template-client-profile .profile-content-wrapper .user-info-wrapper {
+    float: left;
+    margin-right: 2rem;
+    padding-left: 2rem;
+    width: 20%;
+    background: #507972;
+    color: #fff;
     height: 100%; }
-  body.page-template-client-profile .profile-content-wrapper {
-    width: 100%; }
-    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper {
-      float: left;
-      margin-right: 2rem;
-      padding-left: 2rem;
-      width: 20%;
-      color: #fff;
-      height: 100%; }
-      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper .user-info {
-        position: fixed;
-        top: 5.2rem; }
-      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper h4 {
-        margin-bottom: -.1rem; }
-      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform {
-        max-width: 225px; }
-        body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform #usermsginput {
-          height: 100px;
-          width: 100%;
-          font-size: 16px; }
-    body.page-template-client-profile .profile-content-wrapper .user-list-wrapper {
-      float: right;
-      width: 80%;
+    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper .user-info {
+      position: fixed;
+      top: 5.2rem; }
+    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper h4 {
+      margin-bottom: -.1rem; }
+    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform {
+      max-width: 225px; }
+      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform #usermsginput {
+        height: 100px;
+        width: 100%;
+        font-size: 16px; }
+  body.page-template-client-profile .profile-content-wrapper .user-list-wrapper {
+    float: left;
+    width: 78%;
+    overflow: auto;
+    background: #fff;
+    padding-left: 2%; }
+    body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part {
+      max-height: 600px;
       overflow: auto;
-      background: #fff;
-      padding-left: 2%; }
-      body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part {
-        max-height: 600px;
-        overflow: auto;
-        float: left;
-        width: 30%;
-        margin-left: 1rem; }
-        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part.first-part {
-          margin-left: 0px !important; }
-        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec {
-          list-style: none;
-          margin-left: -20px;
-          margin-bottom: 0px; }
-          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li {
-            margin-bottom: .8rem; }
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status {
-              font-weight: bold;
-              font-size: 36px;
-              color: limegreen; }
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status.offdec, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status.closed {
-              font-weight: bold;
-              font-size: 36px;
-              color: lightgrey; }
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-image img {
-              width: 100%;
-              max-width: 130px; }
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-user {
-              font-weight: bold;
-              font-size: 14px;
-              width: 200px;
-              overflow: hidden; }
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul {
-              list-style: none;
-              margin-left: -20px;
-              margin-bottom: 0; }
-              body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul li {
-                margin-bottom: 0;
-                border-bottom: 0; } }
+      float: left;
+      width: 30%;
+      margin-left: 1rem; }
+      body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part.first-part {
+        margin-left: 0px !important; }
+      body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec {
+        list-style: none;
+        margin-left: -20px;
+        margin-bottom: 0px; }
+        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li {
+          margin-bottom: .8rem; }
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status {
+            font-weight: bold;
+            font-size: 36px;
+            color: limegreen; }
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status.offdec, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status.closed {
+            font-weight: bold;
+            font-size: 36px;
+            color: lightgrey; }
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-image img {
+            width: 100%;
+            max-width: 130px; }
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-user {
+            font-weight: bold;
+            font-size: 14px;
+            width: 200px;
+            overflow: hidden; }
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul {
+            list-style: none;
+            margin-left: -20px;
+            margin-bottom: 0; }
+            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul li {
+              margin-bottom: 0;
+              border-bottom: 0; }
+
 /*--------------------------------------------------------------
 ## Comments
 --------------------------------------------------------------*/

@@ -288,11 +288,6 @@ get_header();
                     jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                 ?>
                    <div class="message-count">
-                <h3>Messages (<?php if(is_array($message_count) && isset($message_count)){
-                        echo count($message_count);
-                    }else{ echo "0";} ?>) <?php if(isset($unread_count) && is_array($unread_count) ){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
-                   
-               <?php } ?> 
                     
                 <ul class="messages-ul">       
                <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){

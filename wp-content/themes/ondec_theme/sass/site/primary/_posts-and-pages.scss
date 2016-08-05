@@ -13,7 +13,7 @@ html{
             height:100%;
 
             #content{
-                max-width: 98%;
+                max-width: 100%;
                 margin: auto;
                 padding-bottom: 2rem;
                 height:100%;
@@ -108,7 +108,8 @@ html{
                 
                 .user-wrapper{
                     
-                    width:100%;
+                    width:98%;
+                    margin:auto;
                 
                     .user-information{
                         float: left;
@@ -204,22 +205,22 @@ html{
                 
                 .member-lists{
                     
-                    width:102%;
+                    width:100%;
                     background: #507972;
-                    padding: 2rem;
+                    padding: 0 0 2rem;
                     float: left;
-                    margin-left: -17px;
                     
                         .list-sections{
 
                             max-width:1550px;
                             margin:auto;
-                            width:74%;
+                            width:100%;
+                            padding-left: 6%;
                             
                              .list-section-wrapper{
                                  
                                 float:left;
-                                width:32%;
+                                width:30%;
                                 
                                  &.middle{
                                      

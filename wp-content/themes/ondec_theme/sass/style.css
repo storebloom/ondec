@@ -748,55 +748,51 @@ a {
 --------------------------------------------------------------*/
 /* line 1, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
 html {
-  height: 100%;
-  position: relative; }
+  height: 100%; }
   /* line 4, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
   html body {
     height: 100%;
-    min-height: 100%;
-    position: absolute; }
-    /* line 9, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    min-height: 100%; }
+    /* line 8, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     html body #page {
       max-width: 100%;
       margin: auto;
       min-height: 100%;
-      display: table;
       width: 100%;
-      height: 100%;
-      position: absolute; }
-      /* line 18, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      height: 100%; }
+      /* line 15, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
       html body #page #content {
-        max-width: 98%;
+        max-width: 100%;
         margin: auto;
         padding-bottom: 2rem;
         height: 100%;
         display: table;
         width: 100%;
         color: #507972; }
-        /* line 29, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 26, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content #adduser input {
           max-width: 600px;
           width: auto;
           float: left;
           margin-bottom: 1rem !important; }
-        /* line 36, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 33, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content #adduser label {
           display: block;
           max-width: 300px; }
-        /* line 41, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 38, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content #adduser p.form-submit {
           max-width: 300px; }
-        /* line 48, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 45, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content form.wpua-edit p.submit {
           display: none; }
-        /* line 53, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 50, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .messageWrap, html body #page #content .endorsementWrap {
           /* The div that shows/hides. */
           display: none;
           /* starts out hidden */
           z-index: 40001;
           /* High z-index to ensure it appears above all content */ }
-        /* line 58, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 55, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .messageOverlay, html body #page #content .endorsementOverlay {
           /* Shades out background when selector is active */
           position: fixed;
@@ -811,7 +807,7 @@ html {
           z-index: 40001;
           top: 0px;
           left: 0px; }
-        /* line 71, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 68, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .vertical-offset {
           /* Fixed position to provide the vertical offset */
           position: fixed;
@@ -819,7 +815,7 @@ html {
           width: 100%;
           z-index: 40002;
           /* ensures box appears above overlay */ }
-        /* line 78, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 75, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .messageBox, html body #page #content .endorsementBox {
           /* The actual box, centered in the fixed-position div */
           width: 100%;
@@ -833,164 +829,165 @@ html {
           border-radius: 10px;
           max-height: 700px;
           overflow: auto; }
-          /* line 90, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 87, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content .messageBox .closeMessage, html body #page #content .messageBox .replyMessage, html body #page #content .messageBox .m_spacer, html body #page #content .endorsementBox .closeMessage, html body #page #content .endorsementBox .replyMessage, html body #page #content .endorsementBox .m_spacer {
             cursor: pointer;
             font-weight: 100;
             color: grey; }
-          /* line 97, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 94, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content .messageBox h2, html body #page #content .endorsementBox h2 {
             border-bottom: thin solid grey; }
-        /* line 102, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 99, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .message-notification {
           height: 10px;
           margin-top: -10px; }
-        /* line 108, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 105, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content a {
           color: #507972; }
-        /* line 112, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 109, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .user-wrapper {
-          width: 100%; }
-          /* line 116, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          width: 98%;
+          margin: auto; }
+          /* line 114, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content .user-wrapper .user-information {
             float: left;
             max-width: 40%;
             width: 100%; }
-          /* line 122, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 120, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content .user-wrapper .user-tools {
             float: left;
             max-width: 60%;
             width: 100%; }
-            /* line 127, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            /* line 125, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
             html body #page #content .user-wrapper .user-tools form {
               margin: 0px !important; }
-              /* line 131, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 129, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .user-wrapper .user-tools form input {
                 max-width: 600px;
                 width: 100%;
                 margin: 0px !important; }
-                /* line 138, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                /* line 136, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                 html body #page #content .user-wrapper .user-tools form input[type='submit'] {
                   width: inherit;
                   margin-top: 0.5rem !important; }
-        /* line 147, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 145, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .sow-slide-nav, html body #page #content
 .sow-slider-pagination {
           display: none !important; }
-        /* line 150, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 148, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content #decmsgform {
           max-width: 400px;
           margin-bottom: 1rem; }
-          /* line 154, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 152, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content #decmsgform #decmessage {
             font-size: 13px;
             margin-bottom: 0.5rem !important; }
-        /* line 161, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 159, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .mymessages {
           width: 100%;
           margin-top: 1rem;
           float: left; }
-          /* line 167, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 165, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content .mymessages .message-section {
             max-width: 1550px;
             margin: auto; }
-          /* line 173, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 171, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content .mymessages ul.messages-ul {
             width: 100%;
             list-style: none;
             padding-left: 0px;
             margin-left: 0px; }
-            /* line 179, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            /* line 177, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
             html body #page #content .mymessages ul.messages-ul li {
               width: 100%;
               border-bottom: lightgrey solid medium;
               margin-bottom: 1rem;
               padding: 1rem; }
-              /* line 185, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 183, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .mymessages ul.messages-ul li .message-user {
                 font-weight: bold;
                 font-size: 18px; }
-              /* line 191, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 189, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .mymessages ul.messages-ul li .message-date {
                 font-size: 12px;
                 color: darkgrey; }
-              /* line 199, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 197, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .mymessages ul.messages-ul li .view-message input.read-message {
                 background: grey; }
-        /* line 208, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 206, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page #content .member-lists {
-          width: 102%;
+          width: 100%;
           background: #507972;
-          padding: 2rem;
-          float: left;
-          margin-left: -17px; }
-          /* line 216, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          padding: 0 0 2rem;
+          float: left; }
+          /* line 213, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page #content .member-lists .list-sections {
             max-width: 1550px;
             margin: auto;
-            width: 74%; }
-            /* line 222, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            width: 100%;
+            padding-left: 6%; }
+            /* line 220, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
             html body #page #content .member-lists .list-sections .list-section-wrapper {
               float: left;
-              width: 32%; }
-              /* line 227, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              width: 30%; }
+              /* line 225, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .member-lists .list-sections .list-section-wrapper.middle {
                 margin: 0 1.2rem; }
-              /* line 232, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 230, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .member-lists .list-sections .list-section-wrapper h3 {
                 color: #fff; }
-              /* line 236, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 234, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list li {
                 height: 255px; }
-              /* line 241, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 239, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes li {
                 height: 250px; }
-              /* line 248, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 246, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul {
                 list-style: none;
                 margin-left: -20px; }
-                /* line 252, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                /* line 250, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                 html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li {
                   float: left;
                   margin: .5rem;
                   max-width: 130px;
                   overflow: hidden; }
-                  /* line 258, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                  /* line 256, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li input {
                     width: 130px;
                     font-size: 13px; }
-                  /* line 263, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                  /* line 261, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .biz-status {
                     font-weight: bold;
                     font-size: 36px;
                     color: limegreen; }
-                  /* line 271, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                  /* line 269, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-status.offdec, html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .biz-status.closed, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-status.offdec, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .biz-status.closed, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-status.offdec, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .biz-status.closed {
                     font-weight: bold;
                     font-size: 36px;
                     color: lightgrey; }
-                  /* line 280, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                  /* line 278, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-image img, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-image img, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-image img {
                     width: 100%;
                     max-width: 130px; }
-                  /* line 286, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                  /* line 284, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-user {
                     font-weight: bold;
                     font-size: 14px;
                     width: 200px;
                     overflow: hidden; }
-                  /* line 294, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+                  /* line 292, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-message {
                     font-size: 12px;
                     margin-top: -11px; }
-              /* line 302, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+              /* line 300, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
               html body #page #content .member-lists .list-sections .list-section-wrapper .single-member-list {
                 width: 100%;
                 background: #fff;
                 border-radius: 10px;
                 max-height: 400px;
                 overflow: auto; }
-      /* line 316, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      /* line 314, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
       html body #page header {
         width: 100%;
         background: #507972;
@@ -1002,104 +999,105 @@ html {
         /* For Firefox 3.6 to 15 */
         background: linear-gradient(#5c857e, #507972 50%);
         /* Standard syntax */
-        display: table-header-group; }
-        /* line 325, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        display: table;
+        height: 86px; }
+        /* line 324, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page header section {
           width: 100%;
           max-width: 980px;
           margin: auto; }
-          /* line 330, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 329, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page header section #site-navigation {
             color: #fff; }
-            /* line 332, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            /* line 331, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
             html body #page header section #site-navigation a {
               color: #fff; }
-          /* line 337, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 336, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page header section .site-branding {
             float: left;
             width: 63%;
             padding-top: 1rem; }
-            /* line 341, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            /* line 340, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
             html body #page header section .site-branding img.site-logo {
               max-width: 170px;
               width: 100%;
               padding-top: -.7rem; }
-            /* line 342, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            /* line 341, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
             html body #page header section .site-branding img.site-logo-logged-in {
               max-width: 115px;
               width: 100%;
               float: left;
               padding-right: 1rem; }
-          /* line 349, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 348, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page header section .site-branding.loggedout {
             width: 40%; }
-      /* line 356, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      /* line 355, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
       html body #page footer {
         background: #507972;
         height: 170px;
-        display: table-footer-group;
+        display: table;
         width: 100%; }
-        /* line 363, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 362, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page footer #menu-footer-menu {
           list-style: none;
           padding-left: 0px;
           margin: 0.5rem 0px; }
-          /* line 370, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 369, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           html body #page footer #menu-footer-menu li a {
             padding-right: .6rem;
             float: left;
             color: #ffffff;
             text-decoration: none;
             font-size: 12px; }
-        /* line 375, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 374, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page footer .footer-content-wrapper {
           margin-top: .6rem;
           max-width: 75%;
           margin: auto; }
-        /* line 381, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 380, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         html body #page footer .site-info {
           color: #fff;
           margin: 1rem 0 3rem;
           font-size: 10px;
           width: 10%;
           padding-top: 2rem; }
-    /* line 390, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 389, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     html body .sticky {
       display: block; }
-    /* line 394, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 393, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     html body .hentry {
       margin: 0 0 1.5em; }
-    /* line 399, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 398, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     html body .byline,
     html body .updated:not(.published) {
       display: none; }
-    /* line 404, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 403, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     html body .single .byline,
     html body .group-blog .byline {
       display: inline; }
-    /* line 410, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 409, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     html body .page-content,
     html body .entry-content,
     html body .entry-summary {
       margin: 1.5em 0 0; }
-    /* line 414, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 413, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     html body .page-links {
       clear: both;
       margin: 0 0 1.5em; }
 
-/* line 423, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+/* line 422, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
 body.page-template-client-profile.logged-in .site-content {
   max-width: 100% !important;
   padding-bottom: 0px !important; }
 
-/* line 428, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+/* line 427, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
 body.page-template-client-profile.logged-in .content-area, body.page-template-client-profile.logged-in .site-main {
   height: 100%; }
 
-/* line 432, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+/* line 431, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
 body.page-template-client-profile.logged-in .profile-content-wrapper {
   width: 100%; }
-  /* line 436, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+  /* line 435, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
   body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper {
     float: left;
     margin-right: 2rem;
@@ -1108,164 +1106,165 @@ body.page-template-client-profile.logged-in .profile-content-wrapper {
     background: #507972;
     color: #fff;
     height: 100%; }
-    /* line 446, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 445, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper .user-info {
       position: fixed;
       top: 50px;
       width: 18%; }
-    /* line 453, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 452, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper h4 {
       margin-bottom: -.1rem; }
-    /* line 457, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 456, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper #msguserform {
       max-width: 225px; }
-      /* line 461, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      /* line 460, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
       body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper #msguserform #usermsginput {
         height: 100px;
         width: 100%;
         font-size: 16px; }
-  /* line 470, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+  /* line 469, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
   body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper {
     float: left;
     width: 75%;
     overflow: auto; }
-    /* line 476, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    /* line 475, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
     body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part {
       max-height: 600px;
       overflow: auto;
       float: left;
       width: 30%;
       margin-left: 1rem; }
-      /* line 482, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      /* line 481, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
       body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part.first-part {
         margin-left: 0px !important; }
-      /* line 486, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      /* line 485, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
       body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec {
         list-style: none;
         margin-left: -20px;
         margin-bottom: 0px; }
-        /* line 491, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        /* line 490, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
         body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li {
           margin-bottom: .8rem; }
-          /* line 494, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 493, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status, body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status {
             font-weight: bold;
             font-size: 36px;
             color: limegreen; }
-          /* line 501, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 500, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status.offdec, body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status.closed {
             font-weight: bold;
             font-size: 36px;
             color: lightgrey; }
-          /* line 511, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 510, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-image img {
             width: 100%;
             max-width: 130px; }
-          /* line 517, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 516, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-user {
             font-weight: bold;
             font-size: 14px;
             width: 200px;
             overflow: hidden; }
-          /* line 526, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          /* line 525, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
           body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul {
             list-style: none;
             margin-left: -20px;
             margin-bottom: 0; }
-            /* line 532, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            /* line 531, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
             body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul li {
               margin-bottom: 0;
               border-bottom: 0; }
 
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  /* line 552, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-  body.page-template-client-profile .site-content {
-    max-width: 100% !important;
-    padding-bottom: 0px !important;
-    background: #507972; }
-  /* line 558, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-  body.page-template-client-profile .content-area, body.page-template-client-profile .site-main {
-    height: 100%; }
+/* line 548, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+body.page-template-client-profile .site-content {
+  max-width: 100% !important;
+  padding-bottom: 0px !important; }
+
+/* line 554, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+body.page-template-client-profile .content-area, body.page-template-client-profile .site-main {
+  height: 100%; }
+
+/* line 558, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+body.page-template-client-profile .profile-content-wrapper {
+  width: 100%; }
   /* line 562, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-  body.page-template-client-profile .profile-content-wrapper {
-    width: 100%; }
-    /* line 566, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper {
-      float: left;
-      margin-right: 2rem;
-      padding-left: 2rem;
-      width: 20%;
-      color: #fff;
-      height: 100%; }
-      /* line 576, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper .user-info {
-        position: fixed;
-        top: 5.2rem; }
-      /* line 582, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper h4 {
-        margin-bottom: -.1rem; }
+  body.page-template-client-profile .profile-content-wrapper .user-info-wrapper {
+    float: left;
+    margin-right: 2rem;
+    padding-left: 2rem;
+    width: 20%;
+    background: #507972;
+    color: #fff;
+    height: 100%; }
+    /* line 572, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper .user-info {
+      position: fixed;
+      top: 5.2rem; }
+    /* line 578, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper h4 {
+      margin-bottom: -.1rem; }
+    /* line 582, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform {
+      max-width: 225px; }
       /* line 586, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform {
-        max-width: 225px; }
-        /* line 590, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-        body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform #usermsginput {
-          height: 100px;
-          width: 100%;
-          font-size: 16px; }
-    /* line 599, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-    body.page-template-client-profile .profile-content-wrapper .user-list-wrapper {
-      float: right;
-      width: 80%;
+      body.page-template-client-profile .profile-content-wrapper .user-info-wrapper #msguserform #usermsginput {
+        height: 100px;
+        width: 100%;
+        font-size: 16px; }
+  /* line 595, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+  body.page-template-client-profile .profile-content-wrapper .user-list-wrapper {
+    float: left;
+    width: 78%;
+    overflow: auto;
+    background: #fff;
+    padding-left: 2%; }
+    /* line 603, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+    body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part {
+      max-height: 600px;
       overflow: auto;
-      background: #fff;
-      padding-left: 2%; }
-      /* line 607, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-      body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part {
-        max-height: 600px;
-        overflow: auto;
-        float: left;
-        width: 30%;
-        margin-left: 1rem; }
-        /* line 613, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part.first-part {
-          margin-left: 0px !important; }
-        /* line 617, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec {
-          list-style: none;
-          margin-left: -20px;
-          margin-bottom: 0px; }
-          /* line 622, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li {
-            margin-bottom: .8rem; }
-            /* line 625, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status {
-              font-weight: bold;
-              font-size: 36px;
-              color: limegreen; }
-            /* line 632, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status.offdec, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status.closed {
-              font-weight: bold;
-              font-size: 36px;
-              color: lightgrey; }
-            /* line 642, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-image img {
-              width: 100%;
-              max-width: 130px; }
-            /* line 648, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-user {
-              font-weight: bold;
-              font-size: 14px;
-              width: 200px;
-              overflow: hidden; }
-            /* line 657, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul {
-              list-style: none;
-              margin-left: -20px;
-              margin-bottom: 0; }
-              /* line 663, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
-              body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul li {
-                margin-bottom: 0;
-                border-bottom: 0; } }
+      float: left;
+      width: 30%;
+      margin-left: 1rem; }
+      /* line 609, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part.first-part {
+        margin-left: 0px !important; }
+      /* line 613, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+      body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec {
+        list-style: none;
+        margin-left: -20px;
+        margin-bottom: 0px; }
+        /* line 618, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+        body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li {
+          margin-bottom: .8rem; }
+          /* line 621, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status {
+            font-weight: bold;
+            font-size: 36px;
+            color: limegreen; }
+          /* line 628, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-status.offdec, body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .biz-status.closed {
+            font-weight: bold;
+            font-size: 36px;
+            color: lightgrey; }
+          /* line 638, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-image img {
+            width: 100%;
+            max-width: 130px; }
+          /* line 644, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .dec-user {
+            font-weight: bold;
+            font-size: 14px;
+            width: 200px;
+            overflow: hidden; }
+          /* line 653, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+          body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul {
+            list-style: none;
+            margin-left: -20px;
+            margin-bottom: 0; }
+            /* line 659, /Users/scottadrian/Sites/ondec.dev/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss */
+            body.page-template-client-profile .profile-content-wrapper .user-list-wrapper .profile-part ul.mydec li .pro-type ul li {
+              margin-bottom: 0;
+              border-bottom: 0; }
 
 /*--------------------------------------------------------------
 ## Comments

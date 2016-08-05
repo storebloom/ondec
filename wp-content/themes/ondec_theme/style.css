@@ -637,7 +637,7 @@ html {
       width: 100%;
       height: 100%; }
       html body #page #content {
-        max-width: 98%;
+        max-width: 100%;
         margin: auto;
         padding-bottom: 2rem;
         height: 100%;
@@ -708,7 +708,8 @@ html {
         html body #page #content a {
           color: #507972; }
         html body #page #content .user-wrapper {
-          width: 100%; }
+          width: 98%;
+          margin: auto; }
           html body #page #content .user-wrapper .user-information {
             float: left;
             max-width: 40%;
@@ -760,18 +761,18 @@ html {
               html body #page #content .mymessages ul.messages-ul li .view-message input.read-message {
                 background: grey; }
         html body #page #content .member-lists {
-          width: 102%;
+          width: 100%;
           background: #507972;
-          padding: 2rem;
-          float: left;
-          margin-left: -17px; }
+          padding: 0 0 2rem;
+          float: left; }
           html body #page #content .member-lists .list-sections {
             max-width: 1550px;
             margin: auto;
-            width: 74%; }
+            width: 100%;
+            padding-left: 6%; }
             html body #page #content .member-lists .list-sections .list-section-wrapper {
               float: left;
-              width: 32%; }
+              width: 30%; }
               html body #page #content .member-lists .list-sections .list-section-wrapper.middle {
                 margin: 0 1.2rem; }
               html body #page #content .member-lists .list-sections .list-section-wrapper h3 {

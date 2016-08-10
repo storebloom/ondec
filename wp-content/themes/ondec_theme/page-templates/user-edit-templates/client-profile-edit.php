@@ -34,13 +34,12 @@ get_header();
                 <?php echo get_wp_user_avatar($current_user->ID, 170); ?>
 
                 <p>
-                <a href="/clients/<?php echo $current_user->user_login; ?>">view profile</a> | 
-            <a href="edit-profile-info">edit profile</a>
+                    <a href="/clients/<?php echo $current_user->user_login; ?>">view profile</a> | 
+                <a href="edit-profile-info">edit profile</a>
                 </p>
 
-                <span>
                 <div style="display:none;" id="msgsuccess">success!</div>
-                </span>
+ 
                 <form id="decmsgform" name="decmsgform">
                     <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
                     <input id="msgsubmit" type="button" value="update">

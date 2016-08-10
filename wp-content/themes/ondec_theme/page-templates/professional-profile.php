@@ -54,54 +54,23 @@ get_header(); ?>
             <?php if(isset($current_user->roles[0]) && $current_user->roles[0] === 'client' && $is_not_on_list): ?>
             
             <div class='decaddbutton_wrapper'>
-                <span style='display: none;' id='successadd-<?php echo $user_info->ID; ?>'>I'm on your dec list now!</span>
+                <span style='display: none;' class='successadd'>I'm on your dec list now!</span>
                 <form id='decaddmeform-<?php echo $user_info->ID; ?>' name='decaddmeform'>
-                    <input type='hidden' id='decaddmebutton-<?php echo $user_info->ID; ?>' value='<?php echo $user_info->ID; ?>'>
-                    <input type='button' id='addtoyourdec-<?php echo $user_info->ID; ?>' value='Follow Me'>
+                    <input type='button' class='addtoyourdec' id='<?php echo $user_info->ID; ?>' value='Follow Me'>
                 </form>
             </div>
             
-            <?php elseif(isset($current_user->roles[0]) && $current_user->roles[0] === 'business'): ?>
+            <?php elseif(isset($current_user->roles[0]) && $current_user->roles[0] === 'business' && $profile_pages->is_not_on_list($user_info->ID, 'mybusinesses')): ?>
             
             <div class='decrequestbutton_wrapper'>
                 <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Request submitted!</span>
                 <form id='decrequestmeform-<?php echo $user_info->ID; ?>' name='decrequestmeform'>
-                    <input type='hidden' id='decrequestmebutton-<?php echo $user_info->ID; ?>' value='<?php echo $user_info->ID; ?>'>
-                    <input type='button' id='requesttoyourdec-<?php echo $user_info->ID; ?>' value='Request Professional'>
+                    <input type='button' class='requesttoyourdec' id='<?php echo $user_info->ID; ?>' value='Request Professional'>
                 </form>
             </div>
             
             <?php endif; ?>
-             <script>
-                        jQuery('#addtoyourdec-<?php echo $user_info->ID; ?>' ).click(function(){
-                            var adddecid = jQuery('#decaddmebutton-<?php echo $user_info->ID; ?>').val();
-                            jQuery.post( 
-                                ajaxurl,
-                                    {   
-                                        'action': 'add_decmember',
-                                        'adddecid': adddecid
-                                    }, 
-                                    function(response){
-                                    jQuery('#decaddmeform-<?php echo $user_info->ID; ?>').slideDown(800).fadeOut(400);    
-                                    jQuery('#successadd-<?php echo $user_info->ID; ?>').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);   
-                                }
-                            );
-                        });
-                        jQuery('#requesttoyourdec-<?php echo $user_info->ID; ?>').click(function(){
-                        var requestdecid = jQuery('#decrequestmebutton-<?php echo $user_info->ID; ?>').val();
-                        jQuery.post( 
-                            ajaxurl,
-                                {   
-                                    'action': 'request_decmember',
-                                    'requestdecid': requestdecid
-                                }, 
-                                function(response){
-                                jQuery('#decrequestmeform-<?php echo $user_info->ID; ?>').slideDown(800).fadeOut(400);    
-                                jQuery('#successrequest-<?php echo $user_info->ID; ?>').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);
-                            }
-                        );
-                    });  
-                    </script>                   
+                 
             <div class="profile-part profile-message">
                 <h3>Status:</h3>
                 <?php echo get_user_meta($user_info->ID, 'decmessage', true); ?>
@@ -299,6 +268,37 @@ get_header(); ?>
 get_footer(); ?>
 
 <script>
+    jQuery('.addtoyourdec' ).click(function(){
+            var adddecid = jQuery(this).attr('id');
+            var addclass = '#decaddmeform-' + adddecid;
+            jQuery.post( 
+                ajaxurl,
+                    {   
+                        'action': 'add_decmember',
+                        'adddecid': adddecid
+                    }, 
+                    function(response){
+                    jQuery(addclass).slideDown(800).fadeOut(400);    
+                    jQuery('.successadd').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);   
+                }
+            );
+        });
+        jQuery('.requesttoyourdec').click(function(){
+        var requestdecid = jQuery(this).attr('id');
+        var requestclass = '#decrequestmeform-' + requestdecid;    
+        jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'request_decmember',
+                    'requestdecid': requestdecid
+                }, 
+                function(response){
+                jQuery(requestclass).slideDown(800).fadeOut(400);    
+                jQuery('.successrequest').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);
+            }
+        );
+    });  
+
     jQuery(document).ready(function() {
         
         jQuery("#msgsend").click(function(){    

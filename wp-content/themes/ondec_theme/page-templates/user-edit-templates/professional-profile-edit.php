@@ -181,10 +181,10 @@ get_header();
 
                                             if($currentloc){
                                                 $mybizloc = "current-location";
-                                                $mybizmsg = "My Current Location";
+                                                $mybizmsg = "current location";
                                             }else {
                                                 $mybizloc = "not-current-location";
-                                                $mybizmsg = "Set as Current Location";
+                                                $mybizmsg = "set location";
                                             }
                                             ?>
                                    
@@ -223,17 +223,18 @@ get_header();
                                         }
                                 endforeach; endforeach; } ?>
                             
-                                <?php if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){ ?> 
+                                
                                     
                                     <div class="endorsement-count">
-                                        <h3>My Endorsements ( <span id="endorsement-count">
-                                            <?php if(isset($endorsement_count) && is_array($endorsement_count)){
+                                        <h3>My Endorsements<span id="endorsement-count">
+                                            (<?php if(isset($endorsement_count) && is_array($endorsement_count)){
                                             echo intVal(count($endorsement_count));
-                                        }else{ echo "0";} ?></span> )
+                                        }else{ echo "0"; } ?></span>)
                                         </h3>  
                                     </div> 
                                 <div class="single-member-list my-endorsements">
-      
+                                    <ul>
+      <?php if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){ ?> 
                                     <?php foreach($current_endorsements as $endorsements) : 
                     
                                         foreach(array_reverse($endorsements) as $endorsement) :
@@ -286,7 +287,7 @@ get_header();
                                                     </div>
                                                 </div>
                                             </li>     
-                                    <?php endforeach; endforeach; }else{
+                                    <?php endforeach; endforeach;}else{
                                         if(array(0=> NULL) !== $current_endorsements) :
                                             foreach(array_reverse($current_endorsements) as $endorsement) :
                     
@@ -301,14 +302,7 @@ get_header();
                                             foreach(array_reverse($current_endorsements) as $endorsement) :
                     
                                                 $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : ""; ?> 
-                                                <div class="message-count">
-                                                    <h3>My Endorsements ( <span id="endorsement-count">
-                                                        <?php if(isset($endorsement_count) && is_array($endorsement_count)){
-                                                            echo intVal(count($endorsement_count));
-                                                        }else{ echo "0";} ?></span> )
-                                                    </h3>                
-                                                </div> 
-                
+                                                
                                                <li class="decend-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
                                                      <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
                                                         <div class="endorsementOverlay">
@@ -355,7 +349,7 @@ get_header();
                                                         </div>
                                                     </li>
 
-                                               <?php endforeach; endif; }?>
+                                               <?php endforeach; endif; }?></ul>
                             </div>
                                         </div>
                                     </div>
@@ -714,9 +708,9 @@ get_footer();
                         }, 
                         function(response){
 
-                        jQuery('.current-location').removeClass('current-location').addClass('not-current-location').val('Set as Current Location');
+                        jQuery('.current-location').removeClass('current-location').addClass('not-current-location').val('set location');
                         jQuery(specificid).removeClass('not-current-location').addClass('current-location');
-                        jQuery('.current-location').val('My Current Location');
+                        jQuery('.current-location').val('current location');
                         jQuery('#currentlocmsg').slideUp(800).fadeIn(400).delay(800).fadeOut(400); 
                     }
                 );
@@ -734,7 +728,7 @@ get_footer();
                         }, 
                         function(response){
                         
-                        jQuery('.current-location').val('Set as Current Location');
+                        jQuery('.current-location').val('set location');
                         jQuery('.current-location').addClass('not-current-location').removeClass('current-location');
                     }
                 );

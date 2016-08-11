@@ -243,6 +243,13 @@ html{
                                  
                                  .friends, .od-my-list, .od-my-likes, .my-businesses, .my-endorsements, .od-my-businesses{
                                      
+                                     #currentlocmsg, #rmsuccess, #bizapproved {
+                                         
+                                         text-align: center;
+                                         width: 100%;
+                                         color: limegreen;
+                                     }
+                                     
                                      ul{
                                          list-style: none;
                                          margin-left: -20px;
@@ -256,6 +263,12 @@ html{
                                              input{
                                                  width: 130px;
                                                  font-size: 13px;
+                                                 margin-top: .2rem;
+                                                 
+                                                 &.current-location{
+                                                     
+                                                     background: limegreen!important;
+                                                 }
                                              }
                                              
                                              .dec-status, .biz-status{

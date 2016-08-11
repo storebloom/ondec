@@ -25,14 +25,25 @@
                 
                 foreach($rows as $user_value){
                     
-                    if($od_user_search->in_my_dec_already($user_value[0])){
-                        
-                        
-                        $user_information = get_userdata($user_value[0]);
+                    $user_information = get_userdata($user_value[0]);
 
-                        $user_type = $user_information->roles;
+                    $user_type = $user_information->roles;
 
-                        $decstatus = get_user_meta($user_value[0], 'decstatus', true);                    
+                    $decstatus = get_user_meta($user_value[0], 'decstatus', true);         
+                    
+                    if(count($rows) < 2){
+                        
+                        $stype = "s/";
+                    
+                        if($user_role === 'professional' && $user_type[0] === "business" ){
+                            
+                            $stype = "es/";
+                        }
+                        
+                        echo '<script type="text/javascript"> window.location = "/'.$user_type[0].$stype.$user_value[3].'" </script>';
+                    }
+                    
+                    if($od_user_search->in_my_dec_already($user_value[0])){           
                         
                         if($user_role === 'professional' && $user_type[0] === "business" ){
                             

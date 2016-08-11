@@ -4,13 +4,14 @@ $decmessage = get_user_meta($current_user->ID, 'decmessage', true);
 $mydec = null !== get_user_meta($current_user->ID, 'mydec', false) ? get_user_meta($current_user->ID, 'mydec', false) : array( 0 => array());
 $decstatus = isset($decstatus) && $decstatus !== "" ? $decstatus : "no dec status";
 $current_decmessage = isset($decmessage) && $decmessage !== "" ? $decmessage : "";
-$mybusinesses = null !== get_user_meta($current_user->ID, 'mybusinesses', false) ? get_user_meta($current_user->ID, 'mybusinesses', false) : array( 0 => array());
+$current_biz = null !== get_user_meta($current_user->ID, 'mybusinesses', false) ? get_user_meta($current_user->ID, 'mybusinesses', false) : array( 0 => array());
 $my_dec_info = array();
 $my_business_info = array();    
 $myrequests = null !== get_user_meta($current_user->ID, 'business_requests', false) ? get_user_meta($current_user->ID, 'business_requests', false) : array( 0 => array());
 $my_request_info = array();
 $endorsement_user_info = array();
 $endorsment_requests = null !== get_user_meta($current_user->ID, 'my_endorsements', false) ? get_user_meta($current_user->ID, 'my_endorsements', false) : array( 0 => array());
+$current_endorsements = get_user_meta($current_user->ID, 'my_endorsements', false);
 
 if(isset($mybusinesses[0])){
     foreach($mybusinesses[0] as $single_business){
@@ -40,362 +41,327 @@ if($decstatus === "ondec" ){
 
 get_header(); 
 ?>
-
-	<div id="primary" class="content-area">
-        
+	<div id="primary" class="content-area">        
 		<main id="main" class="site-main" role="main">
+            <div class="message-notification"></div>
+            <div class="user-wrapper">
+                <div class="user-information">
+                    <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
             
-            <?php echo "<h1>" . $current_user->display_name . "'s Profile</h2>"; ?>
+                    <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
             
-            <?php echo get_wp_user_avatar($current_user->ID, 96); ?>
+                    <h3>current dec status:</h3>
+
+                    <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
+                    <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             
-            <h3>current dec status:</h3>
-                        
-            <form id="decform" name="decform">
-                <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
-                <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
-            </form>
-            <p>
-            <a href="/professionals/<?php echo $current_user->user_login; ?>">view my profile</a> | <a href="edit-profile-info">Edit Profile</a>
-            </p>
-            <span>
-                <div style="display:none;" id="msgsuccess">success!</div>
-            </span>
-            
-            <form id="decmsgform" name="decmsgform">
-                <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
-                <input id="msgsubmit" type="button" value="update">
-            </form>
-        
-            <h3>My Followers</h3>  
-            
-            <div class="od-my-followers">
-                
-                <ul>
-                    
-                <?php foreach($my_dec_info as $single_dec_member) :
-                    
-                    $user_information = get_userdata($single_dec_member->ID);
-
-                    $user_type = $user_information->roles;
-                ?>
-                    <li class="decmember-<?php echo $single_dec_member->ID; ?>">
-                        
-                        <a href='/clients/<?php echo $user_information->user_login; ?>'>
-                            
-                            <div class="dec-name">
-
-                                <?php echo $single_dec_member->display_name; ?>
-
-                            </div>
-
-                            <div class="dec-image">
-
-                                <?php echo get_wp_user_avatar($single_dec_member->ID, 96); ?>
-
-                            </div>
-                            
-                        </a>
-
-                    </li>
-                    
-                <?php endforeach; ?>
-                    
-                </ul>
-                
-            </div>
+                    <p>
+                        <a href="/professionals/<?php echo $current_user->user_login; ?>">view profile</a> 
+                            | 
+                        <a href="edit-profile-info">edit profile</a>
+                    </p>
  
-            <h3>My Business Locations</h3>
-            
-            <div class="od-my-businesses">
+                <div style="display:none;" id="msgsuccess">success!</div>
+
+                <form id="decmsgform" name="decmsgform">
+                    <input type="text" placeholder="what's up?" name="decmessage" id="decmessage" value="<?php echo $current_decmessage; ?>">
+                    <input id="msgsubmit" type="button" value="update">
+                </form>
+            </div>
+            <div class="user-tools">
+                <h2>Your Tools</h2>
                 
-                <span>
+                <h3>Search for a business near you:</h3>
+                <?php echo do_shortcode('[od_map_display]'); ?>
+            </div>
+            </div>    
+                
+            <div class="member-lists">
 
-                    <div style="display:none;" id="rmsuccess">successfully removed business!</div>
-                    <div style="display:none;" id="currentlocmsg">successfully set current location!</div>
-                    
-                </span>
-                    
-                <ul id="business-list">
-                    
-                    <?php foreach($my_business_info as $single_dec_business) :
+                <div class="list-sections">
 
-                        $user_information = get_userdata($single_dec_business->ID);
-                    ?>
-                        <li class="decbiz-<?php echo $single_dec_business->ID; ?>">
+                    <div style="display:none;" id="rmsuccess">successfully removed!</div>
 
-                            <a href='/businesses/<?php echo $single_dec_business->user_login; ?>'>
+                    <div class="list-section-wrapper">
+        
+                        <?php 
+                            if(isset($my_dec_info) && is_array($my_dec_info)) :
+                                foreach($my_dec_info as $single_dec_info){                          
 
-                                <div class="dec-name">
+                                     $dec_count[] = $single_dec_info;                            
+                                }
+                            endif;
+                        ?>
 
-                                    <?php echo $single_dec_business->display_name; ?>
 
-                                </div>
+                        <h3>My Followers (<?php echo isset($dec_count) ? count($dec_count) : "0"; ?>) </h3>
+                
+                        <div class="od-my-list single-member-list">
+                
+                            <ul>
 
-                                <div class="dec-image">
+                                <?php foreach($my_dec_info as $single_dec_member) :
 
-                                    <?php echo get_wp_user_avatar($single_dec_business->ID, 96); ?>
+                                    $user_information = get_userdata($single_dec_member->ID);
 
-                                </div>
-
-                            </a>
-
-                            <div>
-                                <form id="current-biz-<?php echo $single_dec_business->ID; ?>" name="current-biz-<?php echo $single_dec_business->ID; ?>">
-                                <?php $currentloc = $profile_pages->is_current_location($single_dec_business->ID);
-            
-                                    if($currentloc){
-                                        $mybizloc = "current-location";
-                                        $mybizmsg = "My Current Location";
-                                    }else {
-                                        $mybizloc = "not-current-location";
-                                        $mybizmsg = "Set as Current Location";
-                                    }
+                                    $user_type = $user_information->roles;
                                     ?>
-                                   
-                                    <input class="<?php echo $mybizloc; ?>" id="<?php echo $single_dec_business->ID; ?>" type="button" value="<?php echo $mybizmsg; ?>">
+                                    <li class="decmember-<?php echo $single_dec_member->ID; ?>">
 
-                                </form>
+                                        <a href='/clients/<?php echo $user_information->user_login; ?>'>
 
-                                <form id="decrmbizform-<?php echo $single_dec_business->ID; ?>" name="decrmbizform-<?php echo $single_dec_business->ID; ?>">
+                                            <div class="dec-name">
 
-                                    <input id="<?php echo $single_dec_business->ID; ?>" class="decremovebiz" type="button" value="remove from list">
+                                                <?php echo $single_dec_member->display_name; ?>
 
-                                </form>
+                                            </div>
 
-                            </div>
+                                            <div class="dec-image">
 
-                        </li>
+                                                <?php echo get_wp_user_avatar($single_dec_member->ID, 96); ?>
 
-                    <?php endforeach; ?>
+                                            </div>
+                                        </a>
 
-                </ul>
+                                    </li>
 
-            </div>
-            
-            <?php if( !is_array($my_request_info) && $my_request !== array() ) : ?>
-            <h3>Requests From Businesses</h3>
-            
-            <div class="od-my-biz-requests">
-                
-                <span>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                     
+                    <div class="list-section-wrapper middle my-businesses">
+                         <?php 
+                        if(isset($current_biz[0][0]) && is_array($current_biz[0][0])) :
+                            foreach($current_biz[0] as $single_biz_info){                          
 
-                    <div style="display:none;" id="approvesuccess">successfully approved request!</div>
-                    
-                </span>
-                <span>
-
-                    <div style="display:none;" id="removesuccess">successfully removed request!</div>
-                    
-                </span>
-                    
-                <ul id="request-list">
-                    
-                    <?php foreach($my_request_info as $single_dec_request) :
-
-                        $user_information = get_userdata($single_dec_request->ID);
-                    ?>
-                        <li class="decrequest-<?php echo $single_dec_request->ID; ?>">
-
-                            <a href='/businesses/<?php echo $single_dec_request->user_login; ?>'>
-
-                                <div class="dec-name">
-
-                                    <?php echo $single_dec_request->display_name; ?>
-
-                                </div>
-
-                                <div class="dec-image">
-
-                                    <?php echo get_wp_user_avatar($single_dec_request->ID, 96); ?>
-
-                                </div>
-
-                            </a>
-
-                            <div>
-
-                                <form id="decrequestform-<?php echo $single_dec_request->ID; ?>" name="decrequestform-<?php echo $single_dec_request->ID; ?>">
-
-                                    <input id="<?php echo $single_dec_request->ID; ?>" class="approvebiz" type="button" value="approve">
-                                    <input id="<?php echo $single_dec_request->ID; ?>" class="removebiz" type="button" value="remove">
-                                    
-                                </form>
-
-                            </div>
-
-                        </li>
-
-                    <?php endforeach; ?>
-
-                </ul>
-
-            </div>
-            
-            <?php endif; ?>
-      
-  <div class="myendorsements">
-               
-            <?php $current_endorsements = get_user_meta($current_user->ID, 'my_endorsements', false);
-
-                if(isset($current_endorsements)){
-                    
-                if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){
-                    
-                    foreach($current_endorsements as $endorsements) : 
-                    
-                    foreach(array_reverse($endorsements) as $endorsement) :
-                    
-                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
-                
-                    if(isset($endorsement['approval_status'])){
+                                $biz_count[] = $single_biz_info;                            
+                            }
+                        endif;
+                        ?>
                         
-                         $endorsement_count[] = $endorsement['approval_status'];
-                    }
-                    endforeach; endforeach; } 
+                        <h3>My Business Locations (<span id="biz-count"><?php echo isset($biz_count) ? count($biz_count) : "0"; ?></span>) </h3>
+            
+                        <div class="od-my-businesses">
+                            <div style="display:none;" id="rmsuccess">successfully removed business!</div>
+                            <div style="display:none;" id="currentlocmsg">successfully set current location!</div>
+                            <div style="display:none;" id="bizapproved">Business approved!</div>
+                    
+                            <?php if(isset($current_biz[0])) : ?>
+                                <ul>
+                                <?php foreach($current_biz[0] as $single_dec_business) :
 
-                ?>
+                                    $user_information = get_userdata(intVal($single_dec_business['user']));
+                    
+                                ?>
+                                    <li class="decmember-<?php echo $single_dec_business['user']; ?>">
+
+                                        <a href='/businesses/<?php echo $user_information->user_login; ?>'>
+
+                                            <div class="dec-name">
+
+                                                <?php echo $user_information->display_name; ?>
+
+                                            </div>
+
+                                            <div class="dec-image">
+
+                                                <?php echo get_wp_user_avatar($single_dec_business['user'], 96); ?>
+
+                                            </div>
+
+                                        </a>
+
+                                        <div>
                             
-               <?php if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){
+                                            <?php 
+
+                                            $currentloc = $profile_pages->is_current_location($single_dec_business['user']);
+
+                                            if($currentloc){
+                                                $mybizloc = "current-location";
+                                                $mybizmsg = "My Current Location";
+                                            }else {
+                                                $mybizloc = "not-current-location";
+                                                $mybizmsg = "Set as Current Location";
+                                            }
+                                            ?>
+                                   
+                                            <input <?php if($single_dec_business['approval_status'] === 'pending') : ?> style="display:none;" <?php endif; ?>    
+                                            class="<?php echo $mybizloc; ?>" id="<?php echo $single_dec_business['user']; ?>" type="button" value="<?php echo $mybizmsg; ?>">
+
+                                            <?php if($single_dec_business['approval_status'] === 'pending') : ?>  
+
+                                                <input id="<?php echo $single_dec_business['user']; ?>" class="approve-biz approve-biz-<?php echo $single_dec_business['user']; ?>" value="approve" type="button">
+
+                                            <?php endif; ?>
+                                
+                                            <input id="<?php echo $single_dec_business['user']; ?>" class="decremove" type="button" value="remove">
+
+                                        </div>
+                                    </li>
+                                <?php endforeach; endif; ?>
+
+                            </ul>
+
+                        </div>
+                     
+                        <div class="list-section-wrapper my-endorsements">
                     
-            ?> <div class="endorsement-count">
-                <h3>My Endorsements ( <span id="endorsement-count"><?php if(isset($endorsement_count) && is_array($endorsement_count)){
-                        echo intVal(count($endorsement_count));
-            }else{ echo "0";} ?></span> )</h3>  
-                </div> 
-      
-                <?php
+                            <?php if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){
                     
-                    foreach($current_endorsements as $endorsements) : 
+                                foreach($current_endorsements as $endorsements) : 
                     
-                    foreach(array_reverse($endorsements) as $endorsement) :
+                                    foreach(array_reverse($endorsements) as $endorsement) :
                     
-                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
-                ?> 
+                                        $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
                 
-                  <li class="decend-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
-                            <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
-                            <div class="endorsementOverlay">
-                                &nbsp;
-                            </div>
-                            <div class="vertical-offset">
-                                <div class="endorsementBox">
-                                    <div class="view-endorsement-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >
-                                        <h2>
-                                            <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
-                                        </h2>
-                                        <h3>
-                                            <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
-                                        </h3>
-                                    </div>
-                                    <?php if($endorsement['approval_status'] === 'pending'): ?>
-                                    <input type="button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="approve-endorsement" value="approve">
-                                    <?php endif; ?>
-                                    <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
-                                </div>
-                            </div>
-                        </div>  
-                            <div class="endorsement-date">
-                                <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $endorsement['endorsement_date']) : ""; ?>
-                            </div>
-                            <div class="user-endorsement-info">
-                                <div class="endorsement-user">
-                                    <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
-                                </div>
-                                <div class="prof-image-endorsement">
-                                    <?php echo isset($endorsement_user_info->ID) ? get_wp_user_avatar($endorsement_user_info->ID, 36) : ""; ?>
-                                </div>
-                            </div>
-                            <div class="user-endorsement">
-                                <div class="endorsement-wrapper">
-                                    <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
-                                </div>
-                                <div class="view-endorsement">
-                                    
-                                    <input type="button" class="view-endorsement-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
-                                    
-                                    <input id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="removeendorsement" type="button" value="remove">
-                                </div>
-                            </div>
-                        </li>
-   
-                  
-                   <?php endforeach; endforeach; }else{
-                    if(array(0=> NULL) !== $current_endorsements) :
-                       foreach(array_reverse($current_endorsements) as $endorsement) :
-                    
-                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
-                    
-                    if(isset($endorsement['approval_status'])){
+                                        if(isset($endorsement['approval_status'])){
                         
-                         $endorsement_count[] = $endorsement['approval_status'];
-                    }
-                    endforeach; ?>
+                                            $endorsement_count[] = $endorsement['approval_status'];
+                                        }
+                                endforeach; endforeach; } ?>
+                            
+                                <?php if(isset($current_endorsements[0][0]) && is_array($current_endorsements[0][0])){ ?> 
+                                    
+                                    <div class="endorsement-count">
+                                        <h3>My Endorsements ( <span id="endorsement-count">
+                                            <?php if(isset($endorsement_count) && is_array($endorsement_count)){
+                                            echo intVal(count($endorsement_count));
+                                        }else{ echo "0";} ?></span> )
+                                        </h3>  
+                                    </div> 
+      
+                                    <?php foreach($current_endorsements as $endorsements) : 
                     
-                <?php  foreach(array_reverse($current_endorsements) as $endorsement) :
+                                        foreach(array_reverse($endorsements) as $endorsement) :
                     
-                    $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
-                                                                                                                                
-                ?> 
+                                            $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
+                                            ?> 
                 
-                <div class="message-count">
-                <h3>My Endorsements ( <span id="endorsement-count"><?php if(isset($endorsement_count) && is_array($endorsement_count)){
-                        echo intVal(count($endorsement_count));
-                }else{ echo "0";} ?></span> )</h3>  
-                                         
-                </div> 
+                                            <li class="decend-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
+                                                <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
+                                                    <div class="endorsementOverlay">
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="vertical-offset">
+                                                        <div class="endorsementBox">
+                                                            <div class="view-endorsement-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >
+                                                                <h2>
+                                                                    <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                                                </h2>
+                                                                <h3>
+                                                                    <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
+                                                                </h3>
+                                                            </div>
+                                                            <?php if($endorsement['approval_status'] === 'pending'): ?>
+                                                                <input type="button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="approve-endorsement" value="approve">
+                                                            <?php endif; ?>
+                                                            <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                                <div class="endorsement-date">
+                                                    <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $endorsement['endorsement_date']) : ""; ?>
+                                                </div>
+                                                <div class="user-endorsement-info">
+                                                    <div class="endorsement-user">
+                                                        <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                                    </div>
+                                                    <div class="prof-image-endorsement">
+                                                        <?php echo isset($endorsement_user_info->ID) ? get_wp_user_avatar($endorsement_user_info->ID, 36) : ""; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="user-endorsement">
+                                                    <div class="endorsement-wrapper">
+                                                        <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
+                                                    </div>
+                                                    <div class="view-endorsement">
+
+                                                        <input type="button" class="view-endorsement-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+
+                                                        <input id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="removeendorsement" type="button" value="remove">
+                                                    </div>
+                                                </div>
+                                            </li>     
+                                    <?php endforeach; endforeach; }else{
+                                        if(array(0=> NULL) !== $current_endorsements) :
+                                            foreach(array_reverse($current_endorsements) as $endorsement) :
+                    
+                                                $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : "";
+                    
+                                                if(isset($endorsement['approval_status'])){
+                        
+                                                    $endorsement_count[] = $endorsement['approval_status'];
+                                                 }
+                                            endforeach; 
+                                            
+                                            foreach(array_reverse($current_endorsements) as $endorsement) :
+                    
+                                                $endorsement_user_info = isset($endorsement['user']) ? get_userdata($endorsement['user']) : ""; ?> 
+                                                <div class="message-count">
+                                                    <h3>My Endorsements ( <span id="endorsement-count">
+                                                        <?php if(isset($endorsement_count) && is_array($endorsement_count)){
+                                                            echo intVal(count($endorsement_count));
+                                                        }else{ echo "0";} ?></span> )
+                                                    </h3>                
+                                                </div> 
                 
-                   <li class="decend-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
-                         <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
-                            <div class="endorsementOverlay">
-                                &nbsp;
-                            </div>
-                            <div class="vertical-offset">
-                                <div class="endorsementBox">
-                                    <div class="view-endorsement-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >
-                                        <h2>
-                                            <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
-                                        </h2>
-                                        <h3>
-                                            <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
-                                        </h3>
+                                               <li class="decend-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
+                                                     <div style="display:none;" class="endorsementWrap-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">
+                                                        <div class="endorsementOverlay">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="vertical-offset">
+                                                            <div class="endorsementBox">
+                                                                <div class="view-endorsement-<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" >
+                                                                    <h2>
+                                                                        <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                                                    </h2>
+                                                                    <h3>
+                                                                        <?php echo isset($endorsement['endorsement']) ? $endorsement['endorsement'] : ""; ?>
+                                                                    </h3>
+                                                                </div>
+                                                                <?php if($endorsement['approval_status'] === 'pending'): ?>
+                                                                <input type="button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="approve-endorsement" value="approve">
+                                                                <?php endif; ?>
+                                                                <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                        <div class="endorsement-date">
+                                                            <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $endorsement['endorsement_date']) : ""; ?>
+                                                        </div>
+                                                        <div class="user-endorsement-info">
+                                                            <div class="endorsement-user">
+                                                                <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
+                                                            </div>
+                                                            <div class="prof-image-endorsement">
+                                                                <?php echo isset($endorsement_user_info->ID) ? get_wp_user_avatar($endorsement_user_info->ID, 36) : ""; ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="user-endorsement">
+                                                            <div class="endorsement-wrapper">
+                                                                <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
+                                                            </div>
+                                                            <div class="view-endorsement">
+
+                                                                <input class="view-endorsement-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
+
+                                                                <input id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="removeendorsement" type="button" value="remove">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                               <?php endforeach; endif; }?>
+                                        </div>
                                     </div>
-                                    <?php if($endorsement['approval_status'] === 'pending'): ?>
-                                    <input type="button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="approve-endorsement" value="approve">
-                                    <?php endif; ?>
-                                    <a class="closeEndorsement" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>">Close</a>
                                 </div>
                             </div>
-                        </div>    
-                            <div class="endorsement-date">
-                                <?php echo isset($endorsement['endorsement_date']) ? date("F j, Y", $endorsement['endorsement_date']) : ""; ?>
-                            </div>
-                            <div class="user-endorsement-info">
-                                <div class="endorsement-user">
-                                    <?php echo isset($endorsement_user_info->display_name) ? $endorsement_user_info->display_name : ""; ?>
-                                </div>
-                                <div class="prof-image-endorsement">
-                                    <?php echo isset($endorsement_user_info->ID) ? get_wp_user_avatar($endorsement_user_info->ID, 36) : ""; ?>
-                                </div>
-                            </div>
-                            <div class="user-endorsement">
-                                <div class="endorsement-wrapper">
-                                    <?php echo isset($endorsement['endorsement']) ? substr($endorsement['endorsement'], 0, 80) . "..." : ""; ?>
-                                </div>
-                                <div class="view-endorsement">
-                                    
-                                    <input class="view-endorsement-button" id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" type="button" value="<?php echo isset($endorsement['approval_status']) ? $endorsement['approval_status'] : ""; ?>">
-                                    
-                                    <input id="<?php echo isset($endorsement['endorsementid']) ? $endorsement['endorsementid'] : ""; ?>" class="removeendorsement" type="button" value="remove">
-                                </div>
-                            </div>
-                        </li>
-   
-                  
-                   <?php endforeach; endif; }}?>
-            </div>
 
             <div class="mymessages">
+                
+                <div class="message-section">
                
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
                 
@@ -421,25 +387,17 @@ get_header();
                     endforeach; endforeach; } 
                 
                 if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
-                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; } 
-                ?>
+                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '
                 
-                   
-               
+                <script>
+                
+                    jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
+                ?>
+                   <div class="message-count">
                     
+                <ul class="messages-ul">       
                <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
                     
-            ?> <div class="message-count">
-                <h3>My Messages ( <?php if(isset($message_count) && is_array($message_count)){
-                        echo count($message_count);
-                    }else{ echo "0";} ?> )</h3>  
-                    
-                    <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>unread( 
-                        <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
-                </h4>
-                     
-                </div> 
-                <?php
                     foreach($current_messages as $messagess) : 
                     
                     foreach(array_reverse($messagess) as $messages) :
@@ -473,27 +431,29 @@ get_header();
                                             <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
                                         </h3>
                                     </div>
-                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" class="replyMessage" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a>  <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">close</a>
                                 </div>
                             </div>
                         </div>  
                             <div class="message-date">
-                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
+                                <?php echo isset($messages['message_date']) ? date("F j, Y h:i A", $messages['message_date']) : ""; ?>
                             </div>
                             <div class="user-message-info">
+                                <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID); ?>">
                                 <div class="message-user">
                                     <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
                                 </div>
                                 <div class="prof-image-message">
                                     <?php echo isset($message_user_info->ID) ? get_wp_user_avatar($message_user_info->ID, 36) : ""; ?>
                                 </div>
+                                </a>    
                             </div>
                             <div class="user-message">
                                 <div class="message-wrapper">
                                     <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-message">
-                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                    <input class="view-button <?php if($messages['read_status'] === "read") : echo "read-message"; endif; ?>" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
                                 </div>
                             </div>
                         </li>
@@ -522,20 +482,21 @@ get_header();
                     
                    if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
                     
-                    if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>alert("You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!")</script>'; }
+                    if( isset($unread_count) && intval(count($unread_count)) > 0){ echo '<script>
+                
+                    jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                                                                                                                                 
                 ?> 
                 
                 <div class="message-count">
-                <h3>My Messages ( <?php if(isset($message_count) && is_array($message_count)){
+                <h3>Messages (<?php if(is_array($message_count) && isset($message_count)){
                         echo count($message_count);
-                    }else{ echo "0";} ?> )</h3>  
-                    
-                    <h4><?php if(isset($unread_count) && is_array($unread_count)) : ?>| unread( 
-                        <span id="unread-count"><?php echo intval(count($unread_count)); ?></span> ) <?php endif; ?>
-                </h4>
+                    }else{ echo "0";} ?>) <?php if(isset($unread_count) && is_array($unread_count)){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
+                   
+               <?php } ?>
                      
                 </div> 
+                 
                 
                    <li class="message-item">
                          <div style="display:none;" class="messageWrap-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">
@@ -552,13 +513,14 @@ get_header();
                                             <?php echo isset($messages['message']) ? $messages['message'] : ""; ?>
                                         </h3>
                                     </div>
-                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a> <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">Close</a>
+                                    <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID) . "/#messages"; ?>" class="replyMessage" id="reply-<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" >reply</a>  <a class="closeMessage" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>">close</a>
                                 </div>
                             </div>
                         </div>    
                             <div class="message-date">
-                                <?php echo isset($messages['message_date']) ? date("F j, Y", $messages['message_date']) : ""; ?>
+                                <?php echo isset($messages['message_date']) ? date("F j, Y h:i A", $messages['message_date']) : ""; ?>
                             </div>
+                            <a href="<?php echo $profile_pages->get_user_profile_url($message_user_info->ID); ?>">
                             <div class="user-message-info">
                                 <div class="message-user">
                                     <?php echo isset($message_user_info->display_name) ? $message_user_info->display_name : ""; ?>
@@ -567,26 +529,50 @@ get_header();
                                     <?php echo isset($message_user_info->ID) ? get_wp_user_avatar($message_user_info->ID, 36) : ""; ?>
                                 </div>
                             </div>
+                            </a>    
                             <div class="user-message">
                                 <div class="message-wrapper">
                                     <?php echo isset($messages['message']) ? substr($messages['message'], 0, 80) . "..." : ""; ?>
                                 </div>
                                 <div class="view-message">
-                                    <input class="view-button" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
+                                    <input class="view-button <?php if($messages['read_status'] === "read") : echo "read-message"; endif; ?>" id="<?php echo isset($messages['messageid']) ? $messages['messageid'] : ""; ?>" type="button" value="<?php echo isset($messages['read_status']) ? $messages['read_status'] : ""; ?>">
                                 </div>
                             </div>
                         </li>
    
                   
-                   <?php endforeach; }}?>
+                    <?php endforeach; }}?></ul>
             </div>
-            </main><!-- #main -->
-	</div><!-- #primary -->
+                </div>
+        </main></div>
 <?php
 get_footer();
 
 ?>
 <script>
+    
+    jQuery(".approve-biz").click(function(){
+            
+            var bizid = jQuery(this).attr('id');
+            var approveclass = ".approve-biz-" + bizid;
+            
+            jQuery.post(
+                
+                ajaxurl,
+                    {
+                        'action': 'approve_friend',
+                        'bizid' : bizid,
+                        'type' : 'biz'
+                    },
+                    function(response){
+                        
+                        jQuery('#bizapproved').slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                        jQuery(approveclass).hide();
+                        jQuery('.not-current-location').fadeIn(400);
+                    }
+            );
+
+        });
     jQuery(document).ready(function() {
         
         jQuery('.decremove').click(function(){
@@ -600,12 +586,14 @@ get_footer();
                     ajaxurl,
                         {   
                             'action': 'remove_decmember',
-                            'rmdecid': rmdecid
+                            'rmdecid': rmdecid,
+                            'rmtype' : 'biz'
                         }, 
                         function(response){
 
                         jQuery(rmclass).slideDown(800).fadeOut(400);    
                         jQuery("#rmsuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                        jQuery('#biz-count').text(jQuery('#biz-count').text()-1);
                     }
                 );
             }
@@ -745,28 +733,6 @@ get_footer();
                         
                         jQuery('.current-location').val('Set as Current Location');
                         jQuery('.current-location').addClass('not-current-location').removeClass('current-location');
-                    }
-                );
-            }
-        });
-        
-        jQuery('.decremovebiz').click(function(){
-            var rmbizid = jQuery(this).attr('id');
-            var rmbizclass = ".decbiz-" + rmbizid; 
-
-            if (window.confirm("Do you really want to remove this business from your list?")) {
-
-                jQuery.post(
-
-                    ajaxurl,
-                        {   
-                            'action': 'remove_biz',
-                            'rmbizid': rmbizid
-                        }, 
-                        function(response){
-
-                        jQuery(rmbizclass).slideDown(800).fadeOut(400);    
-                        jQuery("#rmbizsuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
                     }
                 );
             }

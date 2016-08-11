@@ -1,10 +1,7 @@
 <?php
 
 include_once('inc/autologin.php');
-if(is_front_page() && is_user_logged_in()){
-    
-     echo '<script type="text/javascript"> window.location = "/my-profile"; </script>';
-}
+
 if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>';}
 global $current_user;
 /**

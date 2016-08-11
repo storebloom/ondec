@@ -121,8 +121,6 @@ class Decstatus {
         $requestdecid = isset($_POST['requestdecid']) ? $_POST['requestdecid'] : "";
         
         if($user_role === 'professional'){
-            
-        $business_pros = get_user_meta($requestdecid, 'pro_requests', false);
         
         $business_pros = array() !== $business_pros ? $business_pros : array(0 => array());
         
@@ -132,13 +130,22 @@ class Decstatus {
         
         } elseif($user_role === 'business') {
             
-        $business_pros = get_user_meta($requestdecid, 'business_requests', false);
+        $business_prots = get_user_meta($requestdecid, 'mybusinesses', false);
         
-        $business_pros = array() !== $business_pros ? $business_pros : array(0 => array());
+        $business_pros = array() !== $business_prots ? $business_prots : array(0 => array());
         
-        $new_pros = array_merge($business_pros[0], array($current_user->ID));
+        if(!is_array($business_pros[0][0])){
 
-        update_user_meta($requestdecid, 'business_requests', $new_pros);
+                $new_biz = array_merge($business_pros[0], array(array('user' => $current_user->ID, 'approval_status' => 'pending')));
+
+                update_user_meta($requestdecid, 'mybusinesses', array($new_biz));
+            } else {
+                $new_biz = array_merge($business_pros[0], array(array('user' => $current_user->ID, 'approval_status' => 'pending')));
+
+                update_user_meta($requestdecid, 'mybusinesses', $new_biz);
+            }
+
+        update_user_meta($requestdecid, 'mybusinesses', $new_biz);
         } elseif($user_role === 'client'){
             
             $current_friends = get_user_meta($requestdecid, 'myfriends', false);
@@ -383,28 +390,61 @@ class Decstatus {
         global $current_user;
         
         $friendid = isset($_POST['friendid']) ? $_POST['friendid'] : "";
+        $bizid = isset($_POST['bizid']) ? $_POST['bizid'] : "";
+        $type = isset($_POST['type']) ? $_POST['type'] : "";
         
-        $current_friends = get_user_meta($current_user->ID, 'myfriends');
-        $request_friends = get_user_meta($friendid, 'myfriends', false);
+        
+        
+        if($type !== 'biz'){
+            $current_friends = get_user_meta($current_user->ID, 'myfriends');
+            $request_friends = get_user_meta($friendid, 'myfriends', false);
+        } else {
+            $current_friends = get_user_meta($current_user->ID, 'mybusinesses');
+            $request_friends = get_user_meta($bizid, 'mydec', false);
+        }
 
         if(is_array($current_friends[0][0])){
+            
+            if($type !== 'biz'){
             foreach($current_friends[0] as $message_key => $message){
                 foreach($message as $messages_key => $messages){
                     if($message['user'] === intVal($friendid)){
 
                         $current_friends[0][$message_key]['approval_status'] = 'approved';
                     }               
+                }
+            }
+             }else{            
+                
+                foreach($current_friends[0] as $message_key => $message){
+                foreach($message as $messages_key => $messages){
+                    if($message['user'] === intVal($bizid)){
+
+                        $current_friends[0][$message_key]['approval_status'] = 'approved';
+                    }               
                 }       
              }
-        } else {
-    
+            }
+                
+            }else{
+        
          
-                    if($current_friends[0]['user'] === intVal($friendid)){
+            if($type !== 'biz'){        
+            if($current_friends[0]['user'] === intVal($friendid)){
 
                         $current_friends[0]['approval_status'] = 'approved';      
-            }         
+            }  
+            }else{
+                
+                if($current_friends[0]['user'] === intVal($bizid)){
+
+                        $current_friends[0]['approval_status'] = 'approved';      
+            }  
+                
+            }
         }
 
+        if($type !== 'biz'){
         update_user_meta( $current_user->ID, 'myfriends', $current_friends[0] );
         
         $approved_friends = get_user_meta($friendid, 'myfriends', false);
@@ -420,6 +460,27 @@ class Decstatus {
             $new_friends = array_merge($approver_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'approved')));
 
             update_user_meta($friendid, 'myfriends', $new_friends);
+        }
+            
+        }else{
+            
+            update_user_meta( $current_user->ID, 'mybusinesses', $current_friends[0] );
+        
+        $approved_friends = get_user_meta($bizid, 'mydec', false);
+
+        $approver_friends = array() !== $approved_friends ? $approved_friends : array(0 => array());
+
+        if(!is_array($approver_friends[0])){
+
+            $new_friends = array_merge($approver_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
+
+            update_user_meta($bizid, 'mydec', array($new_friends));
+        } else {
+            $new_friends = array_merge($approver_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'approved')));
+
+            update_user_meta($bizid, 'mydec', $new_friends);
+        }
+            
         }
         
     }
@@ -580,6 +641,7 @@ class Decstatus {
         $client_friends = get_user_meta($current_user->ID, 'myfriends', false);
         $client_frienders = get_user_meta($rmdecid, 'myfriends', false);
         $biz_likers = get_user_meta($rmdecid, 'mylikers', false);
+        $professional_biz = get_user_meta($current_user->ID, 'mybusinesses', false);
         
         $new_array = array();
 
@@ -673,6 +735,38 @@ class Decstatus {
                 }
 
                 update_user_meta($rmdecid, 'myfriends', $new_friender);
+            }
+        }
+        
+        if($user_role === 'professional' && $rmtype === "biz"){
+            
+            $new_biz = array();
+
+            if(isset($professional_biz[0])){
+                foreach( $professional_biz[0] as $c_biz){
+
+                    if(intval($c_biz['user']) !== intval($rmdecid)){
+
+                        $new_biz[] = $c_biz;
+                    }
+                }
+var_dump($new_biz);
+                update_user_meta($current_user->ID, 'mybusinesses', $new_biz);
+            }
+            
+            
+            $new_pro = array();
+
+            if(isset($client_pro[0])){
+                foreach( $client_pro[0] as $biz_pro){
+
+                    if(intval($biz_pro['user']) !== intval($current_user->ID)){
+
+                        $new_pro[] = $biz_pro;
+                    }
+                }
+
+                update_user_meta($rmdecid, 'mydec', $new_pro);
             }
         }
         //print_r($rmdecid); 

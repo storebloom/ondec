@@ -142,13 +142,14 @@ get_header();
                         
                         <h3>My Business Locations (<span id="biz-count"><?php echo isset($biz_count) ? count($biz_count) : "0"; ?></span>) </h3>
             
-                        <div class="od-my-businesses">
+                        <div class="od-my-businesses single-member-list">
                             <div style="display:none;" id="rmsuccess">successfully removed business!</div>
                             <div style="display:none;" id="currentlocmsg">successfully set current location!</div>
                             <div style="display:none;" id="bizapproved">Business approved!</div>
                     
-                            <?php if(isset($current_biz[0])) : ?>
                                 <ul>
+                                
+                                <?php if(isset($current_biz[0])) : ?>    
                                 <?php foreach($current_biz[0] as $single_dec_business) :
 
                                     $user_information = get_userdata(intVal($single_dec_business['user']));
@@ -203,7 +204,7 @@ get_header();
                                 <?php endforeach; endif; ?>
 
                             </ul>
-
+                        </div>
                         </div>
                      
                         <div class="list-section-wrapper my-endorsements">
@@ -231,6 +232,7 @@ get_header();
                                         }else{ echo "0";} ?></span> )
                                         </h3>  
                                     </div> 
+                                <div class="single-member-list my-endorsements">
       
                                     <?php foreach($current_endorsements as $endorsements) : 
                     
@@ -354,10 +356,11 @@ get_header();
                                                     </li>
 
                                                <?php endforeach; endif; }?>
+                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                        
 
             <div class="mymessages">
                 

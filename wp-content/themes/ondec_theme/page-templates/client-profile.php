@@ -34,7 +34,7 @@ get_header(); ?>
                         <div class="profile-part profile-image">
                             <?php echo get_wp_user_avatar($user_info->ID, 200); ?>
                         </div>
-                        <?php if(isset($current_user->roles[0]) && $current_user->roles[0] === 'client' && $profile_pages->is_not_on_list($user_info->ID, 'myfriends')): ?>
+                        <?php if( $current_user->ID !== $user_info->ID && isset($current_user->roles[0]) && $current_user->roles[0] === 'client' && $profile_pages->is_not_on_list($user_info->ID, 'myfriends')): ?>
                         <div class='decrequestbutton_wrapper'>
                             <span style='display: none;' id='successrequest-<?php echo $user_info->ID; ?>'>Friend Request submitted!</span>
                             <form id='decrequestmeform-<?php echo $user_info->ID; ?>' name='decrequestmeform'>

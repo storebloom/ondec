@@ -70,7 +70,7 @@ get_header();
             ?>
             
 
-                <h3>My dec (<?php echo isset($dec_count) ? count($dec_count) : "0"; ?>) </h3>
+                <h3>My dec (<span id="count"><?php echo isset($dec_count) ? count($dec_count) : "0"; ?></span>) </h3>
                 
                 <div class="od-my-list single-member-list">
                   
@@ -112,6 +112,8 @@ get_header();
                         <div>
                             
                             <form id="decmsgform-<?php echo $single_dec_member->ID; ?>" name="decmsgform-<?php echo $single_dec_member->ID; ?>">
+                                
+                                <input id="like-<?php echo $single_dec_member->ID; ?>" value="follow" type="hidden">
                                 
                                 <input id="<?php echo $single_dec_member->ID; ?>" class="decremove" type="button" value="remove from list">
                                 
@@ -286,8 +288,16 @@ get_header();
                 
                     jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                 ?>
-                   <div class="message-count">
+                <div class="message-count">
                     
+                <h3>Messages (<?php if(isset($message_count) && is_array($message_count)){
+                        echo count($message_count);
+                    }else{ echo "0";} ?>) <?php if(isset($unread_count) && is_array($unread_count)){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
+                   
+               <?php } ?>
+                     
+                </div> 
+                
                 <ul class="messages-ul">       
                <?php if(isset($current_messages[0][0]) && is_array($current_messages[0][0])){
                     
@@ -380,15 +390,6 @@ get_header();
                     jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
                                                                                                                                 
                 ?> 
-                
-                <div class="message-count">
-                <h3>Messages (<?php if(is_array($message_count) && isset($message_count)){
-                        echo count($message_count);
-                    }else{ echo "0";} ?>) <?php if(isset($unread_count) && is_array($unread_count)){ ?> | Unread (<span id="unread-count"><?php echo intval(count($unread_count)); ?></span>)</h3>
-                   
-               <?php } ?>
-                     
-                </div> 
                  
                 
                    <li class="message-item">
@@ -482,7 +483,7 @@ get_footer();
         jQuery('.decremove').click(function(){
             var rmdecid = jQuery(this).attr('id');
             var rmclass = ".decmember-" + rmdecid;
-            var rmtypeclass = "#like-" + rmdecid
+            var rmtypeclass = "#like-" + rmdecid;
             var rmtype = jQuery(rmtypeclass).val();
 
             if (window.confirm("Do you really want to remove them from your list?")) {
@@ -499,6 +500,7 @@ get_footer();
 
                         jQuery(rmclass).slideDown(800).fadeOut(400);    
                         jQuery("#rmsuccess").slideUp(800).fadeIn(400).delay(800).fadeOut(400);
+                        jQuery('#count').text(jQuery('#count').text()-1); 
                     }
                 );
             }

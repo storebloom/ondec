@@ -696,10 +696,12 @@ html {
           border-radius: 10px;
           max-height: 700px;
           overflow: auto; }
-          html body #page #content .messageBox .closeMessage, html body #page #content .messageBox .replyMessage, html body #page #content .messageBox .m_spacer, html body #page #content .endorsementBox .closeMessage, html body #page #content .endorsementBox .replyMessage, html body #page #content .endorsementBox .m_spacer {
+          html body #page #content .messageBox .closeMessage, html body #page #content .messageBox .replyMessage, html body #page #content .messageBox .m_spacer, html body #page #content .messageBox .closeEndorsement, html body #page #content .endorsementBox .closeMessage, html body #page #content .endorsementBox .replyMessage, html body #page #content .endorsementBox .m_spacer, html body #page #content .endorsementBox .closeEndorsement {
             cursor: pointer;
             font-weight: 100;
             color: grey; }
+          html body #page #content .messageBox h3, html body #page #content .endorsementBox h3 {
+            color: grey !important; }
           html body #page #content .messageBox h2, html body #page #content .endorsementBox h2 {
             border-bottom: thin solid grey; }
         html body #page #content .message-notification {
@@ -739,9 +741,8 @@ html {
           width: 100%;
           margin-top: 1rem;
           float: left; }
-          html body #page #content .mymessages .message-section {
-            max-width: 1550px;
-            margin: auto; }
+          html body #page #content .mymessages .message-count {
+            padding-left: 2rem; }
           html body #page #content .mymessages ul.messages-ul {
             width: 100%;
             list-style: none;
@@ -751,7 +752,7 @@ html {
               width: 100%;
               border-bottom: lightgrey solid medium;
               margin-bottom: 1rem;
-              padding: 1rem; }
+              padding: 2rem; }
               html body #page #content .mymessages ul.messages-ul li .message-user {
                 font-weight: bold;
                 font-size: 18px; }
@@ -781,6 +782,14 @@ html {
                 height: 255px; }
               html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes li {
                 height: 250px; }
+              html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements li {
+                max-width: 389px !important;
+                padding-bottom: .8rem;
+                width: 100% !important;
+                text-align: left !important; }
+                html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements li .message-date {
+                  font-size: 12px;
+                  color: darkgrey; }
               html body #page #content .member-lists .list-sections .list-section-wrapper .friends #currentlocmsg, html body #page #content .member-lists .list-sections .list-section-wrapper .friends #rmsuccess, html body #page #content .member-lists .list-sections .list-section-wrapper .friends #bizapproved, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list #currentlocmsg, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list #rmsuccess, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list #bizapproved, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes #currentlocmsg, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes #rmsuccess, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes #bizapproved, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses #currentlocmsg, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses #rmsuccess, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses #bizapproved, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements #currentlocmsg, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements #rmsuccess, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements #bizapproved, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses #currentlocmsg, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses #rmsuccess, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses #bizapproved {
                 text-align: center;
                 width: 100%;
@@ -791,13 +800,16 @@ html {
                 html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li {
                   float: left;
                   margin: .5rem;
-                  max-width: 130px;
-                  overflow: hidden; }
+                  overflow: hidden;
+                  text-align: center;
+                  max-width: 175px;
+                  width: 42%;
+                  min-width: 130px; }
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li input, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li input {
                     width: 130px;
                     font-size: 13px;
                     margin-top: .2rem; }
-                    html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li input.current-location {
+                    html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li input.view-endorsement-button.approved, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li input.view-endorsement-button.approved, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li input.view-endorsement-button.approved, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li input.view-endorsement-button.approved, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li input.view-endorsement-button.approved, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li input.current-location, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li input.view-endorsement-button.approved {
                       background: limegreen !important; }
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li .biz-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li .dec-status, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li .biz-status {
                     font-weight: bold;
@@ -813,7 +825,7 @@ html {
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li .dec-user, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li .dec-user {
                     font-weight: bold;
                     font-size: 14px;
-                    width: 200px;
+                    width: 100%;
                     overflow: hidden; }
                   html body #page #content .member-lists .list-sections .list-section-wrapper .friends ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-list ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-likes ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .my-businesses ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .my-endorsements ul li .dec-message, html body #page #content .member-lists .list-sections .list-section-wrapper .od-my-businesses ul li .dec-message {
                     font-size: 12px;

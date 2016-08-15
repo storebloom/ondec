@@ -665,7 +665,7 @@ class Decstatus {
             
             $new_follower = array();
 
-            if(isset($client_pro[0])){
+            if(isset($client_pro[0]) && $current_dec_members[0]){
                 foreach( $client_follower[0] as $c_followers => $c_follower){
 
                     if(intval($c_follower) !== intval($current_user->ID)){
@@ -675,6 +675,16 @@ class Decstatus {
                 }
 
                 update_user_meta($rmdecid, 'mydec', $new_follower);
+                
+                foreach( $current_dec_members[0] as $c_followers => $c_follower){
+
+                    if(intval($c_follower) !== intval($rmdecid)){
+
+                        $new_follower[] = $c_pro;
+                    }
+                }
+
+                update_user_meta($current_user->ID, 'mydec', $new_follower);
             }
         }elseif($user_role === 'client' && $rmtype === "like"){
             

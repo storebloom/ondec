@@ -84,11 +84,15 @@ html{
                     max-height: 700px;
                     overflow: auto;
                
-                    .closeMessage, .replyMessage, .m_spacer{
+                    .closeMessage, .replyMessage, .m_spacer, .closeEndorsement{
                         
                         cursor: pointer;
                         font-weight: 100;
                         color: grey;
+                    }
+                    
+                    h3{
+                        color: grey!important;
                     }
                     
                     h2{
@@ -162,10 +166,8 @@ html{
                     margin-top: 1rem;
                     float:left;
                     
-                    .message-section{
-                    
-                        max-width:1550px;
-                        margin:auto;
+                    .message-count{
+                        padding-left: 2rem;
                     }
 
                     ul.messages-ul{
@@ -178,7 +180,7 @@ html{
                             width: 100%;                        
                             border-bottom: lightgrey solid medium; 
                             margin-bottom: 1rem;
-                            padding: 1rem;
+                            padding: 2rem;
                             
                             .message-user{
                                 
@@ -234,11 +236,26 @@ html{
                                  .od-my-list li{
                                      
                                      height: 255px;
+                             
                                  }
                                  
                                  .od-my-likes li{
                                      
                                      height: 250px;
+                               
+                                 }
+                                 
+                                 .my-endorsements li{
+                                     
+                                     max-width: 389px!important;
+                                     padding-bottom: .8rem;
+                                     width: 100%!important;
+                                     text-align: left!important;
+                                     
+                                     .message-date{
+                                         font-size: 12px;
+                                         color: darkgrey;
+                                     }
                                  }
                                  
                                  .friends, .od-my-list, .od-my-likes, .my-businesses, .my-endorsements, .od-my-businesses{
@@ -257,15 +274,19 @@ html{
                                          li{
                                              float: left;
                                              margin:.5rem;
-                                             max-width: 130px;
                                              overflow: hidden;
+                                             text-align: center;
+                                             max-width: 175px;
+                                             width: 42%;
+                                             min-width:130px;
                                              
                                              input{
                                                  width: 130px;
                                                  font-size: 13px;
                                                  margin-top: .2rem;
                                                  
-                                                 &.current-location{
+                                                 
+                                                 &.current-location, &.view-endorsement-button.approved{
                                                      
                                                      background: limegreen!important;
                                                  }
@@ -298,7 +319,7 @@ html{
                                                  
                                                 font-weight: bold;
                                                 font-size: 14px;
-                                                width: 200px;
+                                                width: 100%;
                                                 overflow:hidden;
                                              }
                                              

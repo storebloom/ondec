@@ -13,6 +13,8 @@
  */
 class Ure_Lib extends URE_Base_Lib {
 
+    const  TRANSIENT_EXPIRATION = 600;
+
     protected $roles = null;
     protected $notification = '';   // notification message to show on page
     protected $apply_to_all = 0;
@@ -23,6 +25,7 @@ class Ure_Lib extends URE_Base_Lib {
     protected $user_to_edit = '';
     protected $show_deprecated_caps = false;
     protected $caps_readable = false;
+    protected $caps_columns_quant = 1;
     protected $hide_pro_banner = false;
     protected $full_capabilities = false;
     protected $ure_object = 'role';  // what to process, 'role' or 'user'      
@@ -299,10 +302,21 @@ class Ure_Lib extends URE_Base_Lib {
     }
     // end of editor()
     
+    
+    private function get_ure_container_width() {
+        
+        $width = ($this->ure_object == 'user') ? 1300 : 1150;
+        if ($this->is_pro()) {
+            $width -= 200;
+        }
+        
+        return $width;
+    }
+    // end of get_ure_container_width()
+    
 
     protected function show_editor() {
-        $container_width = ($this->ure_object == 'user') ? 1400 : 1200;
-
+        //$container_width = $this->get_ure_container_width();
         $this->show_message($this->notification);
         if ($this->ure_object == 'user') {
             $view = new URE_User_View();
@@ -313,18 +327,9 @@ class Ure_Lib extends URE_Base_Lib {
         }
         ?>
         <div class="wrap">
-        		  <div id="ure-icon" class="icon32"><br/></div>
             <h1><?php _e('User Role Editor', 'user-role-editor'); ?></h1>
-            <div id="ure_container" style="min-width: <?php echo $container_width; ?>px;">
-                <div class="ure-sidebar" >
-        <?php
-        if (!$this->is_pro()) {
-            $view->advertise_commercials();
-        }
-        ?>            
-                </div>
-
-                <div class="has-sidebar" >
+            <div id="ure_container">                
+                <div id="user_role_editor" class="ure-table-cell" >
                     <form id="ure_form" method="post" action="<?php echo URE_WP_ADMIN_URL . URE_PARENT . '?page=users-' . URE_PLUGIN_FILE; ?>" >			
                         <div id="ure_form_controls">
         <?php
@@ -334,15 +339,20 @@ class Ure_Lib extends URE_Base_Lib {
                             <input type="hidden" name="action" value="update" />
                         </div>      
                     </form>		      
-        <?php
+<?php
         if (!$this->is_pro()) {
             $view->advertise_pro();
+        }
+?>
+                </div>
+<?php
+        if (!$this->is_pro()) {
+            $view->advertise_commercials();
         }
         $view->display_edit_dialogs();
         do_action('ure_dialogs_html');
         $view->output_confirmation_dialog();
-        ?>
-                </div>          
+?>            
             </div>
         </div>
         <?php
@@ -392,16 +402,16 @@ class Ure_Lib extends URE_Base_Lib {
         
     }
     // end of init_current_role_name()
-
-    
+        
+                
     /**
      *  prepare capabilities from user input to save at the database
      */
     protected function prepare_capabilities_to_save() {
         $this->capabilities_to_save = array();
         foreach ($this->full_capabilities as $available_capability) {
-            $cap_id = str_replace(' ', URE_SPACE_REPLACER, $available_capability['inner']);
-            if (isset($_POST[$cap_id])) {
+            $cap_id_esc = URE_Capability::escape($available_capability['inner']);
+            if (isset($_POST[$cap_id_esc])) {
                 $this->capabilities_to_save[$available_capability['inner']] = true;
             }
         }
@@ -496,9 +506,9 @@ class Ure_Lib extends URE_Base_Lib {
                 $this->put_option('ure_hide_pro_banner', 1);	
                 $this->flush_options();				
             } else if ($action == 'add-new-capability') {
-                $this->notification = $this->add_new_capability();
+                $this->notification = URE_Capability::add();
             } else if ($action == 'delete-user-capability') {
-                $this->notification = $this->delete_capability();
+                $this->notification = URE_Capability::delete();
             } else if ($action == 'roles_restore_note') {
                 $this->notification = esc_html__('User Roles are restored to WordPress default values. ', 'user-role-editor');
             } else if ($action == 'update') {
@@ -518,15 +528,31 @@ class Ure_Lib extends URE_Base_Lib {
     // end of process_user_request()
 
 	
-	protected function set_apply_to_all_from_post() {
-    if (isset($_POST['ure_apply_to_all'])) {
-        $this->apply_to_all = 1;
-    } else {
-        $this->apply_to_all = 0;
+    protected function get_apply_to_all_from_post() {
+        if (isset($_POST['ure_apply_to_all'])) {
+            $this->apply_to_all = 1;
+        } else {
+            $this->apply_to_all = 0;
+        }
     }
-}
-	// end of set_apply_to_all_from_post()
-	
+    // end of get_apply_to_all_from_post()
+
+    
+    protected function get_caps_columns_quant() {
+        if (isset($_POST['caps_columns_quant']) && in_array($_POST['caps_columns_quant'], array(1,2,3))) {
+            $value = (int) $_POST['caps_columns_quant'];
+            set_site_transient('ure_caps_columns_quant', $value, self::TRANSIENT_EXPIRATION);
+        } else {
+            $value = get_site_transient('ure_caps_columns_quant');
+            if ($value===false) {
+                $value = 1;
+            }
+        }
+        
+        $this->caps_columns_quant = $value;
+    }
+    // end of get_apply_to_all_from_post()
+    
 
     public function get_default_role() {
         $this->wp_default_role = get_option('default_role');
@@ -538,12 +564,12 @@ class Ure_Lib extends URE_Base_Lib {
         $this->caps_readable = get_site_transient('ure_caps_readable');
         if (false === $this->caps_readable) {
             $this->caps_readable = $this->get_option('ure_caps_readable');
-            set_site_transient('ure_caps_readable', $this->caps_readable, 600);
+            set_site_transient('ure_caps_readable', $this->caps_readable, self::TRANSIENT_EXPIRATION);
         }
         $this->show_deprecated_caps = get_site_transient('ure_show_deprecated_caps');
         if (false === $this->show_deprecated_caps) {
             $this->show_deprecated_caps = $this->get_option('ure_show_deprecated_caps');
-            set_site_transient('ure_caps_readable', $this->caps_readable, 600);
+            set_site_transient('ure_caps_readable', $this->caps_readable, self::TRANSIENT_EXPIRATION);
         }
 
         $this->hide_pro_banner = $this->get_option('ure_hide_pro_banner', 0);
@@ -559,7 +585,8 @@ class Ure_Lib extends URE_Base_Lib {
             $this->ure_object = 'role';
         }
 
-        $this->set_apply_to_all_from_post();
+        $this->get_apply_to_all_from_post();
+        $this->get_caps_columns_quant();
 
         return true;
     }
@@ -1322,7 +1349,7 @@ class Ure_Lib extends URE_Base_Lib {
     // end of add_ure_caps()
     
     
-    protected function init_full_capabilities() {
+    public function init_full_capabilities() {
                 
         $this->built_in_wp_caps = $this->get_built_in_wp_caps();
         $this->full_capabilities = array();
@@ -2058,7 +2085,7 @@ class Ure_Lib extends URE_Base_Lib {
      * 
      * @return string
      */        
-    protected function get_admin_role() {
+    public function get_admin_role() {
         
         if (isset($this->roles['administrator'])) {
             $admin_role_id = 'administrator';
@@ -2078,94 +2105,7 @@ class Ure_Lib extends URE_Base_Lib {
         return $admin_role_id;
     }
     // end get_admin_role()
-    
-    
-    /**
-     * Add new capability
-     * 
-     * @global WP_Roles $wp_roles
-     * @return string
-     */
-    protected function add_new_capability() {
-        global $wp_roles;
-
-        if (!current_user_can('ure_create_capabilities')) {
-            return esc_html__('Insufficient permissions to work with User Role Editor','user-role-editor');
-        }
-        $mess = '';
-        if (!isset($_POST['capability_id']) || empty($_POST['capability_id'])) {
-            return 'Wrong Request';
-        }
-        
-        $user_capability = $_POST['capability_id'];
-        // sanitize user input for security
-        $valid_name = preg_match('/[A-Za-z0-9_\-]*/', $user_capability, $match);
-        if (!$valid_name || ($valid_name && ($match[0] != $user_capability))) { // some non-alphanumeric charactes found!    
-            return esc_html__('Error: Capability name must contain latin characters and digits only!', 'user-role-editor');
-        }
-
-        $user_capability = strtolower($user_capability);                
-        $this->get_user_roles();
-        $this->init_full_capabilities();
-        if (!isset($this->full_capabilities[$user_capability])) {
-            $admin_role = $this->get_admin_role();            
-            $wp_roles->use_db = true;
-            $wp_roles->add_cap($admin_role, $user_capability);
-            $mess = sprintf(esc_html__('Capability %s is added successfully', 'user-role-editor'), $user_capability);
-        } else {
-            $mess = sprintf(esc_html__('Capability %s exists already', 'user-role-editor'), $user_capability);
-        }
-        
-        return $mess;
-    }
-    // end of add_new_capability()
-
-    
-    /**
-     * Delete capability
-     * 
-     * @global wpdb $wpdb
-     * @global WP_Roles $wp_roles
-     * @return string - information message
-     */
-    protected function delete_capability() {
-        global $wpdb, $wp_roles;
-
-        
-        if (!current_user_can('ure_delete_capabilities')) {
-            return esc_html__('Insufficient permissions to work with User Role Editor','user-role-editor');
-        }
-        $mess = '';
-        if (!empty($_POST['user_capability_id'])) {
-            $capability_id = $_POST['user_capability_id'];
-            $caps_to_remove = $this->get_caps_to_remove();
-            if (!is_array($caps_to_remove) || count($caps_to_remove) == 0 || !isset($caps_to_remove[$capability_id])) {
-                return sprintf(esc_html__('Error! You do not have permission to delete this capability: %s!', 'user-role-editor'), $capability_id);
-            }
-
-            // process users
-            $usersId = $wpdb->get_col("SELECT $wpdb->users.ID FROM $wpdb->users");
-            foreach ($usersId as $user_id) {
-                $user = get_user_to_edit($user_id);
-                if ($user->has_cap($capability_id)) {
-                    $user->remove_cap($capability_id);
-                }
-            }
-
-            // process roles
-            foreach ($wp_roles->role_objects as $wp_role) {
-                if ($wp_role->has_cap($capability_id)) {
-                    $wp_role->remove_cap($capability_id);
-                }
-            }
-
-            $mess = sprintf(esc_html__('Capability %s was removed successfully', 'user-role-editor'), $capability_id);
-        }
-
-        return $mess;
-    }
-    // end of remove_capability()
-
+            
     
     /**
      * Returns text presentation of user roles

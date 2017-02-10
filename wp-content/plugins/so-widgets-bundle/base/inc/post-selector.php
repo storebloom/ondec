@@ -137,7 +137,7 @@ function siteorigin_widget_post_selector_form_fields(){
 	$return['date_query'] .= '<input type="date" name="after" class="" />';
 	$return['date_query'] .= __( 'To', 'so-widgets-bundle' );
 	$return['date_query'] .= '<input type="date" name="before" class="" />';
-	$return['date_query'] .= '<small>' . __('In the format \'yyyy-mm-dd\'.', 'so-widgets-bundle') . '</small>';
+	$return['date_query'] .= '<small>' . __('In the format \'dd/mm/yyyy\'.', 'so-widgets-bundle') . '</small>';
 	$return['date_query'] .= '</label>';
 
 

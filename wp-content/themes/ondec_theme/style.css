@@ -644,6 +644,14 @@ html {
         display: table;
         width: 100%;
         color: #507972; }
+        html body #page #content input.currently-ondec {
+          background: limegreen;
+          font-weight: bold;
+          font-size: 20px !important; }
+        html body #page #content input.currently-offdec {
+          background: lightgrey;
+          font-weight: bold;
+          font-size: 20px !important; }
         html body #page #content #adduser input {
           max-width: 600px;
           width: auto;
@@ -737,6 +745,18 @@ html {
           html body #page #content #decmsgform #decmessage {
             font-size: 13px;
             margin-bottom: 0.5rem !important; }
+        html body #page #content .my-appointments {
+          width: 100%;
+          clear: both; }
+          html body #page #content .my-appointments div.calendar-wrapper {
+            width: 50%; }
+            html body #page #content .my-appointments div.calendar-wrapper div.calendar-month {
+              width: 100%; }
+              html body #page #content .my-appointments div.calendar-wrapper div.calendar-month div.calendar-day {
+                border: solid thin grey;
+                padding: 4rem;
+                width: 20%;
+                float: left; }
         html body #page #content .mymessages {
           width: 100%;
           margin-top: 1rem;
@@ -834,8 +854,9 @@ html {
                 width: 100%;
                 background: #fff;
                 border-radius: 10px;
-                max-height: 400px;
-                overflow: auto; }
+                max-height: 600px;
+                overflow: auto;
+                overflow-x: hidden; }
       html body #page header {
         width: 100%;
         background: #507972;

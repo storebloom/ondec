@@ -53,7 +53,7 @@ get_header();
                     <h3>current dec status:</h3>
 
                     <input type="hidden"  name="decstatus" id="decstatus" value="<?php echo $negdecstatus; ?>">
-                    <input id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
+                    <input class="<?php if($decstatus === "ondec"){ echo "currently-ondec"; } else { echo "currently-offdec"; } ?>" id="submit" type="button" value="<?php echo "Currently " . $decstatus; ?>">
             
                     <p>
                         <a href="/professionals/<?php echo $current_user->user_login; ?>">view profile</a> 
@@ -71,8 +71,14 @@ get_header();
             <div class="user-tools">
                 <h2>Your Tools</h2>
                 
-                <h3>Search for a business near you:</h3>
-                <?php echo do_shortcode('[od_map_display]'); ?>
+                <div class="appointment-options">
+                    <?php echo do_shortcode('[od-appointment-options]'); ?>
+                </div>
+                <div class="map-tool">
+                    <h3>Search for a business near you:</h3>
+                    <?php echo do_shortcode('[od_map_display]'); ?>
+                </div>
+                
             </div>
             </div>    
                 
@@ -183,7 +189,7 @@ get_header();
                                                 $mybizloc = "current-location";
                                                 $mybizmsg = "current location";
                                             }else {
-                                                $mybizloc = "not-current-location";
+                                                $mybizloc = "not-current-location-" . $single_dec_business['user'] . " not-current-location";
                                                 $mybizmsg = "set location";
                                             }
                                             ?>
@@ -358,7 +364,11 @@ get_header();
                                         </div>
                                     </div>
                                 </div>
-                        
+            <div class="my-appointments">
+                
+                <?php echo OD_Appointments::define_profile_calendar("now"); ?>
+                
+            </div>           
 
             <div class="mymessages">
                 
@@ -551,10 +561,24 @@ get_footer();
 ?>
 <script>
     
+    jQuery("#edit-datepicker").datepicker( {
+    changeMonth: true,
+    changeYear: true,
+    showButtonPanel: true,
+    dateFormat: 'MM yy',
+    onClose: function(dateText, inst) { 
+        var month = jQuery("#ui-datepicker-div .ui-datepicker-month :selected").val();
+        var year = jQuery("#ui-datepicker-div .ui-datepicker-year :selected").val();
+        jQuery(this).datepicker('setDate', new Date(year, month, 1));
+    }
+});
+    
+    
     jQuery(".approve-biz").click(function(){
             
             var bizid = jQuery(this).attr('id');
             var approveclass = ".approve-biz-" + bizid;
+            var notlocation = ".not-current-location-" + bizid;
             
             jQuery.post(
                 
@@ -568,7 +592,7 @@ get_footer();
                         
                         jQuery('#bizapproved').slideUp(800).fadeIn(400).delay(800).fadeOut(400);
                         jQuery(approveclass).hide();
-                        jQuery('.not-current-location').fadeIn(400);
+                        jQuery(notlocation).fadeIn(400);
                     }
             );
 

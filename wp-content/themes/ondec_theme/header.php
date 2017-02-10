@@ -2,7 +2,7 @@
 
 include_once('inc/autologin.php');
 
-if(!is_page('my-profile')){ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>';}
+if(!is_page('my-profile')){ echo '';}
 global $current_user;
 /**
  * The header for our theme.
@@ -23,8 +23,9 @@ global $current_user;
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">    
 <?php wp_head(); ?>  
-<?php if(is_page('my-profile') && is_user_logged_in()){ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>';} ?>
+<?php if(is_page('my-profile') && is_user_logged_in()){ echo '';} ?>
 <script type="text/javascript">
 
     var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';

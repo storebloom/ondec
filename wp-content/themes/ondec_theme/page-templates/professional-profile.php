@@ -1,6 +1,6 @@
 <?php
 session_start();
-global $profiles_pages, $current_user;
+global $profiles_pages, $current_user, $od_appointments;
 /**
  * Template Name: Professional Profile
  *
@@ -9,7 +9,10 @@ global $profiles_pages, $current_user;
  *
  * @package ondec_custom_theme
  */
-get_header(); ?>
+get_header(); 
+
+date_default_timezone_set('America/Los_Angeles');
+?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
@@ -27,7 +30,10 @@ get_header(); ?>
                 }
             
             ?>
-            <h1 class="title-user-name"><?php echo $user_info->first_name . " " . $user_info->last_name; ?></h1>
+   <div class="profile-content-wrapper">    
+        <div class="user-info-wrapper">
+            <div class="user-info">
+                <h1 class="title-user-name"><?php echo $user_info->first_name . " " . $user_info->last_name; ?></h1>
             <div class="profile-part profile-image">
                 <?php echo get_wp_user_avatar($user_info->ID, 96); ?>
             </div>
@@ -55,9 +61,7 @@ get_header(); ?>
             
             <div class='decaddbutton_wrapper'>
                 <span style='display: none;' class='successadd'>I'm on your dec list now!</span>
-                <form id='decaddmeform-<?php echo $user_info->ID; ?>' name='decaddmeform'>
-                    <input type='button' class='addtoyourdec' id='<?php echo $user_info->ID; ?>' value='Follow Me'>
-                </form>
+                <input type='button' class='addtoyourdec' id='<?php echo $user_info->ID; ?>' value='Follow Me'>
             </div>
             
             <?php elseif(isset($current_user->roles[0]) && $current_user->roles[0] === 'business' && $profile_pages->is_not_on_list($user_info->ID, 'mybusinesses')): ?>
@@ -137,6 +141,29 @@ get_header(); ?>
                     
                 </ul>
             </div>
+            <?php if(is_user_logged_in() && $current_user->roles[0] === 'client') : ?>   
+            <div class="appointments">
+                <div class="app_success" style="display: none;">Your appointment has been submited!</div>
+                
+                <div class="app_controls">
+               
+                    <input value="<?php echo date('Y-m-d'); ?>" type="date" id="datepicker" />
+                </div>
+                
+                <div class="current_apps">
+                
+                <?php if(!isset($_POST['app_day'])) : 
+                    
+                    
+                    echo OD_Appointments::define_calendar($user_info->ID);
+                    
+                    endif;
+                    
+                    ?>
+                    
+                    
+                </div> 
+            <?php endif; ?> 
             <h3>My Business Locations</h3>
             
             <div class="od-my-businesses">
@@ -268,6 +295,55 @@ get_header(); ?>
 get_footer(); ?>
 
 <script>
+  
+    jQuery("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+    
+    jQuery("#datepicker").change(function(){
+        
+        var app_day = jQuery(this).val();
+        var appid = <?php echo $user_info->ID; ?>;
+        
+        jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'define_calendar',
+                    'appid': appid,
+                    'app_day': app_day,
+                }, 
+                function(response){
+     
+                   jQuery('.current_apps').replaceWith(response.substr(response.length-1, 1) === '0'? response.substr(0, response.length-1) : response);
+                 
+        });
+        
+        
+    });
+
+    jQuery(document).on('click', '.app-time', (function(){
+        
+        var appentry = jQuery(this).val();
+        var iteration = jQuery(this).attr('id');
+        var dayclass = ".apps-" + iteration;
+        var app_day = jQuery(dayclass).attr('id');
+        var appid = jQuery(dayclass).val();
+        var app_close = ".app-" + iteration;
+       
+        jQuery.post( 
+            ajaxurl,
+                {   
+                    'action': 'add_app',
+                    'appid': appid,
+                    'app_day': app_day,
+                    'appentry': appentry
+                }, 
+                function(response){
+                
+        });
+        jQuery(app_close).fadeOut(300);
+        jQuery('.app_success').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);
+    })
+    );
+    
     jQuery('.addtoyourdec' ).click(function(){
             var adddecid = jQuery(this).attr('id');
             var addclass = '#decaddmeform-' + adddecid;

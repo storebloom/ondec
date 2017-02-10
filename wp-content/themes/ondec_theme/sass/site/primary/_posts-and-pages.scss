@@ -21,6 +21,20 @@ html{
                 width:100%;
                 color: #507972;
                 
+                input.currently-ondec{
+                    
+                    background: limegreen;
+                    font-weight: bold;
+                    font-size: 20px!important;
+                }
+                
+                input.currently-offdec{
+                    
+                    background: lightgrey;
+                    font-weight: bold;
+                    font-size: 20px!important;
+                }
+                
                 #adduser{
                     
                     input{
@@ -157,6 +171,31 @@ html{
                         
                         font-size:13px;
                         margin-bottom: .5rem!important;
+                    }
+                }
+                
+                .my-appointments{
+                    
+                    width: 100%;
+                    clear: both;                    
+                    
+                    div.calendar-wrapper{
+                        
+                        width: 50%;
+                        
+                        div.calendar-month{
+                            
+                            width: 100%;
+                    
+                            div.calendar-day{
+
+                                border: solid thin grey;
+                                padding: 4rem;
+                                width: 20%;
+                                float: left;
+
+                            }
+                        }
                     }
                 }
                 
@@ -336,8 +375,9 @@ html{
                                 width:100%;
                                 background: #fff;
                                 border-radius: 10px;
-                                max-height: 400px;
+                                max-height: 600px;
                                 overflow: auto;
+                                overflow-x: hidden;
                             
                             }
                         }

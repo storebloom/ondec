@@ -61,7 +61,7 @@ get_header();
             
                 <div class="list-section-wrapper">
                  <?php 
-            if(isset($my_dec_info) && is_array($my_dec_info)) :
+            if(isset($my_dec_info[0]) && is_array($my_dec_info)) :
                             foreach($my_dec_info as $single_dec_info){                          
         
                                     $dec_count[] = $single_dec_info;                            
@@ -75,7 +75,9 @@ get_header();
                 <div class="od-my-list single-member-list">
                   
                 <ul>
-                <?php foreach($my_dec_info as $single_dec_member) :
+                <?php if(isset($my_dec_info[0])) :
+                    
+                    foreach($my_dec_info as $single_dec_member) :
                     
                     $user_information = get_userdata($single_dec_member->ID);
 
@@ -123,7 +125,7 @@ get_header();
                         
                     </li>
                     
-                <?php endforeach; ?>
+                <?php endforeach; endif; ?>
                     
                 </ul>
                 
@@ -165,7 +167,7 @@ get_header();
                             </div>
                        <?php if($friends['approval_status'] === 'pending') : ?>  
                             <div class="user-friend">
-                                <input id="<?php echo $friend_user_info->ID; ?>" class="approve-friend approve-friend-<?php echo $friend_user_info->ID; ?>" value="accept friend request" type="button">
+                                <input id="<?php echo $friend_user_info->ID; ?>" class="approve-friend approve-friend-<?php echo $friend_user_info->ID; ?>" value="accept friend" type="button">
                             </div>
                        <?php endif; ?>
                             <input id="like-<?php echo $friend_user_info->ID; ?>" type="hidden" value="friend">
@@ -254,7 +256,7 @@ get_header();
             </div>
             </div>
 
-            <div class="mymessages">
+   <div class="mymessages">
                 
                 <div class="message-section">
                
@@ -279,7 +281,23 @@ get_header();
                         
                          $message_count[] = $messages['read_status'];
                     }
-                    endforeach; endforeach; } 
+                    endforeach; endforeach; } else {
+                    
+                    foreach(array_reverse($current_messages) as $messages) :
+                    
+                    $message_user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
+                    
+                    if(isset($messages['read_status'])){
+                        
+                        if($messages['read_status'] === 'unread' ){
+                            
+                            $unread_count[] = $messages['read_status'];
+                        }
+                        
+                         $message_count[] = $messages['read_status'];
+                    }
+                    endforeach; 
+                }
                 
                 if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
                 if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '
@@ -364,20 +382,7 @@ get_header();
                   
                    <?php endforeach; endforeach; }else{
                     
-                       foreach(array_reverse($current_messages) as $messages) :
-                    
-                    $message_user_info = isset($messages['user']) ? get_userdata($messages['user']) : "";
-                    
-                    if(isset($messages['read_status'])){
-                        
-                        if($messages['read_status'] === 'unread' ){
-                            
-                            $unread_count[] = $messages['read_status'];
-                        }
-                        
-                         $message_count[] = $messages['read_status'];
-                    }
-                    endforeach; ?>
+                       ?>
                     
                 <?php  foreach(array_reverse($current_messages) as $messages) :
                     

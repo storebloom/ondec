@@ -35,7 +35,7 @@
                         
                         $stype = "s/";
                     
-                        if($user_role === 'professional' && $user_type[0] === "business" ){
+                        if($user_type[0] === "business" ){
                             
                             $stype = "es/";
                         }

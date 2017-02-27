@@ -727,7 +727,21 @@ html {
           html body #page #content .user-wrapper .user-tools {
             float: left;
             max-width: 60%;
-            width: 100%; }
+            width: 100%;
+            margin-bottom: 2rem; }
+            html body #page #content .user-wrapper .user-tools label {
+              display: block;
+              margin-bottom: 1.5rem; }
+            html body #page #content .user-wrapper .user-tools input {
+              margin: 0;
+              width: auto; }
+            html body #page #content .user-wrapper .user-tools #submit-appointment-settings {
+              display: block;
+              margin: 1rem 0; }
+            html body #page #content .user-wrapper .user-tools #open-app-settings {
+              margin-top: 1rem; }
+            html body #page #content .user-wrapper .user-tools .appointment-options {
+              margin-top: 1rem; }
             html body #page #content .user-wrapper .user-tools form {
               margin: 0px !important; }
               html body #page #content .user-wrapper .user-tools form input {
@@ -747,16 +761,47 @@ html {
             margin-bottom: 0.5rem !important; }
         html body #page #content .my-appointments {
           width: 100%;
-          clear: both; }
+          clear: both;
+          display: none;
+          text-align: center;
+          max-height: 30rem;
+          overflow-y: auto;
+          overflow-x: hidden;
+          border: 3px solid #e3e3e3;
+          border-radius: 10px;
+          margin-top: .5rem; }
+          html body #page #content .my-appointments .year-picker {
+            text-align: left;
+            padding-left: 2.7rem; }
+            html body #page #content .my-appointments .year-picker input {
+              width: 15%;
+              margin: 1rem 1rem 1rem 0;
+              display: inline; }
+            html body #page #content .my-appointments .year-picker label {
+              font-size: 1em;
+              padding-right: .5rem; }
           html body #page #content .my-appointments div.calendar-wrapper {
-            width: 50%; }
+            width: 90%;
+            margin: auto; }
+            html body #page #content .my-appointments div.calendar-wrapper li.app_time {
+              list-style: none;
+              background: #e3e3e3;
+              margin-bottom: .5rem; }
+              html body #page #content .my-appointments div.calendar-wrapper li.app_time a {
+                font-size: .9rem;
+                text-decoration: none; }
             html body #page #content .my-appointments div.calendar-wrapper div.calendar-month {
               width: 100%; }
               html body #page #content .my-appointments div.calendar-wrapper div.calendar-month div.calendar-day {
                 border: solid thin grey;
-                padding: 4rem;
-                width: 20%;
-                float: left; }
+                width: 8rem;
+                float: left;
+                height: 8rem; }
+                html body #page #content .my-appointments div.calendar-wrapper div.calendar-month div.calendar-day .app-wrappers {
+                  max-height: 5.4rem;
+                  overflow: auto; }
+                html body #page #content .my-appointments div.calendar-wrapper div.calendar-month div.calendar-day p {
+                  margin-bottom: 0; }
         html body #page #content .mymessages {
           width: 100%;
           margin-top: 1rem;
@@ -936,21 +981,29 @@ html {
       clear: both;
       margin: 0 0 1.5em; }
 
+body.page-template-professional-profile.logged-in .profile-content-wrapper, body.page-template-business-profile.logged-in .profile-content-wrapper {
+  width: 100%;
+  padding: 0 2rem; }
+
 body.page-template-client-profile.logged-in .site-content {
   max-width: 100% !important;
   padding-bottom: 0px !important; }
 body.page-template-client-profile.logged-in .content-area, body.page-template-client-profile.logged-in .site-main {
   height: 100%; }
 body.page-template-client-profile.logged-in .profile-content-wrapper {
-  width: 100%; }
+  width: 100%;
+  background: #507972;
+  position: absolute;
+  height: 100%; }
   body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper {
     float: left;
     margin-right: 2rem;
     padding-left: 2rem;
-    width: 20%;
+    width: 16%;
     background: #507972;
     color: #fff;
-    height: 100%; }
+    height: 100%;
+    display: list-item; }
     body.page-template-client-profile.logged-in .profile-content-wrapper .user-info-wrapper .user-info {
       position: fixed;
       top: 50px;
@@ -965,8 +1018,9 @@ body.page-template-client-profile.logged-in .profile-content-wrapper {
         font-size: 16px; }
   body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper {
     float: left;
-    width: 75%;
-    overflow: auto; }
+    width: 80%;
+    overflow: auto;
+    border-raidus: 15px; }
     body.page-template-client-profile.logged-in .profile-content-wrapper .user-list-wrapper .profile-part {
       max-height: 600px;
       overflow: auto;

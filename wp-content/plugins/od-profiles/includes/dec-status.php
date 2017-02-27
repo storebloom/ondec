@@ -664,23 +664,24 @@ class Decstatus {
         if($user_role === 'client' && $rmtype === "follow"){
             
             $new_follower = array();
+            $new_followey = array();
 
             if(isset($client_pro[0]) && $current_dec_members[0]){
-                foreach( $client_follower[0] as $c_followers => $c_follower){
+                foreach( $client_follower[0] as $c_followey){
 
                     if(intval($c_follower) !== intval($current_user->ID)){
 
-                        $new_follower[] = $c_pro;
+                        $new_followey[] = $c_followey;
                     }
                 }
 
-                update_user_meta($rmdecid, 'mydec', $new_follower);
+                update_user_meta($rmdecid, 'mydec', $new_followey);
                 
-                foreach( $current_dec_members[0] as $c_followers => $c_follower){
+                foreach( $current_dec_members[0] as $c_follower){
 
                     if(intval($c_follower) !== intval($rmdecid)){
 
-                        $new_follower[] = $c_pro;
+                        $new_follower[] = $c_follower;
                     }
                 }
 
@@ -760,7 +761,7 @@ class Decstatus {
                         $new_biz[] = $c_biz;
                     }
                 }
-var_dump($new_biz);
+
                 update_user_meta($current_user->ID, 'mybusinesses', $new_biz);
             }
             

@@ -12,6 +12,8 @@ $my_request_info = array();
 $endorsement_user_info = array();
 $endorsment_requests = null !== get_user_meta($current_user->ID, 'my_endorsements', false) ? get_user_meta($current_user->ID, 'my_endorsements', false) : array( 0 => array());
 $current_endorsements = get_user_meta($current_user->ID, 'my_endorsements', false);
+$current_app_settings = null !== get_user_meta($current_user->ID, 'app_settings', true) ? get_user_meta($current_user->ID, 'app_settings', true) : "";
+$enabled = isset($current_app_settings['enabled']) ? $current_app_settings['enabled'] : 'false';
 
 if(isset($mybusinesses[0])){
     foreach($mybusinesses[0] as $single_business){
@@ -70,13 +72,29 @@ get_header();
             </div>
             <div class="user-tools">
                 <h2>Your Tools</h2>
-                
-                <div class="appointment-options">
-                    <?php echo do_shortcode('[od-appointment-options]'); ?>
-                </div>
                 <div class="map-tool">
                     <h3>Search for a business near you:</h3>
                     <?php echo do_shortcode('[od_map_display]'); ?>
+                </div>
+                <?php if($enabled === 'false'): ?>
+                    <button id="open-app-settings">Enable Appointments</button>
+                    <div style="display:none;" class="appointment-options">
+                <?php else: ?>
+                <div class="appointment-options">
+                <?php endif; ?>
+                    <?php echo do_shortcode('[od-app-settings]'); ?>
+                    <h3>Today's Appointments</h3>
+                    <?php echo OD_Appointments::get_todays_appointments(); ?>
+                    <button id="open-app-calendar">View Appointment Calendar</button>
+                    <div class="my-appointments">
+                        <div class="year-picker">
+                            <label for="app-month-picker">Month:</label><input name="app-month-picker" type="number" class="current-app-month" min="01" max="12" value="<?php echo date('m'); ?>"/>
+                            <label for="app-year-picker">Year:</label><input name="app-year-picker" type="number" class="current-app-year" value="<?php echo date('Y'); ?>" min="<?php echo date('Y'); ?>"/>
+                        </div> 
+                        <div class="calendar-wrapper">
+                            <?php echo OD_Appointments::define_profile_calendar("now"); ?>
+                        </div>
+                    </div>   
                 </div>
                 
             </div>
@@ -174,9 +192,7 @@ get_header();
                                             <div class="dec-image">
 
                                                 <?php echo get_wp_user_avatar($single_dec_business['user'], 130); ?>
-
                                             </div>
-
                                         </a>
 
                                         <div>
@@ -204,11 +220,9 @@ get_header();
                                             <?php endif; ?>
                                 
                                             <input id="<?php echo $single_dec_business['user']; ?>" class="decremove" type="button" value="remove">
-
                                         </div>
                                     </li>
                                 <?php endforeach; endif; ?>
-
                             </ul>
                         </div>
                         </div>
@@ -364,14 +378,7 @@ get_header();
                                         </div>
                                     </div>
                                 </div>
-            <div class="my-appointments">
-                
-                <?php echo OD_Appointments::define_profile_calendar("now"); ?>
-                
-            </div>           
-
             <div class="mymessages">
-                
                 <div class="message-section">
                
             <?php $current_messages = get_user_meta($current_user->ID, 'my_messages', false);
@@ -398,12 +405,15 @@ get_header();
                     endforeach; endforeach; } 
                 
                 if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }
-                if(isset($unread_count) && intval(count($unread_count)) > 0) { echo '
+                if(isset($unread_count) && intval(count($unread_count)) > 0) : ?>
                 
-                <script>
-                
-                    jQuery(".message-notification").append("<h4 style=\'color: red;\'>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");</script>'; } 
-                ?>
+                    <script type="text/javascript">
+
+                        jQuery(document).ready(function(){
+                            jQuery(".message-notification").append("<h4>You Have ' . intval(count($unread_count)) . ' New ' . $singleor . '!</h4>");
+                        });
+                    </script>
+                <?php endif; ?>
                 <div class="message-count">
                     
                 <h3>Messages (<?php if(isset($message_count) && is_array($message_count)){

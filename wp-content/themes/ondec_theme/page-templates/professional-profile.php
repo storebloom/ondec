@@ -27,8 +27,9 @@ date_default_timezone_set('America/Los_Angeles');
                     $user_info = get_user_by('login', $wp_query->query_vars['professional'] );
                     
                     $is_not_on_list = $profile_pages->is_not_on_list($user_info->ID);
+                    $current_app_settings = null !== get_user_meta($user_info->ID, 'app_settings', true) ? get_user_meta($user_info->ID, 'app_settings', true) : "";
+                    $enabled = isset($current_app_settings['enabled']) ? $current_app_settings['enabled'] : 'false';
                 }
-            
             ?>
    <div class="profile-content-wrapper">    
         <div class="user-info-wrapper">
@@ -141,27 +142,21 @@ date_default_timezone_set('America/Los_Angeles');
                     
                 </ul>
             </div>
-            <?php if(is_user_logged_in() && $current_user->roles[0] === 'client') : ?>   
+            <?php if(is_user_logged_in() && $current_user->roles[0] === 'client' && $enabled === 'true') : ?>   
             <div class="appointments">
                 <div class="app_success" style="display: none;">Your appointment has been submited!</div>
                 
                 <div class="app_controls">
                
-                    <input value="<?php echo date('Y-m-d'); ?>" type="date" id="datepicker" />
+                    <input userid="<?php echo $user_info->ID; ?>" value="<?php echo date('Y-m-d'); ?>" type="date" id="datepicker" />
                 </div>
                 
                 <div class="current_apps">
                 
                 <?php if(!isset($_POST['app_day'])) : 
                     
-                    
                     echo OD_Appointments::define_calendar($user_info->ID);
-                    
-                    endif;
-                    
-                    ?>
-                    
-                    
+                endif; ?>
                 </div> 
             <?php endif; ?> 
             <h3>My Business Locations</h3>
@@ -170,14 +165,12 @@ date_default_timezone_set('America/Los_Angeles');
                 
                 <ul id="business-list">
                     
-                    <?php 
-                    
-                    $mybusinesses = null !== get_user_meta($user_info->ID, 'mybusinesses', false) ? get_user_meta($user_info->ID, 'mybusinesses', false) : array( 0 => array());
+                    <?php $mybusinesses = null !== get_user_meta($user_info->ID, 'mybusinesses', false) ? get_user_meta($user_info->ID, 'mybusinesses', false) : array( 0 => array());
                     $my_business_info = array();
                     
                     if(isset($mybusinesses[0])){
                         foreach($mybusinesses[0] as $single_business){
-                            $my_business_info[] = get_userdata($single_business);
+                            $my_business_info[] = get_userdata($single_business['user']);
                         }
                     }
 
@@ -192,23 +185,16 @@ date_default_timezone_set('America/Los_Angeles');
                                 <div class="dec-name">
 
                                     <?php echo $single_dec_business->display_name; ?>
-
                                 </div>
 
                                 <div class="dec-image">
 
                                     <?php echo get_wp_user_avatar($single_dec_business->ID, 96); ?>
-
                                 </div>
-
                             </a>
-
                         </li>
-
                     <?php endforeach; ?>
-
                 </ul>
-
             </div>
             
             <?php if(null !== get_user_meta($user_info->ID, 'my_endorsements')) : ?>
@@ -217,7 +203,6 @@ date_default_timezone_set('America/Los_Angeles');
                 <h3>My Endorsements</h3>
                 
                 <ul>
-                    
                     <?php $my_endorsements = get_user_meta($user_info->ID, 'my_endorsements', true);
                     
                 foreach($my_endorsements as $single_endorsement) :
@@ -246,14 +231,9 @@ date_default_timezone_set('America/Los_Angeles');
                             <div class="endorsement-message">
                             <em><?php echo $single_endorsement['endorsement']; ?></em>
                             </div>
-
                         </li>
-
                     <?php endif; endforeach; ?>
-
                 </ul>
-                
-            
             </div>
             <?php endif; ?>
             <?php if(isset($current_user->roles[0])) : ?>
@@ -270,10 +250,11 @@ date_default_timezone_set('America/Los_Angeles');
                         <input id="endorsesend" class="endorsesend" type="button" value="submit">
                     </form>
                 </div>
-            <? endif; ?>
+            <?php endif; ?>
             
             <a name="messages"></a>
                 <div class="messge-me-section">
+                    <h3>Message Me</h3>
                 <p class="message-sent-sucess" style="display:none;">
                  Your message has been sent!    
                 </p>    
@@ -292,139 +273,4 @@ date_default_timezone_set('America/Los_Angeles');
 	</div><!-- #primary -->
 
 <?php
-get_footer(); ?>
-
-<script>
-  
-    jQuery("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-    
-    jQuery("#datepicker").change(function(){
-        
-        var app_day = jQuery(this).val();
-        var appid = <?php echo $user_info->ID; ?>;
-        
-        jQuery.post( 
-            ajaxurl,
-                {   
-                    'action': 'define_calendar',
-                    'appid': appid,
-                    'app_day': app_day,
-                }, 
-                function(response){
-     
-                   jQuery('.current_apps').replaceWith(response.substr(response.length-1, 1) === '0'? response.substr(0, response.length-1) : response);
-                 
-        });
-        
-        
-    });
-
-    jQuery(document).on('click', '.app-time', (function(){
-        
-        var appentry = jQuery(this).val();
-        var iteration = jQuery(this).attr('id');
-        var dayclass = ".apps-" + iteration;
-        var app_day = jQuery(dayclass).attr('id');
-        var appid = jQuery(dayclass).val();
-        var app_close = ".app-" + iteration;
-       
-        jQuery.post( 
-            ajaxurl,
-                {   
-                    'action': 'add_app',
-                    'appid': appid,
-                    'app_day': app_day,
-                    'appentry': appentry
-                }, 
-                function(response){
-                
-        });
-        jQuery(app_close).fadeOut(300);
-        jQuery('.app_success').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);
-    })
-    );
-    
-    jQuery('.addtoyourdec' ).click(function(){
-            var adddecid = jQuery(this).attr('id');
-            var addclass = '#decaddmeform-' + adddecid;
-            jQuery.post( 
-                ajaxurl,
-                    {   
-                        'action': 'add_decmember',
-                        'adddecid': adddecid
-                    }, 
-                    function(response){
-                    jQuery(addclass).slideDown(800).fadeOut(400);    
-                    jQuery('.successadd').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);   
-                }
-            );
-        });
-        jQuery('.requesttoyourdec').click(function(){
-        var requestdecid = jQuery(this).attr('id');
-        var requestclass = '#decrequestmeform-' + requestdecid;    
-        jQuery.post( 
-            ajaxurl,
-                {   
-                    'action': 'request_decmember',
-                    'requestdecid': requestdecid
-                }, 
-                function(response){
-                jQuery(requestclass).slideDown(800).fadeOut(400);    
-                jQuery('.successrequest').slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);
-            }
-        );
-    });  
-
-    jQuery(document).ready(function() {
-        
-        jQuery("#msgsend").click(function(){    
-            
-        var usermessage = jQuery('#usermsginput').val();
-        var msgid = jQuery('#usermsginput').attr('class');
-        var x = Math.floor((Math.random() * 100000000000) + 1);
-        var messageid = msgid + "_" + x;
-            
-            jQuery.post( 
-            ajaxurl,
-                {   
-                    'action': 'add_usermessage',
-                    'usermessage': usermessage,
-                    'msgid' : msgid,
-                    'messageid' : messageid
-                }, 
-                function(response){
-                 
-                jQuery('#usermsginput').val("");    
-                jQuery(".message-sent-sucess").slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);    
-               
-            }
-        );
-    });
-    jQuery("#endorsesend").click(function(){    
-            
-        var userendorse = jQuery('#endorseinput').val();
-        var endorseusrid = jQuery('#endorseinput').attr('class');
-        var x = Math.floor((Math.random() * 100000000000) + 1);
-        var endorseid = endorseusrid + "_" + x;
-            
-            jQuery.post( 
-            ajaxurl,
-                {   
-                    'action': 'add_userendorse',
-                    'userendorse': userendorse,
-                    'endorseusrid' : endorseusrid,
-                    'endorseid' : endorseid
-                }, 
-                function(response){
-                 
-                jQuery('#endorseinput').val("");    
-                jQuery(".endorse-sent-sucess").slideUp(800).fadeIn(400).slideDown(300).delay(800).fadeOut(400);    
-               
-            }
-        );
-    });    
-});
-</script>
-        
-<?php
-
+get_footer();

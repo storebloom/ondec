@@ -47,6 +47,9 @@ get_header();
                 </div>
                 <div class="user-tools">
                 <h2>Your Tools</h2>
+                    
+                    <h3>My Appointments</h3>
+                    <?php echo OD_Appointments::get_all_appointments(); ?>
                 
                     <h3>Search for a business near you:</h3>
                 <?php echo do_shortcode('[od_map_display]'); ?>
@@ -61,6 +64,7 @@ get_header();
             
                 <div class="list-section-wrapper">
                  <?php 
+              
             if(isset($my_dec_info[0]) && is_array($my_dec_info)) :
                             foreach($my_dec_info as $single_dec_info){                          
         
@@ -75,7 +79,7 @@ get_header();
                 <div class="od-my-list single-member-list">
                   
                 <ul>
-                <?php if(isset($my_dec_info[0])) :
+                <?php if(isset($my_dec_info[0]) && $my_dec_info[0] !== false) :
                     
                     foreach($my_dec_info as $single_dec_member) :
                     
@@ -251,10 +255,10 @@ get_header();
             
                     
             <?php endif; ?>
-                    </div>
-                        </div>
+                </div>
             </div>
-            </div>
+        </div>
+    </div>
 
    <div class="mymessages">
                 
@@ -296,7 +300,7 @@ get_header();
                         
                          $message_count[] = $messages['read_status'];
                     }
-                    endforeach; 
+                    endforeach;
                 }
                 
                 if(isset($unread_count) && intval(count($unread_count)) !== 1){ $singleor = "Messages"; } else { $singleor = "Message"; }

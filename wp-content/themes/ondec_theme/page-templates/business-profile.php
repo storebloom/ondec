@@ -29,6 +29,9 @@ get_header(); ?>
                     $openclosed = get_user_meta($user_info->ID, 'decstatus', true);
                 }
             ?>
+    <div class="profile-content-wrapper">    
+        <div class="user-info-wrapper">
+            <div class="user-info">
             <h1 class="title-user-name"><?php echo $user_info->display_name; ?></h1>
             <div class="profile-part profile-image">
                 <?php echo get_wp_user_avatar($user_info->ID, 200); ?>
@@ -170,6 +173,8 @@ get_header(); ?>
                     <input id="msgsend" class="msgsend" type="button" value="send">
                 </form>
             </div>
+            </div>
+            
             <?php endif; ?>
             
                 <?php the_content(); ?>

@@ -65,9 +65,14 @@ function siteorigin_widget_search_posts_action(){
 
 	// Get all public post types, besides attachments
 	$post_types = (array) get_post_types( array(
-		'public'   => true
+		'public'             => true
 	) );
-	unset($post_types['attachment']);
+
+	if ( ! empty( $_REQUEST['postTypes'] ) ) {
+		$post_types = array_intersect( explode( ',', $_REQUEST['postTypes'] ), $post_types );
+	} else {
+		unset( $post_types['attachment'] );
+	}
 
 	$post_types = apply_filters( 'siteorigin_widgets_search_posts_post_types', $post_types );
 
@@ -189,3 +194,23 @@ function siteorigin_widget_image_import(){
 	exit();
 }
 add_action('wp_ajax_so_widgets_image_import', 'siteorigin_widget_image_import');
+
+/**
+ * Action to handle a user dismissing a teaser notice.
+ */
+function siteorigin_widgets_dismiss_widget_action(){
+	if( empty( $_GET[ '_wpnonce' ] ) || ! wp_verify_nonce( $_GET[ '_wpnonce' ], 'dismiss-widget-teaser' ) ) exit();
+	if( empty( $_GET[ 'widget' ] ) ) exit();
+
+	$dismissed = get_user_meta( get_current_user_id(), 'teasers_dismissed', true );
+	if( empty( $dismissed ) ) {
+		$dismissed = array();
+	}
+
+	$dismissed[ $_GET[ 'widget' ] ] = true;
+
+	update_user_meta( get_current_user_id(), 'teasers_dismissed', $dismissed );
+
+	exit();
+}
+add_action( 'wp_ajax_so_dismiss_widget_teaser', 'siteorigin_widgets_dismiss_widget_action' );

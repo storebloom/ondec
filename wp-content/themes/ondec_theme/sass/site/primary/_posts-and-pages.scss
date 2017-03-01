@@ -5,6 +5,15 @@ html{
         height:100%;
         min-height:100%;
         
+        &.page-template-homepage-template{
+            
+            #map-canvas{
+                filter: sepia(100%) brightness(70%) contrast(250%) hue-rotate(6deg);
+                -webkit-filter: sepia(100%) brightness(70%) contrast(250%) hue-rotate(6deg);
+                height: 300px;
+            }
+        }
+        
         #page {
             max-width: 100%;
             margin: auto;

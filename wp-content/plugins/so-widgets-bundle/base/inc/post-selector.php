@@ -50,7 +50,7 @@ function siteorigin_widget_post_selector_process_query($query){
 
 	if(!empty($query['post__in'])) {
 		$query['post__in'] = explode(',', $query['post__in']);
-		array_map('intval', $query['post__in']);
+		$query['post__in'] = array_map('intval', $query['post__in']);
 	}
 
 	if(!empty($query['tax_query'])) {
@@ -93,13 +93,24 @@ function siteorigin_widget_post_selector_process_query($query){
 		}
 		unset( $query['sticky'] );
 	}
+	
+	// Exclude the current post (if applicable) to avoid any issues associated with showing the same post again
+	if( get_the_id() != false ){
+		$query['post__not_in'][] = get_the_id();
+	}
 
 	if ( ! empty( $query['additional'] ) ) {
 		$query = wp_parse_args( $query['additional'], $query );
 		unset( $query['additional'] );
+
+		// If post_not_in is set, we need to convert it to an array to avoid issues with the query. 
+		if( !empty( $query['post__not_in'] ) && !is_array( $query['post__not_in'] ) ){
+			$query['post__not_in'] = explode( ',', $query['post__not_in'] );
+			$query['post__not_in'] = array_map( 'intval', $query['post__not_in'] );
+		}
 	}
 
-	return $query;
+	return apply_filters( 'siteorigin_widgets_posts_selector_query', $query );
 }
 
 function siteorigin_widget_post_selector_form_fields(){
@@ -122,7 +133,7 @@ function siteorigin_widget_post_selector_form_fields(){
 	$return['post__in'] = '';
 	$return['post__in'] .= '<label><span>' . __('Post in', 'so-widgets-bundle') . '</span>';
 	$return['post__in'] .= '<input type="text" name="post__in" class="" />';
-	$return['post__in'] .= ' <a href="#" class="sow-select-posts button button-secondary">' . __('Select posts', 'so-widgets-bundle') . '</a>';
+	$return['post__in'] .= ' <a href="#" class="sow-select-posts button button-small">' . __('Select posts', 'so-widgets-bundle') . '</a>';
 	$return['post__in'] .= '</label>';
 
 	// The taxonomy field
@@ -137,7 +148,7 @@ function siteorigin_widget_post_selector_form_fields(){
 	$return['date_query'] .= '<input type="date" name="after" class="" />';
 	$return['date_query'] .= __( 'To', 'so-widgets-bundle' );
 	$return['date_query'] .= '<input type="date" name="before" class="" />';
-	$return['date_query'] .= '<small>' . __('In the format \'dd/mm/yyyy\'.', 'so-widgets-bundle') . '</small>';
+	$return['date_query'] .= '<small>' . __('In the format \'yyyy-mm-dd\'.', 'so-widgets-bundle') . '</small>';
 	$return['date_query'] .= '</label>';
 
 
@@ -181,7 +192,7 @@ function siteorigin_widget_post_selector_form_fields(){
 		'' => __('Default', 'so-widgets-bundle'),
 		'ignore' => __('Ignore sticky', 'so-widgets-bundle'),
 		'exclude' => __('Exclude sticky', 'so-widgets-bundle'),
-		'only' => __('Include sticky', 'so-widgets-bundle'),
+		'only' => __('Only sticky', 'so-widgets-bundle'),
 	);
 	foreach($sticky as $id => $v) {
 		$return['sticky'] .= '<option value="' . $id . '">' . $v . '</option>';

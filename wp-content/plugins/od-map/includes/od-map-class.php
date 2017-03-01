@@ -9,10 +9,50 @@ class OD_Map {
         
         add_action( 'wp_enqueue_scripts',           array($this, 'google_map_enqueue') );
         add_action( 'get_the_address',              array($this, 'get_the_address') );
-        add_action( 'init',                         array($this, 'add_map_canvas') );
+        add_shortcode('homepage-map',               array($this, 'show_homepage_map'));
+        add_shortcode('od_map_display',             array($this, 'od_map_display'));
     }
     
-    public function google_map_enqueue(){
+    public function od_map_display($address = ""){
+        if(isset($_POST['search_val'])){  
+
+            $address = $_POST['search_val'];
+
+            $od_map->google_map_enqueue();
+            $od_map->add_map_canvas();
+            $od_map->geocode_address($address);
+        }
+
+        $display_search_form = '<form method="post" id="search-address">
+        <input name="search_val" type="text" placeholder="enter your address here" >
+        <input name="submit" type="submit" value="search" >
+        </form>';
+
+        return $display_search_form;
+    }
+    
+    public function show_homepage_map(){
+        
+        require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'ip2locationlite.class.php');
+ 
+        //Load the class
+        $ipLite = new ip2location_lite;
+        $ipLite->setKey('37a3692ac27db659e807dc8ca72c062979edb44b366ef001342b521a8bf6c50c');
+
+        //Get errors and locations
+        $locations = $ipLite->getCity($_SERVER['REMOTE_ADDR']);
+        $errors = $ipLite->getError();
+
+        if($locations['statusCode'] === 'OK'){
+        
+            $address = $locations['cityName']. ' '.$locations['regionName']. ', '.$locations['countryCode']. ' '.$locations['zipCode'];
+            self::google_map_enqueue();
+            self::geocode_address($address);
+            return '<div id="map_wrapper"><div id="map-canvas"></div></div>';
+        }
+    }
+    
+    public static function google_map_enqueue(){
         
         wp_register_script(
             'od-maps',
@@ -37,12 +77,12 @@ class OD_Map {
         
     }
     
-    public function add_map_canvas(){
+    public static function add_map_canvas(){
         
-        echo '<div id="map_wrapper"><div id="close_map">X</div><div id="map-canvas"></div></div>';
+         echo '<div id="map_wrapper"><div id="close_map">X</div><div id="map-canvas"></div></div>';
     }
     
-    public function geocode_address($address){
+    public static function geocode_address($address){
         
         $geocoded_address = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD27PJsgKc4b4Jkm5swmUmeMOpbT8HcXtc&address=' . urlencode($address));
         

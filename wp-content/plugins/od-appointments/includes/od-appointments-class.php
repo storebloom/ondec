@@ -686,8 +686,8 @@ class OD_Appointments {
             foreach($current_appointments[0][$app_year][$app_month] as $apps => $app_val) : 
             
                 $i = 0;
-            
-                if($apps === intval($app_day)){
+      
+                if(intval($apps) === intval($app_day)){
 
                     foreach($app_val as $app){
 

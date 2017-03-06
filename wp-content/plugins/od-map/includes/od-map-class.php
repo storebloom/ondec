@@ -48,7 +48,7 @@ class OD_Map {
             $address = $locations['cityName']. ' '.$locations['regionName']. ', '.$locations['countryCode']. ' '.$locations['zipCode'];
             self::google_map_enqueue();
             self::geocode_address($address);
-            return '<div id="map_wrapper"><div id="map-canvas"></div></div>';
+            return 'ftp deploy works<div id="map_wrapper"><div id="map-canvas"></div></div>';
         }
     }
     
@@ -103,7 +103,7 @@ class OD_Map {
     
     public static function get_current_addresses(){
 
-        $config = array('host'=>'localhost', 'user'=>'root', 'pass'=>'root', 'db_name'=>'odwp2016');
+        $config = array('host'=>DB_HOST, 'user'=>DB_USER, 'pass'=>DB_PASSWORD, 'db_name'=>DB_NAME);
 
         $sql = new mysqli($config['host'], $config['user'], $config['pass'], $config['db_name']);
 

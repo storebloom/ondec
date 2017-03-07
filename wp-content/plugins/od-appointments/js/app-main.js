@@ -60,8 +60,11 @@ jQuery(document).ready(function(){
     });
     
     jQuery(document).on('click', '.approve-app', function(){
+    
+        jQuery('#approval-appointment').show().center();
+    });
         
-       if(confirm('Confirm you\'d like to approve this appointment.')){
+    jQuery(document).on('click', '#approve-appointment', function(){
            
            var app_day = jQuery(this).attr('app-day');
            var app_month = jQuery(this).attr('app-month');
@@ -84,8 +87,7 @@ jQuery(document).ready(function(){
                 }
            );
            
-           jQuery(this).fadeOut();
-       } 
+           jQuery('.approve-app').closest().fadeOut();
     });
     
     jQuery(document).on('click', '#submit-appointment-settings', function(){
@@ -165,4 +167,13 @@ jQuery(document).ready(function(){
             }
         );          
     });
+    
+    jQuery.fn.center = function () {
+        this.css("position","absolute");
+        this.css("top", Math.max(0, ((jQuery(window).height() - jQuery(this).outerHeight()) / 2) + 
+                                                    jQuery(window).scrollTop()) + "px");
+        this.css("left", Math.max(0, ((jQuery(window).width() - jQuery(this).outerWidth()) / 2) + 
+                                                    jQuery(window).scrollLeft()) + "px");
+        return this;
+    }
 });

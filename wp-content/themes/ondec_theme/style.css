@@ -630,6 +630,13 @@ html {
   html body {
     height: 100%;
     min-height: 100%; }
+    html body #approval-appointment {
+      display: none;
+      background: #ffffff;
+      border: 2px solid #507972;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 5px 5px 5px 5px; }
     html body.page-template-homepage-template #map-canvas {
       filter: sepia(100%) brightness(70%) contrast(250%) hue-rotate(6deg);
       -webkit-filter: sepia(100%) brightness(70%) contrast(250%) hue-rotate(6deg);

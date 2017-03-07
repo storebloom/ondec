@@ -94,9 +94,16 @@ get_header();
                         <div class="calendar-wrapper">
                             <?php echo OD_Appointments::define_profile_calendar("now"); ?>
                         </div>
-                    </div>   
+                    </div>
+                    <div class="pop-notification" id="approval-appointment">
+                        <h3>Approve Client Appointment?</h3>
+                        <p>Send a message to the client along with your choice.(optional)</p>
+                        <textarea id="app-approval-message"></textarea>
+                        <button id="approve-appointment">Approve</button>
+                        <button id="close-appointment">Close</button>
+                        <button id="deny-appointment">Deny</button>
+                    </div>
                 </div>
-                
             </div>
             </div>    
                 

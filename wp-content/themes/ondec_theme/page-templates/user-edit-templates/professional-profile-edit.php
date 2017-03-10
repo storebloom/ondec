@@ -172,16 +172,29 @@ get_header();
                         ?>
                         
                         <h3>My Business Locations (<span id="biz-count"><?php echo isset($biz_count) ? count($biz_count) : "0"; ?></span>) </h3>
+						<div class="add-a-business">
+							<h3>Can't find the business location you're working at?</h3>
+							<button id="add-a-business">Add A Business!</button>
+							<div class="add-a-business-form">
+								<span class="close-aab-form">X</span>
+								<h4>Create Business Account</h4>
+								<label for="aab-business-name">Business Name</label>
+								<input type="text" id="aab-business-name" placeholder="enter name" />
+								<label for="aab-business-address">Address</label>
+								<input type="text" id="aab-business-address" placeholder="enter address" />
+								<button id="submit-new-business-aab">Submit</button>
+							</div>
+						</div>
             
                         <div class="od-my-businesses single-member-list">
                             <div style="display:none;" id="rmsuccess">successfully removed business!</div>
                             <div style="display:none;" id="currentlocmsg">successfully set current location!</div>
                             <div style="display:none;" id="bizapproved">Business approved!</div>
-                    
-                                <ul>
-                                
-                                <?php if(isset($current_biz[0])) : ?>    
-                                <?php foreach($current_biz[0] as $single_dec_business) :
+							
+                                <ul>                                
+                                <?php if(isset($current_biz[0])) :
+									
+									foreach($current_biz[0] as $single_dec_business) :
 
                                     $user_information = get_userdata(intVal($single_dec_business['user']));
                     

@@ -60,22 +60,60 @@ jQuery(document).ready(function(){
     });
     
     jQuery(document).on('click', '.approve-app', function(){
+		
+		var app_day = jQuery(this).attr('app-day');
+        var app_month = jQuery(this).attr('app-month');
+        var app_year = jQuery(this).attr('app-year');
+        var app_user = jQuery(this).attr('app-user');
+        var app_time = jQuery(this).attr('app-time');
+        var app_num = jQuery(this).attr('num');
+		
+		jQuery('#approve-appointment, #deny-appointment').attr('app-day', app_day).attr('app-month', app_month).attr('app-year', app_year).attr('app-user', app_user).attr('app-time', app_time).attr('num', app_num);
     
         jQuery('#approval-appointment').show().center();
     });
+    
+    jQuery(document).on('click', '#close-appointment', function(){
         
-    jQuery(document).on('click', '#approve-appointment', function(){
+        jQuery('#approval-appointment').hide();
+    });
+        
+    jQuery(document).on('click', '#approve-appointment, #deny-appointment', function(){
+		
+		var app_day = jQuery(this).attr('app-day');
+        var app_month = jQuery(this).attr('app-month');
+        var app_year = jQuery(this).attr('app-year');
+        var app_user = jQuery(this).attr('app-user');
+        var app_time = jQuery(this).attr('app-time');
+        var app_num = jQuery(this).attr('num');
            
-           var app_day = jQuery(this).attr('app-day');
-           var app_month = jQuery(this).attr('app-month');
-           var app_year = jQuery(this).attr('app-year');
-           var app_user = jQuery(this).attr('app-user');
-           var app_time = jQuery(this).attr('app-time');
-           var app_num = jQuery(this).attr('num');
+        var app_message = jQuery('#app-approval-message').val();
+        var x = Math.floor((Math.random() * 100000000000) + 1);
+        var messageid = app_user + "_" + x;
+        var type = jQuery(this).attr('id');
+
+        jQuery.post( 
+            ajaxurl,
+            {   
+                'action': 'add_usermessage',
+                'usermessage': app_message,
+                'msgid' : app_user,
+                'messageid' : messageid,
+                'type' : type
+            }, 
+            function(response){
+
+                jQuery('#app-approval-message').val("");    
+            }
+        );
+	
+		if(type === 'deny-appointment'){
+			
+			var app_close_class = '#client-app-'+app_day+'-'+app_num;
           
            jQuery.post(
                 ajaxurl,{
-                    'action': 'approve_app',
+                    'action': 'cancel_app',
                     'app_day': app_day,
                     'app_month': app_month,
                     'app_year': app_year,
@@ -83,11 +121,31 @@ jQuery(document).ready(function(){
                     'app_time': app_time
                 },
                 function(response){
-        
+                    
+                    jQuery('#approval-appointment').hide();
+					jQuery(app_close_class).fadeOut();
                 }
            );
-           
-           jQuery('.approve-app').closest().fadeOut();
+		}
+       
+		if(type === 'approve-appointment'){
+			jQuery.post(
+				ajaxurl,{
+					'action': 'approve_app',
+					'app_day': app_day,
+					'app_month': app_month,
+					'app_year': app_year,
+					'app_user': app_user,
+					'app_time': app_time
+				},
+				function(response){
+
+					jQuery('#approval-appointment').hide();
+				}
+			);
+		}
+
+       jQuery('.approve-app').closest().fadeOut();
     });
     
     jQuery(document).on('click', '#submit-appointment-settings', function(){

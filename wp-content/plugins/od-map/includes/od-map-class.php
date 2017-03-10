@@ -34,22 +34,23 @@ class OD_Map {
     public function show_homepage_map(){
         
         require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'ip2locationlite.class.php');
- 
-        //Load the class
-        $ipLite = new ip2location_lite;
-        $ipLite->setKey('37a3692ac27db659e807dc8ca72c062979edb44b366ef001342b521a8bf6c50c');
+		 if($_SERVER['REMOTE_ADDR'] !== '127.0.0.1'){
+				//Load the class
+				$ipLite = new ip2location_lite;
+				$ipLite->setKey('37a3692ac27db659e807dc8ca72c062979edb44b366ef001342b521a8bf6c50c');
 
-        //Get errors and locations
-        $locations = $ipLite->getCity($_SERVER['REMOTE_ADDR']);
-        $errors = $ipLite->getError();
+				//Get errors and locations
+				$locations = $ipLite->getCity($_SERVER['REMOTE_ADDR']);
+				$errors = $ipLite->getError();
 
-        if($locations['statusCode'] === 'OK'){
-        
-            $address = $locations['cityName']. ' '.$locations['regionName']. ', '.$locations['countryCode']. ' '.$locations['zipCode'];
-            self::google_map_enqueue();
-            self::geocode_address($address);
-            return 'ftp deploy works<div id="map_wrapper"><div id="map-canvas"></div></div>';
-        }
+				if($locations['statusCode'] === 'OK'){
+
+					$address = $locations['cityName']. ' '.$locations['regionName']. ', '.$locations['countryCode']. ' '.$locations['zipCode'];
+					self::google_map_enqueue();
+					self::geocode_address($address);
+					return 'ftp deploy works<div id="map_wrapper"><div id="map-canvas"></div></div>';
+				}
+		 }
     }
     
     public static function google_map_enqueue(){

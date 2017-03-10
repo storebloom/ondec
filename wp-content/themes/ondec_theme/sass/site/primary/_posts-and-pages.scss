@@ -4,6 +4,16 @@ html{
     body{
         height:100%;
         min-height:100%;
+		
+		.add-a-business-form{
+		
+			display: none;
+			background: #ffffff;
+            border: 2px solid #507972;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 4px 4px 8px 1px #cccccc;
+		}
         
         #approval-appointment{
             

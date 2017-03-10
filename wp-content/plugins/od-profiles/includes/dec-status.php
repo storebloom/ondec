@@ -357,7 +357,16 @@ class Decstatus {
         $usermessage = isset($_POST['usermessage']) ? $_POST['usermessage'] : "";
         $msgid = isset($_POST['msgid']) ? $_POST['msgid'] : "";
         $messageid = isset($_POST['messageid']) ? $_POST['messageid'] : "";
+		$type = isset($_POST['type']) ? $_POST['type'] : "";
         $c_date = time();
+		
+		if($usermessage === "" && $type === 'deny-appointment'){
+			
+			$usermessage = 'We\'re sorry, but you\'re appointment request has been denied.';
+		} elseif ($usermessage === "" && $type === 'approve-appointment'){
+	
+			$usermessage = 'You\'re appointment has been approved.  See you soon!';
+		}
         
         $usermessage_id = array('messageid' => $messageid, 'message_date' => $c_date, 'user' => $current_user->ID, 'message' => $usermessage, 'read_status' => 'unread'); 
         
@@ -376,12 +385,11 @@ class Decstatus {
         update_user_meta( $msgid, 'my_messages', $new_message_array );
         } elseif( 2 <= count($current_messages[0]) ){
             
-        $new_message_array = array_merge($current_messages[0], array($usermessage_id));
-            
-        update_user_meta( $msgid, 'my_messages', $new_message_array ); 
+			$new_message_array = array_merge($current_messages[0], array($usermessage_id));
+
+			update_user_meta( $msgid, 'my_messages', $new_message_array ); 
         }
-        
-        
+     
         echo "success!";
     }
     

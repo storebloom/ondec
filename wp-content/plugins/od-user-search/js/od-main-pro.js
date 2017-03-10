@@ -4,9 +4,7 @@ jQuery(document).ready(function(){
         remote:'/wp-content/plugins/od-user-search/includes/od-search-data-pro.php?key=%QUERY',
         limit : 10
     }); 
-});
 
-jQuery(document).ready(function() {
     //Show modal box
     //Hide modal box
     jQuery('#closeSearchModal').click(
@@ -15,27 +13,26 @@ jQuery(document).ready(function() {
             jQuery('.od-searchBoxWrap').hide();
         }
     );
+	
+	jQuery(document).on('click', '#add-a-business', function(){
+		
+		jQuery('.add-a-business-form').show().center();
+	});
+	
+	jQuery(document).on('click', '.close-aab-form', function(){
+		
+		jQuery('.add-a-business-form').hide();
+	})
 });
 
-/*!
- * jQuery UI Datepicker 1.12.0
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Datepicker
-//>>group: Widgets
-//>>description: Displays a calendar from an input or inline for selecting dates.
-//>>docs: http://api.jqueryui.com/datepicker/
-//>>demos: http://jqueryui.com/datepicker/
-//>>css.structure: ../../themes/base/core.css
-//>>css.structure: ../../themes/base/datepicker.css
-//>>css.theme: ../../themes/base/theme.css
-
-
+jQuery.fn.center = function () {
+	this.css("position","absolute");
+	this.css("top", Math.max(0, ((jQuery(window).height() - jQuery(this).outerHeight()) / 2) + 
+												jQuery(window).scrollTop()) + "px");
+	this.css("left", Math.max(0, ((jQuery(window).width() - jQuery(this).outerWidth()) / 2) + 
+												jQuery(window).scrollLeft()) + "px");
+	return this;
+}
 
 jQuery.extend( jQuery.ui, { datepicker: { version: "1.12.0" } } );
 

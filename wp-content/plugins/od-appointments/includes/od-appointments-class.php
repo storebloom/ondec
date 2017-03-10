@@ -114,24 +114,24 @@ class OD_Appointments {
         $app_month = isset($_POST['app_month']) ? $_POST['app_month'] : "";
         $app_year = isset($_POST['app_year']) ? $_POST['app_year'] : "";
         $app_time = isset($_POST['app_time']) ? $_POST['app_time'] : "";
-        $app_user = isset($_POST['app_user']) ? $_POST['app_user'] : "";        
+        $app_user = isset($_POST['app_user']) ? $_POST['app_user'] : ""; 
         $current_apps = get_user_meta($current_user->ID, 'my_appointments', true);
         $current_user_apps = get_user_meta($app_user, 'my_appointments', true);
         
         if($current_apps !== ""){
               
             foreach($current_apps[0] as $apps => $app_value){
-
-                if($apps === intval($app_year)){
-
+var_dump($app_year);
+                if(intval($apps) === intval($app_year)){
+var_dump($apps);
                     foreach($app_value as $month => $month_value){
                
                         if(intval($month) === intval($app_month)){
-                     
+                     var_dump($month);
                             foreach($month_value as $day => $day_value){
                                 
                                 if(intval($day) === intVal($app_day)){
-
+var_dump($day);
                                     foreach($day_value as $user => $apps){
                                 
                                         if($apps['appentry'] === $app_time){
@@ -175,7 +175,7 @@ class OD_Appointments {
                 }
             }
         }
-        
+        var_dump($current_apps);
         update_user_meta($current_user->ID, 'my_appointments', $current_apps);
         update_user_meta($app_user, 'my_appointments', $current_user_apps);
         

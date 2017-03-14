@@ -57,7 +57,7 @@ get_header(); ?>
                                 </p>
                                 <h4>Message Me</h4>    
                                 <form id="msguserform" name="msguserform">
-                                    <textarea id="usermsginput" name="decmessage" placeholder="write message here" rows="5"></textarea>
+                                    <textarea class="<?php echo $user_info->ID; ?>" id="usermsginput" name="decmessage" placeholder="write message here" rows="5"></textarea>
                                 
                                     <input id="msgsend" class="msgsend" type="button" value="send">
                                 </form>

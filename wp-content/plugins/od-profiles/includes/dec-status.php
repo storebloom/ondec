@@ -359,7 +359,7 @@ class Decstatus {
         $messageid = isset($_POST['messageid']) ? $_POST['messageid'] : "";
 		$type = isset($_POST['type']) ? $_POST['type'] : "";
         $c_date = time();
-		
+
 		if($usermessage === "" && $type === 'deny-appointment'){
 			
 			$usermessage = 'We\'re sorry, but you\'re appointment request has been denied.';

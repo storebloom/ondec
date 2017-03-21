@@ -50,9 +50,6 @@ get_header();
                     
                     <h3>My Appointments</h3>
                     <?php echo OD_Appointments::get_all_appointments(); ?>
-                
-                    <h3>Search for a business near you:</h3>
-                <?php echo do_shortcode('[od_map_display]'); ?>
                 </div>
             </div>
             

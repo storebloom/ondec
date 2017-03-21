@@ -24,9 +24,9 @@ class OD_User_Search {
         $user_role = $current_user->roles[0];
         
             if($user_role === 'professional'){
-                wp_enqueue_script( 'od-main',  '/wp-content/plugins/od-user-search/js/od-main-pro.js', array( 'jquery' ), '1.0.0', true );
+                wp_enqueue_script( 'od-main-pro',  '/wp-content/plugins/od-user-search/js/od-main-pro.js', array( 'jquery.datepicker' ), '1.0.0', true );
             } elseif ($user_role === 'business') {
-                wp_enqueue_script( 'od-main',  '/wp-content/plugins/od-user-search/js/od-main-biz.js', array( 'jquery' ), '1.0.0', true );
+                wp_enqueue_script( 'od-main-biz',  '/wp-content/plugins/od-user-search/js/od-main-biz.js', array( 'jquery' ), '1.0.0', true );
             } elseif ($user_role === 'client' || $user_role === 'administrator') {
                 wp_enqueue_script( 'od-main',  '/wp-content/plugins/od-user-search/js/od-main.js', array( 'jquery' ), '1.0.0', true );
             }

@@ -103,6 +103,7 @@ add_action( 'widgets_init', 'ondec_theme_widgets_init' );
  * Enqueue scripts and styles.
  */
 function ondec_theme_scripts() {
+	
 	wp_enqueue_style( 'ondec_theme-style', get_stylesheet_uri() );
 
 	wp_enqueue_script( 'ondec_theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
@@ -114,6 +115,13 @@ function ondec_theme_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'ondec_theme_scripts' );
+
+function enqueue_datepicker(){
+	
+	wp_enqueue_script('jquery.datepicker', get_template_directory_uri() .'/js/jquery.datepicker.js', array('jquery'), '1.0.0', true);
+}
+
+add_action( 'init', 'enqueue_datepicker' );
 
 /**
  * Implement the Custom Header feature.

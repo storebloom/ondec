@@ -6,8 +6,7 @@
 class OD_Map {
 
     public function __construct(){
-        
-        add_action( 'wp_enqueue_scripts',           array($this, 'google_map_enqueue') );
+     
         add_action( 'get_the_address',              array($this, 'get_the_address') );
         add_shortcode('homepage-map',               array($this, 'show_homepage_map'));
         add_shortcode('od_map_display',             array($this, 'od_map_display'));
@@ -34,24 +33,24 @@ class OD_Map {
     public function show_homepage_map(){
         
         require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'ip2locationlite.class.php');
-		 if($_SERVER['REMOTE_ADDR'] !== '127.0.0.1'){
-				//Load the class
-				$ipLite = new ip2location_lite;
-				$ipLite->setKey('37a3692ac27db659e807dc8ca72c062979edb44b366ef001342b521a8bf6c50c');
+		if($_SERVER['REMOTE_ADDR'] !== '127.0.0.1'){
+			//Load the class
+			$ipLite = new ip2location_lite;
+			$ipLite->setKey('37a3692ac27db659e807dc8ca72c062979edb44b366ef001342b521a8bf6c50c');
 
-				//Get errors and locations
-				$locations = $ipLite->getCity($_SERVER['REMOTE_ADDR']);
-				$errors = $ipLite->getError();
+			//Get errors and locations
+			$locations = $ipLite->getCity($_SERVER['REMOTE_ADDR']);
+			$errors = $ipLite->getError();
 
-				if($locations['statusCode'] === 'OK'){
+			if($locations['statusCode'] === 'OK'){
 
-					$address = $locations['cityName']. ' '.$locations['regionName']. ', '.$locations['countryCode']. ' '.$locations['zipCode'];
-					self::google_map_enqueue();
-					self::geocode_address($address);
-					return 'ftp deploy works<div id="map_wrapper"><div id="map-canvas"></div></div>';
-				}
-		 }
-    }
+				$address = $locations['cityName']. ' '.$locations['regionName']. ', '.$locations['countryCode']. ' '.$locations['zipCode'];
+				self::google_map_enqueue();
+				self::geocode_address($address);
+				return 'ftp deploy works<div id="map_wrapper"><div id="map-canvas"></div></div>';
+			}
+		}
+	}
     
     public static function google_map_enqueue(){
         

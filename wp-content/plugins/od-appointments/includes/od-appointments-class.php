@@ -121,17 +121,17 @@ class OD_Appointments {
         if($current_apps !== ""){
               
             foreach($current_apps[0] as $apps => $app_value){
-var_dump($app_year);
+
                 if(intval($apps) === intval($app_year)){
-var_dump($apps);
+
                     foreach($app_value as $month => $month_value){
                
                         if(intval($month) === intval($app_month)){
-                     var_dump($month);
+                  
                             foreach($month_value as $day => $day_value){
                                 
                                 if(intval($day) === intVal($app_day)){
-var_dump($day);
+
                                     foreach($day_value as $user => $apps){
                                 
                                         if($apps['appentry'] === $app_time){
@@ -438,7 +438,7 @@ var_dump($day);
     
     public static function define_profile_calendar($selected_day = "now"){
         
-        wp_enqueue_script( 'app-main', '/wp-content/plugins/od-appointments/js/app-main.js', array( 'jquery' ), '1.0.0', true );
+        wp_enqueue_script( 'app-main', '/wp-content/plugins/od-appointments/js/app-main.js', array( 'jquery.datepicker' ), '1.0.0', true );
         
         global $current_user;
         

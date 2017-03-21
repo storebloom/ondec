@@ -47,7 +47,7 @@ class OD_Map {
 				$address = $locations['cityName']. ' '.$locations['regionName']. ', '.$locations['countryCode']. ' '.$locations['zipCode'];
 				self::google_map_enqueue();
 				self::geocode_address($address);
-				return 'ftp deploy works<div id="map_wrapper"><div id="map-canvas"></div></div>';
+				return '<div id="map_wrapper"><div id="map-canvas"></div></div>';
 			}
 		}
 	}

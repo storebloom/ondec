@@ -95,7 +95,6 @@ class OD_Map {
                 $coordlat[] = $geoloc[0]->geometry->location->lat;
                 $coordlng[] = $geoloc[0]->geometry->location->lng; 
              }
-
         }
 
         self::define_global_var($coordlat[0], $coordlng[0]);
@@ -164,16 +163,13 @@ class OD_Map {
         $open_close =  !empty(get_user_meta($user_info->ID, 'decstatus', true)) ? get_user_meta($user_info->ID, 'decstatus', true) : "Closed";
         
         $pro_url = get_the_guid($user_avatar);
-        
         $info_card = '<div class=\"map_name\">' . $user_info->display_name . '<\/div>';
         $info_card .= '<div class=\"map_avatar\"><img width=\"60px\" src=\"'.  $pro_url . '\" ><\/div>';
         $info_card .= '<div class=\"map_open\">We Are '.  $open_close . '<\/div>';
         $info_card .= '<div class=\"map_address\"><a target=\"_blank\" href=\"https://www.google.com/maps/dir/'.$address.'\">'.$address.'<\/a><\/div>';
         $info_card .= '<div class=\"map_link\"><a href=\"/businesses/' . $user_info->user_login . '/\">view profile<\/a><\/div>';
             
-        
         return $info_card;
-
     }
         
     public static function define_global_var($coordlat, $coordlng){

@@ -393,17 +393,15 @@ class Decstatus {
         echo "success!";
     }
     
-    public function prefix_ajax_approve_friend() {
+    public static function prefix_ajax_approve_friend($type="", $bizid="") {
         
         global $current_user;
         
         $friendid = isset($_POST['friendid']) ? $_POST['friendid'] : "";
-        $bizid = isset($_POST['bizid']) ? $_POST['bizid'] : "";
-        $type = isset($_POST['type']) ? $_POST['type'] : "";
-        
-        
-        
-        if($type !== 'biz'){
+        $bizid = isset($_POST['bizid']) ? $_POST['bizid'] : $bizid;
+        $type = isset($_POST['type']) ? $_POST['type'] : $type;
+       
+        if($type !== 'biz' && $type !== 'pro'){
             $current_friends = get_user_meta($current_user->ID, 'myfriends');
             $request_friends = get_user_meta($friendid, 'myfriends', false);
         } else {
@@ -413,84 +411,95 @@ class Decstatus {
 
         if(is_array($current_friends[0][0])){
             
-            if($type !== 'biz'){
-            foreach($current_friends[0] as $message_key => $message){
-                foreach($message as $messages_key => $messages){
-                    if($message['user'] === intVal($friendid)){
+            if($type !== 'biz' && $type !== 'pro'){
+				foreach($current_friends[0] as $message_key => $message){
+					foreach($message as $messages_key => $messages){
+						if($message['user'] === intVal($friendid)){
 
-                        $current_friends[0][$message_key]['approval_status'] = 'approved';
-                    }               
-                }
-            }
+							$current_friends[0][$message_key]['approval_status'] = 'approved';
+						}               
+					}
+				}
              }else{            
                 
                 foreach($current_friends[0] as $message_key => $message){
-                foreach($message as $messages_key => $messages){
-                    if($message['user'] === intVal($bizid)){
+					
+					foreach($message as $messages_key => $messages){
+					
+						if($message['user'] === intVal($bizid)){
 
-                        $current_friends[0][$message_key]['approval_status'] = 'approved';
-                    }               
-                }       
-             }
-            }
-                
-            }else{
-        
-         
-            if($type !== 'biz'){        
-            if($current_friends[0]['user'] === intVal($friendid)){
-
-                        $current_friends[0]['approval_status'] = 'approved';      
+							$current_friends[0][$message_key]['approval_status'] = 'approved';
+						}               
+					}       
+             	}
             }  
+		}else{
+        
+            if($type !== 'biz' && $type !== 'pro'){ 
+				
+				if($current_friends[0]['user'] === intVal($friendid)){
+
+					$current_friends[0]['approval_status'] = 'approved';      
+				}  
             }else{
                 
                 if($current_friends[0]['user'] === intVal($bizid)){
 
-                        $current_friends[0]['approval_status'] = 'approved';      
-            }  
-                
+					$current_friends[0]['approval_status'] = 'approved';      
+            	}  
             }
         }
 
-        if($type !== 'biz'){
+        if($type !== 'biz' && $type !== 'pro'){
         update_user_meta( $current_user->ID, 'myfriends', $current_friends[0] );
         
         $approved_friends = get_user_meta($friendid, 'myfriends', false);
 
         $approver_friends = array() !== $approved_friends ? $approved_friends : array(0 => array());
 
-        if(!is_array($approver_friends[0])){
+			if(!is_array($approver_friends[0])){
 
-            $new_friends = array_merge($approver_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
+				$new_friends = array_merge($approver_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
 
-            update_user_meta($friendid, 'myfriends', array($new_friends));
-        } else {
-            $new_friends = array_merge($approver_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'approved')));
+				update_user_meta($friendid, 'myfriends', array($new_friends));
+			} else {
+				$new_friends = array_merge($approver_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'approved')));
 
-            update_user_meta($friendid, 'myfriends', $new_friends);
-        }
-            
+				update_user_meta($friendid, 'myfriends', $new_friends);
+			}
         }else{
             
             update_user_meta( $current_user->ID, 'mybusinesses', $current_friends[0] );
         
-        $approved_friends = get_user_meta($bizid, 'mydec', false);
+			$approved_friends = get_user_meta($bizid, 'mydec', false);
+			$approved_temp_biz = get_user_meta($current_user->ID, 'mybusinesses', true);
 
-        $approver_friends = array() !== $approved_friends ? $approved_friends : array(0 => array());
+			$approver_temp_biz = array() !== $approved_temp_biz ? $approved_temp_biz : array(0 => array());
+			$approver_friends = array() !== $approved_friends ? $approved_friends : array(0 => array());
 
-        if(!is_array($approver_friends[0])){
+			if(!is_array($approver_friends[0])){
 
-            $new_friends = array_merge($approver_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
+				$new_friends = array_merge($approver_friends[0], array('user' => $current_user->ID, 'approval_status' => 'approved'));
 
-            update_user_meta($bizid, 'mydec', array($new_friends));
-        } else {
-            $new_friends = array_merge($approver_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'approved')));
+				update_user_meta($bizid, 'mydec', array($new_friends));
+			} else {
+				$new_friends = array_merge($approver_friends[0], array(array('user' => $current_user->ID, 'approval_status' => 'approved')));
 
-            update_user_meta($bizid, 'mydec', $new_friends);
-        }
-            
-        }
-        
+				update_user_meta($bizid, 'mydec', $new_friends);
+			}
+			
+			//Temp busines additions
+			if(!is_array($approver_temp_biz)){
+
+				$new_temp_biz = array_merge($approver_temp_biz, array('user' => $bizid, 'approval_status' => 'approved'));
+
+				update_user_meta($current_user->ID, 'mybusinesses', array($new_temp_biz));
+			} else {
+				$new_temp_biz = array_merge($approver_temp_biz, array(array('user' => $bizid, 'approval_status' => 'approved')));
+
+				update_user_meta($current_user->ID, 'mybusinesses', $new_temp_biz);
+			}
+        }      
     }
     
     public function prefix_ajax_approve_endorsement() {

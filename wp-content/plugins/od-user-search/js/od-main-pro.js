@@ -355,7 +355,7 @@ jQuery(document).ready(function(){
 						
 		var business_name = jQuery('#aab-business-name').val();
 		var business_address = jQuery('#aab-business-address').val();
-		
+alert(business_name);
 		jQuery.post( 
             ajaxurl,
             {   
@@ -364,7 +364,7 @@ jQuery(document).ready(function(){
                 'business_address': business_address
             }, 
             function(response){
-
+alert(response);
                jQuery('.add-a-business-form').hide();
 
             }

@@ -11,7 +11,36 @@ class Business_Registration {
     public function __construct(){
         
         add_shortcode( 'business-registration-form', array( $this, 'business_registration_function' ) );
+		add_action( 'wp_ajax_register_temp_business',          array($this, 'register_temp_business') );
+        add_action( 'wp_ajax_nopriv_register_temp_business',   array($this, 'register_temp_business') );
     }
+	
+	public function register_temp_business(){
+		
+		$name = isset($_POST['business_name']) ? $_POST['business_name'] : "";
+		$username = str_replace(" ","", $name);
+		$address = isset($_POST['business_address']) ? $_POST['business_address'] : "";
+		
+		$alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 30; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+
+        $random = implode($pass);
+		$email = $username.'_'.$random.'@tempbusiness.com';
+		$userid = register_new_user($username, $email);
+		update_user_meta($userid, 'address', $address);
+		update_user_meta($userid, 'od_capabilities', array('business'));
+		wp_update_user( array( 'ID' => $userid, 'display_name' => $name ) );
+		
+		//Add temp business to current user's list
+		Decstatus::prefix_ajax_approve_friend('biz', $userid);
+		
+		echo $userid;
+	}
     
     private static function business_registration_form( $username, $password, $email, $website, $first_name, $last_name, $nickname, $bio, $address, $business_type ) {
     
@@ -116,9 +145,7 @@ class Business_Registration {
         $role = $GLOBALS['wp_roles']->is_role( 'business' );
         
         if($role){ $role = 'business'; } else { $role = ""; }
-            
-        
-        
+    
         if ( isset($_POST['submit'] ) ) {
             
             $od_form_validation->registration_validation(

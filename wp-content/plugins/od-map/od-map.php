@@ -16,4 +16,4 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/od-map-class.php');
+require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/class-od-map.php');

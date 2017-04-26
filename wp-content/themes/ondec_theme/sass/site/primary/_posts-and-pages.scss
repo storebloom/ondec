@@ -25,15 +25,6 @@ html{
             box-shadow: 4px 4px 8px 1px #cccccc;
         }
         
-        &.page-template-homepage-template{
-            
-            #map-canvas{
-                filter: sepia(100%) brightness(70%) contrast(250%) hue-rotate(6deg);
-                -webkit-filter: sepia(100%) brightness(70%) contrast(250%) hue-rotate(6deg);
-                height: 300px;
-            }
-        }
-        
         #page {
             max-width: 100%;
             margin: auto;

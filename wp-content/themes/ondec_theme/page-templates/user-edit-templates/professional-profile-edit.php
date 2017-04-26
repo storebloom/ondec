@@ -83,7 +83,7 @@ get_header();
                 <?php endif; ?>
                     <?php echo do_shortcode('[od-app-settings]'); ?>
                     <h3>Today's Appointments</h3>
-                    <?php echo OD_Appointments::get_todays_appointments(); ?>
+                    <?php echo $od_appointments->get_todays_appointments(); ?>
                     <button id="open-app-calendar">View Appointment Calendar</button>
                     <div class="my-appointments">
                         <div class="year-picker">
@@ -91,7 +91,6 @@ get_header();
                             <label for="app-year-picker">Year:</label><input name="app-year-picker" type="number" class="current-app-year" value="<?php echo date('Y'); ?>" min="<?php echo date('Y'); ?>"/>
                         </div> 
                         <div class="calendar-wrapper">
-                            <?php echo OD_Appointments::define_profile_calendar("now"); ?>
                         </div>
                     </div>
                     <div class="pop-notification" id="approval-appointment">

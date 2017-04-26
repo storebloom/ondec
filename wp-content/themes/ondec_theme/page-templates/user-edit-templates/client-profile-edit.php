@@ -49,7 +49,7 @@ get_header();
                 <h2>Your Tools</h2>
                     
                     <h3>My Appointments</h3>
-                    <?php echo OD_Appointments::get_all_appointments(); ?>
+                    <?php echo $od_appointments->get_all_appointments(); ?>
                 </div>
             </div>
             

@@ -142,21 +142,16 @@ date_default_timezone_set('America/Los_Angeles');
                     
                 </ul>
             </div>
-            <?php if(is_user_logged_in() && $current_user->roles[0] === 'client' && $enabled === 'true') : ?>   
+            <?php if(is_user_logged_in() && $current_user->roles[0] === 'client' && $enabled === 'true') : ?>
+
             <div class="appointments">
                 <div class="app_success" style="display: none;">Your appointment has been submited!</div>
                 
                 <div class="app_controls">
-               
-                    <input userid="<?php echo $user_info->ID; ?>" value="<?php echo date('Y-m-d'); ?>" type="date" id="datepicker" />
+                    <input userid="<?php echo (int) $user_info->ID; ?>" value="<?php echo esc_html( date('Y-m-d') ); ?>" type="" id="ui-datepicker" />
                 </div>
                 
                 <div class="current_apps">
-                
-                <?php if(!isset($_POST['app_day'])) : 
-                    
-                    echo OD_Appointments::define_calendar($user_info->ID);
-                endif; ?>
                 </div> 
             <?php endif; ?> 
             <h3>My Business Locations</h3>

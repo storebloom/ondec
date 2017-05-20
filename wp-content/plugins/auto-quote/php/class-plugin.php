@@ -31,7 +31,7 @@ class Plugin extends Plugin_Base {
 	 *
 	 * @action wp_enqueue_scripts
 	 */
-	public function register_assets() { var_dump($this->dir_url);
+	public function register_assets() {
 		wp_register_script( "{$this->assets_prefix}-quote", "{$this->dir_url}js/quote.js", array( 'jquery' ) );
 		wp_register_style( "{$this->assets_prefix}-quote", "{$this->dir_url}css/quote.css", false );
 	}

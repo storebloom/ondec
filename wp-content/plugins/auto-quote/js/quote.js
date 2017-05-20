@@ -58,7 +58,7 @@ var AutoQuote = ( function( $, wp ) {
 				dataType: 'jsonp',
 				data: 'string',
 				success: function( result ) {
-					console.log( result );
+					console.log( result.quoteText );
 				}
 			} );
 		},

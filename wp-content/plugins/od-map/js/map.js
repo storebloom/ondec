@@ -21,12 +21,12 @@ jQuery( document ).on( 'keyup', '#search_map_val', function() {
 			    gmaps_results_initialize( response );
 		    }
 	    );
-    }.bind( search_val ), 500 );
+    }.bind( search_val ), 1000 );
 } );
 
 /**
  *  This loads the search results onto the map.
- *  
+ *
  * @param response
  */
 function gmaps_results_initialize( response ) {

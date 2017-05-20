@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: OD Profiles
- * Description: Creates new post type for Professional and Business users including a new templater for front-end profile pages.
+ * Description:
  * Version: 0.1.0
  * Author: Scott Adrian
  *
@@ -16,6 +16,6 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/profile-pages.php');
-require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/dec-status.php');
+require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/class-profile.php');
+require_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'includes/class-dashboard-profile.php');
 

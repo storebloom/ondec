@@ -1,0 +1,40 @@
+.quote-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.quote-wrapper .quote-quote {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.quote-wrapper .quote-author {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-style: italic;
+}
+
+.quote-wrapper.quote-small .quote-quote {
+    font-size: 1em;
+}
+
+.quote-wrapper.quote-small .quote-author {
+    font-size: .6em;
+}
+
+.quote-wrapper.quote-medium .quote-quote {
+    font-size: 1.3em;
+}
+
+.quote-wrapper.quote-medium .quote-author {
+    font-size: .9em;
+}
+
+.quote-wrapper.quote-large .quote-quote {
+    font-size: 1.8em;
+}
+.quote-wrapper.quote-large .quote-author {
+    font-size: 1.3em;
+}

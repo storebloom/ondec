@@ -172,7 +172,7 @@ class OD_Map {
 
 		if ( is_array( $current_businesses ) && count( $current_businesses ) > 0 ) {
 			foreach ( $current_businesses as $business ) {
-				if( false !== stripos( $business->display_name, $key ) ) {
+				if( false !== strripos( $business->display_name, $key ) ) {
 					$business_address = '' !== get_usermeta( $business->ID, 'address', true ) ? get_usermeta( $business->ID, 'address', true ) : '';
 					if ( '' !== $business_address ) {
 						$returned_business_array[] = array( $business_address, $business->ID );

@@ -2,29 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6da7af45-b6cf-4742-9b12-24b50f7404e4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/appointment-controller.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/my-app-front.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/my-appointments.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/od-appointments-class.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/includes/od-map-class.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/js/jquery.datepicker.js" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/includes/ip2locationlite.class.php" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/inc/ip2locationlite.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/.sass-cache/e81d43f18998e3f32459704694048a342c38bb4b/_posts-and-pages.scssc" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/.sass-cache/e81d43f18998e3f32459704694048a342c38bb4b/_posts-and-pages.scssc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js" afterPath="$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/css/custom-map.css" afterPath="$PROJECT_DIR$/wp-content/plugins/od-map/css/custom-map.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/auto-quote.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/css/quote.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/instance.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin-base.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/readme.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/templates/quote-wrapper.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/tests/class-test-auto-quote.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/tests/php/class-test-plugin-base.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/tests/php/class-test-plugin.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/js/dashboard-profile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/templates/message.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/dashboard-profile.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/dashboard-profile.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/register-od-cpt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/my-profile-edit.php" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-dashboard-profile.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/profile-pages.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js" afterPath="$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/od-map.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-map/od-map.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/functions.php" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/professional-profile.php" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/professional-profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/client-profile-edit.php" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/client-profile-edit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/style.css.map" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/style.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/od-profiles.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/od-profiles.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-user-search/js/od-main-pro.js" afterPath="$PROJECT_DIR$/wp-content/plugins/od-user-search/js/od-main-pro.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,67 +39,44 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app-main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js">
+      <file leaf-file-name="class-plugin.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4029">
-              <caret line="237" column="10" lean-forward="false" selection-start-line="226" selection-start-column="8" selection-end-line="237" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="class-od-map.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3638">
-              <caret line="216" column="6" lean-forward="false" selection-start-line="216" selection-start-column="6" selection-end-line="216" selection-end-column="6" />
+            <state relative-caret-position="372">
+              <caret line="33" column="65" lean-forward="false" selection-start-line="33" selection-start-column="65" selection-end-line="33" selection-end-column="65" />
               <folding>
-                <element signature="e#6#31#0#PHP" expanded="false" />
-                <marker date="1493191633421" expanded="true" signature="1694:1763" ph="..." />
-                <marker date="1493191633421" expanded="true" signature="6961:7087" ph="..." />
-                <marker date="1493191633421" expanded="true" signature="7066:7087" ph="{...}" />
+                <element signature="e#6#75#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="class-od-appointments.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php">
+      <file leaf-file-name="class-plugin-base.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin-base.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-520">
-              <caret line="311" column="10" lean-forward="false" selection-start-line="311" selection-start-column="10" selection-end-line="311" selection-end-column="10" />
+            <state relative-caret-position="480">
+              <caret line="138" column="67" lean-forward="true" selection-start-line="138" selection-start-column="67" selection-end-line="138" selection-end-column="67" />
               <folding>
-                <marker date="1492735784017" expanded="true" signature="2498:2511" ph="..." />
-                <marker date="1492735784017" expanded="true" signature="13852:14299" ph="..." />
-                <marker date="1492735784017" expanded="true" signature="17473:17920" ph="..." />
+                <element signature="e#6#59#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_posts-and-pages.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss">
+      <file leaf-file-name="class-auto-quote.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="17" lean-forward="false" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="17" />
-              <folding />
+            <state relative-caret-position="15">
+              <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+              <folding>
+                <element signature="e#6#53#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="map.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="od-map.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/od-map.php">
+      <file leaf-file-name="auto-quote.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/auto-quote.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -105,24 +85,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="custom-map.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/css/custom-map.css">
+      <file leaf-file-name="quote-wrapper.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/templates/quote-wrapper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="5" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+            <state relative-caret-position="170">
+              <caret line="10" column="148" lean-forward="false" selection-start-line="10" selection-start-column="148" selection-end-line="10" selection-end-column="148" />
+              <folding>
+                <element signature="e#6#122#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="quote.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="884">
+              <caret line="52" column="29" lean-forward="true" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="professional-profile-edit.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php">
+      <file leaf-file-name="quote.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/css/quote.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1445">
-              <caret line="85" column="53" lean-forward="false" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
-              <folding>
-                <marker date="1491697324224" expanded="true" signature="33014:33203" ph="..." />
-              </folding>
+            <state relative-caret-position="663">
+              <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -131,39 +122,43 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>are_there_future_apps</find>
-      <find>get_all_appointments</find>
-      <find>od_ap[</find>
-      <find>appointment_settings</find>
-      <find>od_app_se</find>
-      <find>is_array</find>
-      <find>od-app</find>
-      <find>od-appointments</find>
-      <find>change</find>
-      <find>define_profile_calendar</find>
-      <find>define_calendar_ajax</find>
-      <find>define_calendar</find>
-      <find>define_ca</find>
-      <find>d</find>
-      <find>datepicker.min</find>
-      <find>datepicker.mi</find>
-      <find>datepicker.m</find>
-      <find>datepicker</find>
-      <find>var_du</find>
-      <find>var_dump</find>
-      <find>add_app</find>
-      <find>$app</find>
-      <find>cancel_app</find>
-      <find>todo</find>
-      <find>alert</find>
-      <find>aler</find>
-      <find>search_</find>
-      <find>map</find>
-      <find>MapTypeId</find>
-      <find>wp_enqueue_style( 'od-maps' );</find>
+      <find>remove_end</find>
+      <find>add</find>
+      <find>add_</find>
+      <find>add_decme</find>
+      <find>add_decmes</find>
+      <find>add_decmessage</find>
+      <find>msgsub</find>
+      <find>add_decstat</find>
+      <find>add_dec</find>
+      <find>statussub</find>
+      <find>succ</find>
+      <find>set</find>
+      <find>$messages</find>
+      <find>my_messages</find>
+      <find>message</find>
+      <find>load_</find>
+      <find>view-button</find>
+      <find>get_message</find>
+      <find>rep</find>
+      <find>reply</find>
+      <find>reply-</find>
+      <find>reply-m</find>
+      <find>reply-me</find>
+      <find>reply-mes</find>
+      <find>reply-messa</find>
+      <find>reply-message</find>
+      <find>hey</find>
+      <find>re</find>
+      <find>rewrite</find>
+      <find>action</find>
     </findStrings>
+    <replaceStrings>
+      <replace>$message</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>C:\Users\scott\Sites\ondec.dev\wp-includes</dir>
+      <dir>C:\Users\scott\Sites\ondec.dev\wp-content\themes\ondec_theme\page-templates\user-edit-templates</dir>
       <dir>C:\Users\scott\Sites\ondec.dev</dir>
     </dirStrings>
   </component>
@@ -183,12 +178,28 @@
         <option value="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/od-appointments-class.php" />
         <option value="$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js" />
         <option value="$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php" />
-        <option value="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php" />
         <option value="$PROJECT_DIR$/wp-content/plugins/od-map/includes/od-map-class.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/ondec_theme/sass/site/primary/_posts-and-pages.scss" />
         <option value="$PROJECT_DIR$/wp-content/plugins/od-map/css/custom-map.css" />
         <option value="$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php" />
         <option value="$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-user-search/js/od-main-pro.js" />
+        <option value="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/dashboard-profile.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/my-profile-edit.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-profiles/od-profiles.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-profiles/css/dash-profile.css" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-dashboard-profile.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-profiles/templates/message.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-profiles/js/dashboard-profile.js" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-profile.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/dashboard-profile.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/templates/quote-wrapper.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/css/quote.css" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin-base.php" />
       </list>
     </option>
   </component>
@@ -203,10 +214,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="2" />
+    <option name="y" value="9" />
+    <option name="width" value="1364" />
+    <option name="height" value="726" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -230,6 +241,9 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -245,6 +259,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -530,36 +545,6 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="page-templates" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user-edit-templates" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-content" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec_theme" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="js" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -626,7 +611,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="od-map" />
+              <option name="myItemId" value="auto-quote" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -648,7 +633,59 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="od-map" />
+              <option name="myItemId" value="auto-quote" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ondec.dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ondec.dev" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wp-content" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugins" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auto-quote" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="php" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ondec.dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ondec.dev" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wp-content" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugins" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auto-quote" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -674,33 +711,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="od-map" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="includes" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-content" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="od-map" />
+              <option name="myItemId" value="auto-quote" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -708,83 +719,8 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-content" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="od-appointments" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-content" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="od-appointments" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ondec.dev" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wp-content" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="od-appointments" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="includes" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -796,6 +732,9 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\scott\Sites\ondec.dev\wp-content\themes\ondec_theme\inc" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\scott\Sites\ondec.dev\wp-content\themes\ondec_theme\page-templates\user-edit-templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -899,21 +838,28 @@
       <workItem from="1492495776511" duration="816000" />
       <workItem from="1492583825282" duration="7400000" />
       <workItem from="1492733705835" duration="44738000" />
-      <workItem from="1493189164796" duration="2472000" />
+      <workItem from="1493189164796" duration="3622000" />
+      <workItem from="1493246886815" duration="18703000" />
+      <workItem from="1493589977781" duration="162000" />
+      <workItem from="1493590287090" duration="20099000" />
+      <workItem from="1494310126761" duration="12340000" />
+      <workItem from="1494483165285" duration="594000" />
+      <workItem from="1494910657176" duration="33440000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="136718000" />
+    <option name="totallyTimeSpent" value="223206000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="2" y="9" width="1364" height="726" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2549168" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28297547" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -927,7 +873,6 @@
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -947,171 +892,19 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="122" column="67" lean-forward="false" selection-start-line="122" selection-start-column="67" selection-end-line="122" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5814">
-          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="102" lean-forward="false" selection-start-line="21" selection-start-column="102" selection-end-line="21" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13753">
-          <caret line="809" column="17" lean-forward="false" selection-start-line="809" selection-start-column="17" selection-end-line="809" selection-end-column="17" />
-          <folding>
-            <marker date="1492735784017" expanded="true" signature="2498:2511" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="13852:14299" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="17473:17920" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/professional-profile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2720">
-          <caret line="160" column="23" lean-forward="true" selection-start-line="160" selection-start-column="23" selection-end-line="160" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="92" column="54" lean-forward="false" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
-          <folding>
-            <marker date="1491697324224" expanded="true" signature="33014:33203" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="8" lean-forward="true" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5814">
-          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="102" lean-forward="false" selection-start-line="21" selection-start-column="102" selection-end-line="21" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/client-profile-edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="32" lean-forward="true" selection-start-line="57" selection-start-column="43" selection-end-line="58" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="97" column="60" lean-forward="false" selection-start-line="97" selection-start-column="60" selection-end-line="97" selection-end-column="60" />
-          <folding>
-            <marker date="1491697324224" expanded="true" signature="33014:33203" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9146">
-          <caret line="538" column="33" lean-forward="false" selection-start-line="538" selection-start-column="33" selection-end-line="538" selection-end-column="33" />
-          <folding>
-            <marker date="1492735784017" expanded="true" signature="2498:2511" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="13852:14299" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="17473:17920" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5814">
-          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="21" column="102" lean-forward="false" selection-start-line="21" selection-start-column="102" selection-end-line="21" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="97" column="60" lean-forward="true" selection-start-line="97" selection-start-column="60" selection-end-line="97" selection-end-column="60" />
-          <folding>
-            <marker date="1491697324224" expanded="true" signature="33014:33203" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6426">
           <caret line="378" column="0" lean-forward="true" selection-start-line="378" selection-start-column="0" selection-end-line="378" selection-end-column="0" />
           <folding>
-            <marker date="1492735784017" expanded="true" signature="2498:2511" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="13852:14299" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="17473:17920" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="2498:2511" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="13930:14377" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="17551:17998" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php">
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-dashboard-profile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5814">
           <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
@@ -1122,7 +915,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="102" lean-forward="true" selection-start-line="21" selection-start-column="102" selection-end-line="21" selection-end-column="102" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1131,7 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="39" lean-forward="false" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1140,37 +931,23 @@
         <state relative-caret-position="816">
           <caret line="48" column="7" lean-forward="true" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
           <folding>
-            <marker date="1492735784017" expanded="true" signature="2498:2511" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="13852:14299" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="17473:17920" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="2498:2511" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="13930:14377" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="17551:17998" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php">
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-dashboard-profile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5814">
-          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/appointment-controller.php" />
     <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/my-appointments.php" />
     <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/my-app-front.php" />
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/client-profile-edit.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="32" lean-forward="false" selection-start-line="57" selection-start-column="43" selection-end-line="58" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/inc/extras.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1214,13 +991,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1972">
-          <caret line="122" column="75" lean-forward="false" selection-start-line="122" selection-start-column="75" selection-end-line="122" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/inc/ip2locationlite.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1242,14 +1012,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/sass/site/_site.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1257,19 +1019,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4029">
-          <caret line="237" column="10" lean-forward="false" selection-start-line="226" selection-start-column="8" selection-end-line="237" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/css/custom-map.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="5" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/od-map.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/register-od-cpt.php" />
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/od-appointments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-user-search/js/od-main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-user-search/js/od-main-pro.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/client-profile-edit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10013">
+          <caret line="589" column="8" lean-forward="false" selection-start-line="572" selection-start-column="3" selection-end-line="589" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/js/app-main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="68" column="80" lean-forward="false" selection-start-line="68" selection-start-column="73" selection-end-line="68" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/dashboard-profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="571" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/od-profiles.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="91" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="91" />
+          <folding>
+            <element signature="e#6#337#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1281,17 +1108,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/professional-profile-edit.php">
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/css/dashboard-profile.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
-          <caret line="85" column="53" lean-forward="false" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
+        <state relative-caret-position="17">
+          <caret line="1" column="17" lean-forward="false" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-admin/css/common-rtl.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="131" column="107" lean-forward="false" selection-start-line="131" selection-start-column="107" selection-end-line="131" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/templates/message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="139" lean-forward="false" selection-start-line="8" selection-start-column="139" selection-end-line="8" selection-end-column="139" />
           <folding>
-            <marker date="1491697324224" expanded="true" signature="33014:33203" ph="..." />
+            <element signature="e#6#39#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/od-map.php">
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-50">
+          <caret line="122" column="75" lean-forward="false" selection-start-line="122" selection-start-column="75" selection-end-line="122" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/dashboard-profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="122" column="11" lean-forward="false" selection-start-line="122" selection-start-column="11" selection-end-line="122" selection-end-column="11" />
+          <folding>
+            <element signature="e#6#167#0#PHP" expanded="false" />
+            <marker date="1495178897388" expanded="true" signature="2882:3142" ph="..." />
+            <marker date="1495178897388" expanded="true" signature="3188:3246" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="306" column="107" lean-forward="false" selection-start-line="306" selection-start-column="107" selection-end-line="306" selection-end-column="107" />
+          <folding>
+            <marker date="1494053493171" expanded="true" signature="2498:2511" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="13930:14377" ph="..." />
+            <marker date="1494053493171" expanded="true" signature="17551:17998" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/js/dashboard-profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-dashboard-profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="95" column="22" lean-forward="false" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="236" column="33" lean-forward="false" selection-start-line="236" selection-start-column="33" selection-end-line="236" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1717">
+          <caret line="174" column="75" lean-forward="false" selection-start-line="174" selection-start-column="75" selection-end-line="174" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/auto-quote.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1299,36 +1206,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php">
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/css/quote.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-520">
-          <caret line="311" column="10" lean-forward="false" selection-start-line="311" selection-start-column="10" selection-end-line="311" selection-end-column="10" />
-          <folding>
-            <marker date="1492735784017" expanded="true" signature="2498:2511" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="13852:14299" ph="..." />
-            <marker date="1492735784017" expanded="true" signature="17473:17920" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3638">
-          <caret line="216" column="6" lean-forward="false" selection-start-line="216" selection-start-column="6" selection-end-line="216" selection-end-column="6" />
-          <folding>
-            <element signature="e#6#31#0#PHP" expanded="false" />
-            <marker date="1493191633421" expanded="true" signature="1694:1763" ph="..." />
-            <marker date="1493191633421" expanded="true" signature="6961:7087" ph="..." />
-            <marker date="1493191633421" expanded="true" signature="7066:7087" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+        <state relative-caret-position="663">
+          <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="52" column="29" lean-forward="true" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/templates/quote-wrapper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="148" lean-forward="false" selection-start-line="10" selection-start-column="148" selection-end-line="10" selection-end-column="148" />
+          <folding>
+            <element signature="e#6#122#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+          <folding>
+            <element signature="e#6#53#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="33" column="65" lean-forward="false" selection-start-line="33" selection-start-column="65" selection-end-line="33" selection-end-column="65" />
+          <folding>
+            <element signature="e#6#75#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin-base.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="138" column="67" lean-forward="true" selection-start-line="138" selection-start-column="67" selection-end-line="138" selection-end-column="67" />
+          <folding>
+            <element signature="e#6#59#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

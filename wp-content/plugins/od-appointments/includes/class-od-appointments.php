@@ -304,7 +304,7 @@ class OD_Appointments {
 
 		$selected_month = isset( $_POST['app_month'] ) ? sanitize_text_field( wp_unslash( $_POST['app_month'] ) ) : '';
 		$selected_year  = isset( $_POST['app_year'] ) ? intval( wp_unslash( $_POST['app_year'] ) ) : '';
-		$current_user_apps = '' !== get_user_meta( (int) $current_user->ID, 'my_appointments', true ) && is_array( get_user_meta( (int) $current_user->ID, 'my_appointments', true ) ) ? get_user_meta( (int) $current_user->ID, 'my_appointments', true ) : '';
+		$current_user_apps = null !== get_user_meta( (int) $current_user->ID, 'my_appointments', true ) && '' !== get_user_meta( (int) $current_user->ID, 'my_appointments', true ) && is_array( get_user_meta( (int) $current_user->ID, 'my_appointments', true ) ) ? get_user_meta( (int) $current_user->ID, 'my_appointments', true ) : '';
 		$app_year          = '' !== $selected_year ? $selected_year : date( 'Y' );
 		$app_month         = '' !== $selected_month ? $selected_month : date( 'm' );
 		$month_check       = array( '02', '04', '06', '08', '10', '12' );

@@ -6,22 +6,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Decstatus
+ * Dashboard Profile Class
  */
-class Decstatus {
+class Dashboard_Profile {
+
+	/**
+	 * Ajax actions nonce.
+	 *
+	 * @var string
+	 */
+	private $ajax_nonce = 'od-dashboard-ajax';
 
 	public function __construct() {
-
-		add_action( 'wp_ajax_add_decstatus', array( $this, 'prefix_ajax_add_decstatus' ) );
-		add_action( 'wp_ajax_nopriv_add_decstatus', array( $this, 'prefix_ajax_add_decstatus' ) );
-		add_action( 'wp_ajax_add_decmessage', array( $this, 'prefix_ajax_add_decmessage' ) );
-		add_action( 'wp_ajax_nopriv_add_decmessage', array( $this, 'prefix_ajax_add_decmessage' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_dashboard_scripts' ) );
+		add_action( 'wp_ajax_update_userdata', array( $this, 'update_userdata' ) );
+		add_action( 'wp_ajax_nopriv_update_userdata', array( $this, 'update_userdata' ) );
+		add_action( 'wp_ajax_approve_user', array( $this, 'approve_user' ) );
+		add_action( 'wp_ajax_nopriv_approve_user', array( $this, 'approve_user' ) );
+		add_action( 'wp_ajax_remove_user', array( $this, 'remove_user' ) );
+		add_action( 'wp_ajax_nopriv_remove_user', array( $this, 'remove_user') );
 		add_action( 'wp_ajax_remove_decmember', array( $this, 'prefix_ajax_remove_decmember' ) );
 		add_action( 'wp_ajax_nopriv_remove_decmember', array( $this, 'prefix_ajax_remove_decmember' ) );
-		add_action( 'wp_ajax_add_decmember', array( $this, 'prefix_ajax_add_decmember' ) );
-		add_action( 'wp_ajax_nopriv_add_decmember', array( $this, 'prefix_ajax_add_decmember' ) );
-		add_action( 'wp_ajax_request_decmember', array( $this, 'prefix_ajax_request_decmember' ) );
-		add_action( 'wp_ajax_nopriv_request_decmember', array( $this, 'prefix_ajax_request_decmember' ) );
 		add_action( 'wp_ajax_approve_pro', array( $this, 'prefix_ajax_approve_pro' ) );
 		add_action( 'wp_ajax_nopriv_approve_pro', array( $this, 'prefix_ajax_appove_pro' ) );
 		add_action( 'wp_ajax_remove_pro', array( $this, 'prefix_ajax_remove_pro' ) );
@@ -38,217 +43,175 @@ class Decstatus {
 		add_action( 'wp_ajax_nopriv_approve_biz_request', array( $this, 'prefix_ajax_approve_biz_request' ) );
 		add_action( 'wp_ajax_remove_biz_request', array( $this, 'prefix_ajax_remove_biz_request' ) );
 		add_action( 'wp_ajax_nopriv_remove_biz_request', array( $this, 'prefix_ajax_remove_biz_request' ) );
-		add_action( 'wp_ajax_add_usermessage', array( $this, 'prefix_ajax_add_usermessage' ) );
-		add_action( 'wp_ajax_nopriv_add_usermessage', array( $this, 'prefix_ajax_add_usermessage' ) );
 		add_action( 'wp_ajax_add_read_status', array( $this, 'prefix_ajax_add_read_status' ) );
 		add_action( 'wp_ajax_nopriv_add_read_status', array( $this, 'prefix_ajax_add_read_status' ) );
-		add_action( 'wp_ajax_like_decmember', array( $this, 'prefix_ajax_like_decmember' ) );
-		add_action( 'wp_ajax_nopriv_like_decmember', array( $this, 'prefix_ajax_like_decmember' ) );
-		add_action( 'wp_ajax_add_userendorse', array( $this, 'prefix_ajax_add_userendorse' ) );
-		add_action( 'wp_ajax_nopriv_add_userendorse', array( $this, 'prefix_ajax_add_userendorse' ) );
 		add_action( 'wp_ajax_remove_end', array( $this, 'prefix_ajax_remove_end' ) );
 		add_action( 'wp_ajax_nopriv_remove_end', array( $this, 'prefix_ajax_remove_end' ) );
 		add_action( 'wp_ajax_approve_endorsement', array( $this, 'prefix_ajax_approve_endorsement' ) );
 		add_action( 'wp_ajax_nopriv_approve_endorsement', array( $this, 'prefix_ajax_approve_endorsement' ) );
 		add_action( 'wp_ajax_approve_friend', array( $this, 'prefix_ajax_approve_friend' ) );
 		add_action( 'wp_ajax_nopriv_approve_friend', array( $this, 'prefix_ajax_approve_friend' ) );
+		add_action( 'wp_ajax_load_messages', array( $this, 'load_messages' ) );
+		add_action( 'wp_ajax_nopriv_load_messages', array( $this, 'load_messages' ) );
+		add_action( 'wp_ajax_get_message', array( $this, 'get_message' ) );
+		add_action( 'wp_ajax_nopriv_get_message', array( $this, 'get_message' ) );
 	}
 
-	public function prefix_ajax_add_decmember() {
-
+	public function get_message() {
 		global $current_user;
 
-		$user_role = $current_user->roles[0];
+		check_ajax_referer( $this->ajax_nonce, 'nonce' );
 
-		$adddecid = isset( $_POST['adddecid'] ) ? $_POST['adddecid'] : "";
-
-		$current_dec_members = get_user_meta( $current_user->ID, 'mydec', false );
-
-		$current_followers = get_user_meta( $adddecid, 'mydec', false );
-
-		$current_dec_members = array() !== $current_dec_members ? $current_dec_members : array( 0 => array() );
-
-		$current_followers = array() !== $current_followers ? $current_followers : array( 0 => array() );
-
-		$new_array = array_merge( $current_dec_members[0], array( $adddecid ) );
-
-		$new_followers = array_merge( $current_followers[0], array( $current_user->ID ) );
-
-		update_user_meta( $current_user->ID, 'mydec', $new_array );
-
-		if ( $user_role === 'client' ) {
-
-			update_user_meta( $adddecid, 'mydec', $new_followers );
+		if ( ! isset( $_POST['message_id'] ) || '' === $_POST['message_id'] ) {
+			wp_send_json_error( 'get message failed' );
 		}
 
-		print_r( $new_array, true );
-	}
+		$message_id       = sanitize_text_field( wp_unslash( $_POST['message_id'] ) );
+		$current_messages = '' !== get_user_meta( $current_user->ID, 'my_messages', true ) && is_array( get_user_meta( $current_user->ID, 'my_messages', true ) ) ? get_user_meta( $current_user->ID, 'my_messages', true ) : array();
 
-	public function prefix_ajax_like_decmember() {
+		if ( array() !== $current_messages ) {
+			foreach ( $current_messages as $pos => $message ) {
+				if ( $message_id === $message['messageid'] ) {
+					if ( 'unread' === $message['read_status'] ) {
+						$current_messages[ $pos ]['read_status'] = 'read';
 
-		global $current_user;
+						// Update selected message's read status if unread.
+						update_user_meta( $current_user->ID, 'my_messages', $current_messages );
+					}
 
-		$user_role = $current_user->roles[0];
+					$user_info = get_userdata( (int) $message['user'] );
+					$message_info = array(
+						'user' => $user_info->display_name,
+						'message' => $message['message'],
+					);
 
-		$likedecid = isset( $_POST['likedecid'] ) ? $_POST['likedecid'] : "";
-
-		$current_dec_members = get_user_meta( $current_user->ID, 'mylikes', false );
-
-		$current_followers = get_user_meta( $likedecid, 'mylikers', false );
-
-		$current_dec_members = array() !== $current_dec_members ? $current_dec_members : array( 0 => array() );
-
-		$current_followers = array() !== $current_followers ? $current_followers : array( 0 => array() );
-
-		$new_array = array_merge( $current_dec_members[0], array( $likedecid ) );
-
-		$new_followers = array_merge( $current_followers[0], array( $current_user->ID ) );
-
-		update_user_meta( $current_user->ID, 'mylikes', $new_array );
-
-		if ( $user_role === 'client' ) {
-
-			update_user_meta( $likedecid, 'mylikers', $new_followers );
-		}
-
-		print_r( $new_array, true );
-	}
-
-	public function prefix_ajax_request_decmember() {
-
-		global $current_user;
-
-		$user_role = $current_user->roles[0];
-
-		$requestdecid = isset( $_POST['requestdecid'] ) ? $_POST['requestdecid'] : "";
-
-		if ( $user_role === 'professional' ) {
-
-			$business_pros = array() !== $business_pros ? $business_pros : array( 0 => array() );
-
-			$new_pros = array_merge( $business_pros[0], array( $current_user->ID ) );
-
-			update_user_meta( $requestdecid, 'pro_requests', $new_pros );
-
-		} elseif ( $user_role === 'business' ) {
-
-			$business_prots = get_user_meta( $requestdecid, 'mybusinesses', false );
-
-			$business_pros = array() !== $business_prots ? $business_prots : array( 0 => array() );
-
-			if ( ! is_array( $business_pros[0][0] ) ) {
-
-				$new_biz = array_merge( $business_pros[0], array(
-					array(
-						'user'            => $current_user->ID,
-						'approval_status' => 'pending'
-					)
-				) );
-
-				update_user_meta( $requestdecid, 'mybusinesses', array( $new_biz ) );
-			} else {
-				$new_biz = array_merge( $business_pros[0], array(
-					array(
-						'user'            => $current_user->ID,
-						'approval_status' => 'pending'
-					)
-				) );
-
-				update_user_meta( $requestdecid, 'mybusinesses', $new_biz );
-			}
-
-			update_user_meta( $requestdecid, 'mybusinesses', $new_biz );
-		} elseif ( $user_role === 'client' ) {
-
-			$current_friends = get_user_meta( $requestdecid, 'myfriends', false );
-
-			$my_friends = array() !== $current_friends ? $current_friends : array( 0 => array() );
-
-			if ( ! is_array( $my_friends[0][0] ) ) {
-
-				$new_friends = array_merge( $my_friends[0], array(
-					'user'            => $current_user->ID,
-					'approval_status' => 'pending'
-				) );
-
-				update_user_meta( $requestdecid, 'myfriends', array( $new_friends ) );
-			} else {
-				$new_friends = array_merge( $my_friends[0], array(
-					array(
-						'user'            => $current_user->ID,
-						'approval_status' => 'pending'
-					)
-				) );
-
-				update_user_meta( $requestdecid, 'myfriends', $new_friends );
-			}
-		}
-		print_r( $new_array, true );
-	}
-
-	public function prefix_ajax_approve_pro() {
-
-		global $current_user;
-
-		$requestdecid = isset( $_POST['approvepro'] ) ? $_POST['approvepro'] : "";
-
-		$business_pros = get_user_meta( $current_user->ID, 'pro_requests', false );
-
-		$pro_businesses = get_user_meta( $requestdecid, 'mybusinesses', false );
-
-		$current_pros = get_user_meta( $current_user->ID, 'mydec', false );
-
-		$business_pros  = array() !== $business_pros ? $business_pros : array( 0 => array() );
-		$current_pros   = array() !== $current_pros ? $current_pros : array( 0 => array() );
-		$pro_businesses = array() !== $pro_businesses ? $pro_businesses : array( 0 => array() );
-
-		$new_appros = array();
-
-		if ( isset( $business_pros[0] ) ) {
-			foreach ( $business_pros[0] as $pros => $pro ) {
-
-				if ( intval( $pro ) !== intval( $requestdecid ) ) {
-
-					$new_appros[] = $pro;
+					wp_send_json_success( $message_info );
 				}
 			}
 		}
 
-		$new_biz  = array_merge( $pro_businesses[0], array( $current_user->ID ) );
-		$new_pros = array_merge( $current_pros[0], array( $requestdecid ) );
-
-		update_user_meta( $current_user->ID, 'pro_requests', $new_appros );
-		update_user_meta( $current_user->ID, 'mydec', $new_pros );
-		update_user_meta( $requestdecid, 'mybusinesses', $new_biz );
-
-		print_r( $new_array, true );
+		wp_send_json_error( 'no messages available' );
 	}
 
-	public function prefix_ajax_remove_pro() {
+	public function load_messages() {
+		global $current_user, $profile_pages;
+		// Security check.
+		check_ajax_referer( $this->ajax_nonce, 'nonce' );
 
-		global $current_user;
+		$current_messages = '' !== get_user_meta( $current_user->ID, 'my_messages', true ) ? get_user_meta( $current_user->ID, 'my_messages', true ) : '';
+		$unread_count = '' !== $current_messages ? $this->get_message_count( $current_messages ) : array();
 
-		$requestdecid = isset( $_POST['removepro'] ) ? $_POST['removepro'] : "";
+		include_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . '../templates/message.php' );
 
-		$business_requests = get_user_meta( $current_user->ID, 'pro_requests', false );
+		wp_die();
+	}
 
-		$business_requests = array() !== $business_requests ? $business_requests : array( 0 => array() );
-
-		$new_rmpros = array();
-
-		if ( isset( $business_requests[0] ) ) {
-			foreach ( $business_requests[0] as $pros => $pro ) {
-
-				if ( $pro !== $requestdecid ) {
-
-					$new_rmpros[] = $pro;
-				}
+	private function get_message_count( $messages ) {
+		foreach ( $messages as $message ) {
+			if ( 'unread' === $message['read_status'] ) {
+				$undread[] = $message;
 			}
 		}
 
-		update_user_meta( $current_user->ID, 'pro_requests', $new_rmpros );
+		return (int) count( $undread );
+	}
 
-		print_r( $new_rmpros, true );
+	public function register_dashboard_scripts() {
+		wp_register_script( 'dashboard-profile', plugins_url( 'od-profiles/js/dashboard-profile.js'), array( 'jquery' ) );
+		wp_register_style( 'dashboard-profile', plugins_url( 'od-profiles/css/dashboard-profile.css' ) );
+
+		if( is_page_template( 'page-templates/dashboard-profile.php' ) ) {
+			wp_enqueue_script( 'dashboard-profile' );
+			wp_enqueue_style( 'dashboard-profile' );
+
+			wp_localize_script( 'dashboard-profile', 'ODDash', array(
+					'DashNonce' => wp_create_nonce( $this->ajax_nonce ),
+				)
+			);
+		}
+	}
+
+	public function update_userdata() {
+		global $current_user;
+
+		// Security check.
+		check_ajax_referer( $this->ajax_nonce, 'nonce' );
+
+		$datatype = isset( $_POST['datatype'] ) ? sanitize_text_field( wp_unslash( $_POST['datatype'] ) ) : '';
+		$data = isset( $_POST['data'] ) ? sanitize_text_field( wp_unslash( $_POST['data'] ) ) : '';
+		$userid = isset( $_POST['userid'] ) ? intval( wp_unslash( $_POST['userid'] ) ) : $current_user->ID;
+
+		if ( '' !== $datatype && '' !== $data ) {
+			update_user_meta( $userid, $datatype, $data );
+		}
+	}
+
+	public function approve_user() {
+		global $current_user;
+
+		// Security check.
+		check_ajax_referer( $this->ajax_nonce, 'nonce' );
+
+		$requestdecid = isset( $_POST['requestid'] ) ? intval( wp_unslash( $_POST['requestid'] ) ) : '';
+		$approvemetakey = isset( $_POST['approvemeta'] ) ? sanitize_text_field( wp_unslash( $_POST['approvemeta'] ) ) : '';
+		$requestmetakey = isset( $_POST['requestmeta'] ) ? sanitize_text_field( wp_unslash( $_POST['requestmeta'] ) ) : $approvemetakey;
+		$request_meta = '' !== get_user_meta( $requestdecid, $requestmetakey, true ) && is_array( get_user_meta( $requestdecid, $requestmetakey, true ) )  ? get_user_meta( $requestdecid, $requestmetakey, true ) : '';
+		$user_meta  = '' !== get_user_meta( $current_user->ID, $approvemetakey, true ) && is_array( get_user_meta( $current_user->ID, $approvemetakey, true ) ) ? get_user_meta( $current_user->ID, $approvemetakey, true ) : '';
+
+		if ( '' !== $user_meta ) {
+			foreach ( $user_meta as $user_item ) {
+				if ( isset( $user_item['user'], $user_item['approval_status'] ) && (int) $requestdecid === (int) $user_item['user'] && $user_item['approval_status'] === 'pending' ) {
+					$user_pos = array_search( $user_item, $user_meta, true );
+					$user_meta[$user_pos]['approval_status'] = 'approved';
+				}
+			}
+
+			if( '' !== $request_meta ){
+				array_push( $request_meta, array( 'user' => $current_user->ID, 'approval_status' => 'approved' ) );
+			} else {
+				$request_meta[] = array( 'user' => $current_user->ID, 'approval_status' => 'approved' );
+			}
+
+			update_user_meta( $current_user->ID, $approvemetakey, $user_meta );
+			update_user_meta( $requestdecid, $requestmetakey, $request_meta );
+		}
+	}
+
+	public function remove_user() {
+		global $current_user;
+
+		// Security check.
+		check_ajax_referer( $this->ajax_nonce, 'nonce' );
+
+		$removeid = isset( $_POST['removeid'] ) ? intval( wp_unslash( $_POST['removeid'] ) ) : '';
+		$removemetakey = isset( $_POST['removemeta'] ) ? sanitize_text_field( wp_unslash( $_POST['removemeta'] ) ) : '';
+		$requestmetakey = isset( $_POST['requestmeta'] ) ? sanitize_text_field( wp_unslash( $_POST['requestmeta'] ) ) : '';
+		$request_meta = '' !== get_user_meta( $requestdecid, $requestmetakey, true ) && is_array( get_user_meta( $requestdecid, $requestmetakey, true ) )  ? get_user_meta( $requestdecid, $requestmetakey, true ) : '';
+		$user_meta  = '' !== get_user_meta( $current_user->ID, $removemetakey, true ) && is_array( get_user_meta( $current_user->ID, $removemetakey, true ) ) ? get_user_meta( $current_user->ID, $approvemetakey, true ) : '';
+
+		if ( '' !== $user_meta ) {
+			foreach ( $user_meta as $user_item ) {
+				if ( isset( $user_item['user'] ) && (int) $requestdecid === (int) $user_item['user'] ) {
+					$user_pos = array_search( $user_item, $user_meta, true );
+
+					unset($user_meta[$user_pos]);
+				}
+			}
+
+			update_user_meta( $current_user->ID, $removemetakey, $user_meta );
+
+			if( '' !== $request_meta ){
+				foreach ( $request_meta as $request_item ) {
+					if ( isset( $request_item['user'] ) && (int) $current_user->ID === (int) $request_item['user'] ) {
+						$request_pos = array_search( $request_item, $request_meta, true );
+
+						unset($request_meta[$request_pos]);
+					}
+				}
+				update_user_meta( $requestdecid, $requestmetakey, $request_meta );
+			}
+
+		}
 	}
 
 	public function prefix_ajax_approve_biz_request() {
@@ -316,16 +279,7 @@ class Decstatus {
 		print_r( $new_rmpros, true );
 	}
 
-	public function prefix_ajax_add_decstatus() {
 
-		global $current_user;
-
-		$decstatus = isset( $_POST['decstatus'] ) ? $_POST['decstatus'] : "";
-
-		update_user_meta( $current_user->ID, 'decstatus', $decstatus );
-
-		echo "Dec status=" . $decstatus;
-	}
 
 	/**
 	 *
@@ -358,68 +312,6 @@ class Decstatus {
 		update_user_meta( $current_user->ID, 'protype', $pro_types );
 
 
-	}
-
-	public function prefix_ajax_add_decmessage() {
-
-		global $current_user;
-
-		$decmessage = isset( $_POST['decmessage'] ) ? $_POST['decmessage'] : "";
-
-		update_user_meta( $current_user->ID, 'decmessage', $decmessage );
-
-		echo "success!";
-	}
-
-	public function prefix_ajax_add_usermessage() {
-
-		global $current_user;
-
-		date_default_timezone_set( 'America/Los_Angeles' );
-
-		$usermessage = isset( $_POST['usermessage'] ) ? $_POST['usermessage'] : "";
-		$msgid       = isset( $_POST['msgid'] ) ? $_POST['msgid'] : "";
-		$messageid   = isset( $_POST['messageid'] ) ? $_POST['messageid'] : "";
-		$type        = isset( $_POST['type'] ) ? $_POST['type'] : "";
-		$c_date      = time();
-
-		if ( $usermessage === "" && $type === 'deny-appointment' ) {
-
-			$usermessage = 'We\'re sorry, but you\'re appointment request has been denied.';
-		} elseif ( $usermessage === "" && $type === 'approve-appointment' ) {
-
-			$usermessage = 'You\'re appointment has been approved.  See you soon!';
-		}
-
-		$usermessage_id = array(
-			'messageid'    => $messageid,
-			'message_date' => $c_date,
-			'user'         => $current_user->ID,
-			'message'      => $usermessage,
-			'read_status'  => 'unread'
-		);
-
-		$current_message_array = get_user_meta( $msgid, 'my_messages', false );
-
-		$current_messages = isset( $current_message_array ) ? $current_message_array : "";
-
-		if ( null === $current_messages[0] ) {
-
-			update_user_meta( $msgid, 'my_messages', $usermessage_id );
-
-		} elseif ( 1 === count( $current_messages ) && 5 === count( $current_messages[0] ) && null === $current_messages[0][0] ) {
-
-			$new_message_array = array_merge( $current_messages, array( $usermessage_id ) );
-
-			update_user_meta( $msgid, 'my_messages', $new_message_array );
-		} elseif ( 2 <= count( $current_messages[0] ) ) {
-
-			$new_message_array = array_merge( $current_messages[0], array( $usermessage_id ) );
-
-			update_user_meta( $msgid, 'my_messages', $new_message_array );
-		}
-
-		echo "success!";
 	}
 
 	public static function prefix_ajax_approve_friend( $type = "", $bizid = "" ) {
@@ -899,4 +791,4 @@ class Decstatus {
 	}
 }
 
-$decstatus = new Decstatus();
+$dash_profile = new Dashboard_Profile();

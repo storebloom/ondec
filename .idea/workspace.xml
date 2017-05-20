@@ -2,32 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6da7af45-b6cf-4742-9b12-24b50f7404e4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/auto-quote.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/css/quote.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/instance.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin-base.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/readme.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/templates/quote-wrapper.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/tests/class-test-auto-quote.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/tests/php/class-test-plugin-base.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/tests/php/class-test-plugin.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/js/dashboard-profile.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/templates/message.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/dashboard-profile.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/user-edit-templates/dashboard-profile.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/register-od-cpt.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/my-profile-edit.php" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/dec-status.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-dashboard-profile.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/profile-pages.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/includes/class-profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-appointments/includes/class-od-appointments.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-map/includes/class-od-map.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js" afterPath="$PROJECT_DIR$/wp-content/plugins/od-map/js/map.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-profiles/od-profiles.php" afterPath="$PROJECT_DIR$/wp-content/plugins/od-profiles/od-profiles.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/od-user-search/js/od-main-pro.js" afterPath="$PROJECT_DIR$/wp-content/plugins/od-user-search/js/od-main-pro.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js" afterPath="$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,7 +26,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="class-plugin-base.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="class-plugin-base.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin-base.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="480">
@@ -98,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="quote.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="quote.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
-              <caret line="52" column="29" lean-forward="true" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
+            <state relative-caret-position="415">
+              <caret line="58" column="16" lean-forward="false" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -196,10 +171,10 @@
         <option value="$PROJECT_DIR$/wp-content/themes/ondec_theme/page-templates/dashboard-profile.php" />
         <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/templates/quote-wrapper.php" />
         <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/css/quote.css" />
-        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js" />
         <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php" />
         <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin.php" />
         <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-plugin-base.php" />
+        <option value="$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js" />
       </list>
     </option>
   </component>
@@ -844,12 +819,12 @@
       <workItem from="1493590287090" duration="20099000" />
       <workItem from="1494310126761" duration="12340000" />
       <workItem from="1494483165285" duration="594000" />
-      <workItem from="1494910657176" duration="33440000" />
+      <workItem from="1494910657176" duration="34098000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223206000" />
+    <option name="totallyTimeSpent" value="223864000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="9" width="1364" height="726" extended-state="0" />
@@ -1214,14 +1189,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" column="29" lean-forward="true" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/templates/quote-wrapper.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1229,16 +1196,6 @@
           <folding>
             <element signature="e#6#122#0#PHP" expanded="true" />
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-          <folding>
-            <element signature="e#6#53#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1260,6 +1217,24 @@
           <folding>
             <element signature="e#6#59#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/php/class-auto-quote.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+          <folding>
+            <element signature="e#6#53#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="58" column="16" lean-forward="false" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

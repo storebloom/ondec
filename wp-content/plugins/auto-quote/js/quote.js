@@ -51,10 +51,12 @@ var AutoQuote = ( function( $, wp ) {
 		 * Api call to grab quotes
 		 */
 		getQuotes: function() {
-			$.ajax( { url: "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
-					success: function( result ) {
-						console.log( result );
-					}
+			$.ajax( {
+				url: "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+				crossDomain: true,
+				success: function( result ) {
+					console.log( result );
+				}
 			} );
 		},
 	};

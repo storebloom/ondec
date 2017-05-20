@@ -57,7 +57,7 @@ var AutoQuote = ( function( $, wp ) {
 				crossDomain: true,
 				dataType: 'jsonp',
 				success: function( result ) {
-					console.log( result );
+					$( 'body' ).prepend( result );
 				}
 			} );
 		},

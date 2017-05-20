@@ -33,6 +33,6 @@ class Plugin extends Plugin_Base {
 	 */
 	public function register_assets() { var_dump($this->dir_url);
 		wp_register_script( "{$this->assets_prefix}-quote", "{$this->dir_url}js/quote.js", array( 'jquery' ) );
-		wp_register_style( "{$this->assets_prefix}-quote", "{$this->dir_url}/css/quote.css", false );
+		wp_register_style( "{$this->assets_prefix}-quote", "{$this->dir_url}css/quote.css", false );
 	}
 }

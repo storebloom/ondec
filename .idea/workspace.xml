@@ -76,8 +76,8 @@
       <file leaf-file-name="quote.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="59" column="42" lean-forward="true" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="42" />
+            <state relative-caret-position="364">
+              <caret line="55" column="92" lean-forward="false" selection-start-line="55" selection-start-column="92" selection-end-line="55" selection-end-column="92" />
               <folding />
             </state>
           </provider>
@@ -819,12 +819,12 @@
       <workItem from="1493590287090" duration="20099000" />
       <workItem from="1494310126761" duration="12340000" />
       <workItem from="1494483165285" duration="594000" />
-      <workItem from="1494910657176" duration="37125000" />
+      <workItem from="1494910657176" duration="37318000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="226891000" />
+    <option name="totallyTimeSpent" value="227084000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="9" width="1364" height="726" extended-state="0" />
@@ -1232,8 +1232,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/plugins/auto-quote/js/quote.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="59" column="42" lean-forward="true" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="42" />
+        <state relative-caret-position="364">
+          <caret line="55" column="92" lean-forward="false" selection-start-line="55" selection-start-column="92" selection-end-line="55" selection-end-column="92" />
           <folding />
         </state>
       </provider>

@@ -53,7 +53,7 @@ var AutoQuote = ( function( $, wp ) {
 		getQuotes: function() {
 			$.ajax( {
 				method: 'GET',
-				url: 'http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en',
+				url: 'http://api.forismatic.com/api/1.0/?method=getQuote&format=html&lang=en',
 				crossDomain: true,
 				dataType: 'jsonp',
 				success: function( result ) {

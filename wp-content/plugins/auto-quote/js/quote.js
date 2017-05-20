@@ -53,12 +53,11 @@ var AutoQuote = ( function( $, wp ) {
 		getQuotes: function() {
 			$.ajax( {
 				method: 'GET',
-				url: 'http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en',
-				crossDomain: true,
+				url: 'http://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=en',
+				crossDomain: 'true',
 				dataType: 'jsonp',
-				data: 'string',
 				success: function( result ) {
-					console.log( result.quoteText );
+					console.log( result );
 				}
 			} );
 		},

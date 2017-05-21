@@ -2,11 +2,8 @@
  * Auto Quote.
  */
 
-// Make sure the wp object exists.
-window.wp = window.wp || {};
-
 /* exported AutoQuote */
-var AutoQuote = ( function( $, wp ) {
+var AutoQuote = ( function( $ ) {
 	'use strict';
 	
 	return {
@@ -36,30 +33,27 @@ var AutoQuote = ( function( $, wp ) {
 		init: function( data ) {
 			this.$container = $( '.quote-wrapper' );
 			this.getQuotes();
-			this.listen();
-		},
-		
-		/**
-		 * Initiate listeners.
-		 */
-		listen: function() {
-			var self = this;
-			
 		},
 		
 		/**
 		 * Api call to grab quotes
 		 */
 		getQuotes: function() {
-			$.ajax( {
-				method: 'GET',
-				url: 'http://api.forismatic.com/api/1.0/?method=getQuote&format=html&lang=en',
-				crossDomain: true,
-				dataType: 'jsonp',
-				success: function( result ) {
-					$( 'body' ).prepend( result );
-				}
-			} );
+			var tag = document.createElement("script");
+			
+			tag.src = 'http://api.forismatic.com/api/1.0/?method=getQuote&format=jsonp&lang=en&jsonp=AutoQuote.parseQuote';
+			
+			this.$container.append( tag ).css( { 'color': this.data.color, 'font-family': this.data.font } ).addClass( 'quote-' + this.data.size );
+		},
+		
+		/**
+		 * Parses out the quote data and places it in the shortcode wrapper.
+		 *
+		 * @param response
+		 */
+		parseQuote: function( response ) {
+			$( '.quote-quote' ).text( '"' + response.quoteText + '"' ).fadeIn();
+			$( '.quote-author' ).text( response.quoteAuthor ).fadeIn();
 		},
 	};
-} )( window.jQuery, window.wp );
+} )( window.jQuery );

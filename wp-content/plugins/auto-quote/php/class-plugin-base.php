@@ -11,54 +11,56 @@ namespace AutoQuote;
  * @package AutoQuote
  */
 abstract class Plugin_Base {
+
 	/**
 	 * Plugin config.
 	 *
 	 * @var array
 	 */
 	public $config = array();
+
 	/**
 	 * Plugin slug.
 	 *
 	 * @var string
 	 */
 	public $slug;
+
 	/**
 	 * Plugin directory path.
 	 *
 	 * @var string
 	 */
 	public $dir_path;
+
 	/**
 	 * Plugin directory URL.
 	 *
 	 * @var string
 	 */
 	public $dir_url;
+
 	/**
 	 * Asset prefix.
 	 *
 	 * @var string
 	 */
 	public $assets_prefix;
-	/**
-	 * Plugin meta prefix.
-	 *
-	 * @var string Lowercased underscored prefix.
-	 */
-	public $meta_prefix;
+
 	/**
 	 * Directory in plugin containing autoloaded classes.
 	 *
 	 * @var string
 	 */
 	protected $autoload_class_dir = 'php';
+
 	/**
 	 * Autoload matches cache.
 	 *
 	 * @var array
 	 */
 	protected $autoload_matches_cache = array();
+
 	/**
 	 * Required instead of a static variable inside the add_doc_hooks method
 	 * for the sake of unit testing.
@@ -66,6 +68,7 @@ abstract class Plugin_Base {
 	 * @var array
 	 */
 	protected $_called_doc_hooks = array();
+
 	/**
 	 * Plugin_Base constructor.
 	 */
@@ -75,7 +78,6 @@ abstract class Plugin_Base {
 		$this->dir_path = $location['dir_path'];
 		$this->dir_url = $location['dir_url'];
 		$this->assets_prefix = strtolower( preg_replace( '/\B([A-Z])/', '-$1', __NAMESPACE__ ) );
-		$this->meta_prefix = strtolower( preg_replace( '/\B([A-Z])/', '_$1', __NAMESPACE__ ) );
 		spl_autoload_register( array( $this, 'autoload' ) );
 		$this->add_doc_hooks();
 	}
@@ -137,21 +139,28 @@ abstract class Plugin_Base {
 	 */
 	public function locate_plugin() {
 		$file_name = $this->get_object_reflection()->getFileName();
+
 		if ( '/' !== \DIRECTORY_SEPARATOR ) {
 			$file_name = str_replace( \DIRECTORY_SEPARATOR, '/', $file_name ); // Windows compat.
 		}
+
 		$plugin_dir = preg_replace( '#(.*plugins[^/]*/[^/]+)(/.*)?#', '$1', $file_name, 1, $count );
+
 		if ( 0 === $count ) {
 			throw new \Exception( "Class not located within a directory tree containing 'plugins': $file_name" );
 		}
+
 		// Make sure that we can reliably get the relative path inside of the content directory.
-		$plugin_path = $this->relative_path( $plugin_dir, 'wp-content', \DIRECTORY_SEPARATOR );
+		$plugin_path = $this->relative_path( $plugin_dir, 'wp-content', '/' );
+
 		if ( '' === $plugin_path ) {
 			throw new \Exception( 'Plugin dir is not inside of the `wp-content` directory' );
 		}
+
 		$dir_url = content_url( trailingslashit( $plugin_path ) );
 		$dir_path = $plugin_dir;
 		$dir_basename = basename( $plugin_dir );
+
 		return compact( 'dir_url', 'dir_path', 'dir_basename' );
 	}
 	/**

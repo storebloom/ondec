@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Auto Quote
- * Description: ...
- * Version: 0.1
- * Author: Investors (Author Name)
+ * Description: Creates shortcode for auto genereated quotes to display.
+ * Version: 0.1.0
+ * Author: Scott Adrian
  * Text Domain: auto-quote
  * Domain Path: /languages
  *

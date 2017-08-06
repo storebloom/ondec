@@ -19,7 +19,7 @@ class OD_Appointments {
 
 	public function __construct() {
 
-		add_shortcode( 'od-app-settings', array( $this, 'od_app_settings' ) );
+		add_shortcode( 'od-appointments', array( $this, 'od_appointments_shortcode' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_appointment_scripts') );
 		add_action( 'wp_ajax_add_app', array( $this, 'add_app' ) );
 		add_action( 'wp_ajax_nopriv_add_app', array( $this, 'add_app' ) );
@@ -31,6 +31,14 @@ class OD_Appointments {
 		add_action( 'wp_ajax_nopriv_define_profile_calendar', array( $this, 'define_profile_calendar' ) );
 		add_action( 'wp_ajax_appointment_settings', array( $this, 'appointment_settings' ) );
 		add_action( 'wp_ajax_nopriv_appointment_settings', array( $this, 'appointment_settings' ) );
+	}
+
+	public function od_appointments_shortcode() {
+		global $current_user;
+
+		$app_settings = get_user_meta( $current_user->ID, 'app_settings', true );
+
+		include_once( trailingslashit( plugin_dir_path( __FILE__ ) ) . '../templates/app-dashboard.php' );
 	}
 
 	public function register_appointment_scripts() {

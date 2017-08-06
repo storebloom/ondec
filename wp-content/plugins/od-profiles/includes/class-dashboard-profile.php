@@ -57,6 +57,15 @@ class Dashboard_Profile {
 		add_action( 'wp_ajax_nopriv_get_message', array( $this, 'get_message' ) );
 	}
 
+	public function get_dashboard_usermeta( $userid ) {
+		$user_array = array(
+			'decstatus' => get_user_meta( $userid, 'decstatus', true ),
+			'userstatus' => get_user_meta( $userid, 'userstatus', true ),
+		);
+
+		return (array) $user_array;
+	}
+
 	public function get_message() {
 		global $current_user;
 
@@ -95,6 +104,7 @@ class Dashboard_Profile {
 
 	public function load_messages() {
 		global $current_user, $profile_pages;
+
 		// Security check.
 		check_ajax_referer( $this->ajax_nonce, 'nonce' );
 
@@ -114,6 +124,34 @@ class Dashboard_Profile {
 		}
 
 		return (int) count( $undread );
+	}
+
+	/**
+	 * AJAX call back function to get current list members for dashboard.
+	 */
+	public function get_list_members() {
+		global $current_user;
+
+		check_ajax_referer( $this->ajax_nonce, 'nonce' );
+
+		if ( ! isset( $_POST['type'] ) ) { // WPSC: input var ok.
+			return;
+		}
+
+		$meta_key = sanitize_text_field( wp_unslash( $_POST['type'] ) ); // WPSC: input var ok.
+		$meta_array = get_user_meta( $current_user->ID, $meta_key, true );
+
+		if ( is_array( $meta_array ) && array() !== $meta_array ) {
+			foreach ( $meta_array as $field => $value ) {
+				if ( !is_string( $field ) ) {
+					$user_data = get_userdata( (int) $value );
+
+					include( trailingslashit( plugin_dir_path( __FILE__ ) ) . '../templates/list-user.php' );
+				}
+			}
+		}
+
+		wp_die();
 	}
 
 	public function register_dashboard_scripts() {
@@ -221,9 +259,7 @@ class Dashboard_Profile {
 		$requestdecid = isset( $_POST['approvebizrequest'] ) ? $_POST['approvebizrequest'] : "";
 
 		$business_requests = get_user_meta( $current_user->ID, 'business_requests', false );
-
 		$current_pros = get_user_meta( $requestdecid, 'mydec', false );
-
 		$current_biz = get_user_meta( $current_user->ID, 'mybusinesses', false );
 
 		$business_requests = array() !== $business_requests ? $business_requests : array( 0 => array() );
@@ -278,8 +314,6 @@ class Dashboard_Profile {
 
 		print_r( $new_rmpros, true );
 	}
-
-
 
 	/**
 	 *

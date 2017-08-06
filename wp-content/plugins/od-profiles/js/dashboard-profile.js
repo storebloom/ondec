@@ -1,20 +1,17 @@
 jQuery( document ).ready( function () {
 	'use strict';
 	
-	reloadList( 'load_messages' );
+	reloadList( 'load_messages', '', '#load_messages_container' );
+	reloadList( 'get_list_members', 'my_dec', '.section-0 .single-member-list ul' );
 	
 	jQuery( document ).on( 'click', '#submit-decstatus', function() {
-		var decContainer = jQuery( '#decstatus' );
-		
-		if ( decContainer.val() === 'ondec' ) {
+		if ( 'currently-offdec' === jQuery( this ).attr( 'class' ) ) {
 			jQuery( this ).removeClass( 'currently-offdec' ).addClass( 'currently-ondec' );
 			jQuery( this ).val( 'Currently ondec' );
-			decContainer.val( 'offdec' );
 			
 			var decstatus = 'ondec';
 		} else {
 			jQuery( this ).removeClass( 'currently-ondec' ).addClass( 'currently-offdec' );
-			decContainer.val( 'ondec' );
 			jQuery( this ).val( 'Currently offdec' );
 			
 			decstatus = 'offdec';
@@ -103,17 +100,16 @@ jQuery( document ).ready( function () {
 		);
 	});
 	
-	function reloadList( type ) {
+	function reloadList( type, list, wrapper ) {
 		jQuery.post(
 			ajaxurl,
 			{
 				'action': type,
+				'type': list,
 				'nonce': ODDash.DashNonce
 			},
 			function( results ) {
-				var container = '#' + type + '_container';
-				
-				jQuery( container ).html( results );
+				jQuery( wrapper ).append( results );
 				
 				if ( 'load_messages' === type ) {
 					var unreadCount = jQuery( 'span#unread-count' ).html();
